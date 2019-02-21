@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GameManager
+  - InputManager
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3241387067
+    locked: 0
+  - name: Asset Layer 2
+    uniqueID: 2664061825
+    locked: 0
+  - name: Asset Layer 1
+    uniqueID: 1470361289
+    locked: 0
+  - name: Foreground
+    uniqueID: 2229479945
     locked: 0
