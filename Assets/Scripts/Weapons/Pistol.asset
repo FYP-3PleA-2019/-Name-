@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffa4f97cb355032498de9ec036e89f9e, type: 3}
-  m_Name: Unicorn Rainbow
+  m_Name: Pistol
   m_EditorClassIdentifier: 
   pierce: 0
   damage: 1
-  fireRange: 4
-  fireRate: 0
-  fireCost: 4
+  fireRange: 3
+  fireRate: 1
+  fireCost: 0
   areaOfEffect: 0
-  cost: 1000
-  weaponName: Unicorn Rainbow
-  sprite: {fileID: 21300000, guid: 78a1dd6f8967f8447beb41ce55f94a2a, type: 3}
+  cost: 0
+  weaponName: Pistol
+  projectile: {fileID: 7306767720644246113, guid: 3a6385f999fccf74b8d39c5f097fddcf,
+    type: 3}
+  sprite: {fileID: 21300000, guid: aa61e9c45b10cba4890c9775b64164c1, type: 3}

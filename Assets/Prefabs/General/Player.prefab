@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1630905471
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 2b6129f144863e748840ab8a0a8948dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -404,7 +404,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa4759e32ee1c45b25811fdb828e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0
-  weaponHolder: {fileID: 0}
   currWeapon: {fileID: 11400000, guid: 2041c2e310190794384d7b2a34f1dae3, type: 2}
   prevWeapon: {fileID: 11400000, guid: fdc0904bb2d088544b7918ec43b7b25e, type: 2}

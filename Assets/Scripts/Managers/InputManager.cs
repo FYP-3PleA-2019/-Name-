@@ -80,7 +80,6 @@ public class InputManager : MonoBehaviour {
     private void Update()
     {
         if (isMoving) player.controller.Move();
-        if (isShooting) player.weapon.Shoot();
     }
 
     // -------------------------------- Setters --------------------------------
@@ -107,9 +106,7 @@ public class InputManager : MonoBehaviour {
     public void SetIsMoving(bool isMoving)
     {
         this.isMoving = isMoving;
-
-        if (!isMoving) moveDir = new Vector3(0, 0, 0);
-
+        
         if (!IsInputting()) player.crosshair.DecreaseAlpha();
         else player.crosshair.IncreaseAlpha();
     }
@@ -119,6 +116,9 @@ public class InputManager : MonoBehaviour {
     {
         this.isShooting = isShooting;
 
+        if (isShooting) player.weapon.OnShootBegin();
+        else player.weapon.OnShootEnd();
+        
         if (!IsInputting()) player.crosshair.DecreaseAlpha();
         else player.crosshair.IncreaseAlpha();
     }
