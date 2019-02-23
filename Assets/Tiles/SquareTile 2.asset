@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: SquareTile 2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: df89a24e9b397ab4e9d30aaa46468181, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 054e86a2af6fa0e499d8cd45359c1d5e, type: 3}
   m_Color: {r: 1, g: 0, b: 0.06896591, a: 1}
   m_Transform:
     e00: 1
