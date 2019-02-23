@@ -6,6 +6,13 @@ TagManager:
   tags:
   - GameManager
   - InputManager
+  - AnimationController
+  - RoomManager
+  - IcePlatform
+  - Room
+  - Loading
+  - Lobby
+  - Game
   layers:
   - Default
   - TransparentFX

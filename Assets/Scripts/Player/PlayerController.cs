@@ -76,4 +76,11 @@ public class PlayerController : MonoBehaviour {
             
         }
     }
+
+    //Temporary (For Room Manager)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Room")
+            RoomManager.Instance.EnteredRoomChecker(other.gameObject);
+    }
 }

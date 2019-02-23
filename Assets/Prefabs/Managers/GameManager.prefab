@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   player: {fileID: 0}
+  mainMenuAnim: {fileID: 1525671407253049291, guid: 3697ece215aabf14faad1d6844621fc0,
+    type: 3}

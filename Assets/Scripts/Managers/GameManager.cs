@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public enum GAME_STATE
 {
-    MAIN_MENU,
     LOADING,
+    MAIN_MENU,
     LOBBY,
     PAUSED,
     IN_GAME,
@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour {
     [Header("General")]
     public GAME_STATE gameState;
     public PlayerCoreController player;
-
     #endregion
 
     void Awake()
@@ -65,14 +64,46 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-
-        gameState = GAME_STATE.MAIN_MENU;
-
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCoreController>();
+        
+        SetGameState(GAME_STATE.MAIN_MENU);
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerCoreController>();
     }
 
     private void Start()
     {
 
+    }
+
+    private void Update()
+    {
+            
+    }
+
+    public void SetGameState(GAME_STATE gameState)
+    {
+        this.gameState = gameState;
+        
+        switch (gameState)
+        {
+            case GAME_STATE.LOADING:
+                break;
+
+            case GAME_STATE.MAIN_MENU:
+                break;
+
+            case GAME_STATE.LOBBY:
+                break;
+
+            case GAME_STATE.IN_GAME:
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public GAME_STATE GetGameState()
+    {
+        return gameState;
     }
 }

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5fa70a789c6414459d8be0959e71d1b, type: 3}
+  m_Name: Verticle_Type
+  m_EditorClassIdentifier: 
+  connectableRoomTypes:
+  - {fileID: 11400000}
+  roomVariations:
+  - {fileID: 8119908902821541778, guid: bac5a6c121b5f374abd4ec6d52a95a7c, type: 3}
