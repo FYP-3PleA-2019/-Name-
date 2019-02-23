@@ -8,12 +8,10 @@ public class WeaponController : MonoBehaviour
 
     #region Player Variables
     [Header("Weapon")]
-    public float fireRate;
-
-    public Transform weaponHolder;
-
     public Weapon currWeapon;
     public Weapon prevWeapon;
+    
+    private Transform weaponHolder;
 
     private bool facingLeft;
     #endregion
@@ -90,8 +88,26 @@ public class WeaponController : MonoBehaviour
         weaponHolder.eulerAngles = new Vector3(0f, rotationY, 0f);
     }
 
-    public void Shoot()
+    public void OnShootBegin()
     {
+        StartCoroutine("Shoot");
+    }
 
+    public void OnShootEnd()
+    {
+        StopCoroutine("Shoot");
+    }
+
+    IEnumerator Shoot()
+    {
+        float fireRate = currWeapon.GetFireRate();
+
+        GameObject projectile = currWeapon.GetProjectile();
+
+        while(InputManager.Instance.isShooting)
+        {
+            Instantiate(projectile, transform.position, transform.rotation);
+            yield return new WaitForSeconds(fireRate);
+        }
     }
 }

@@ -78,6 +78,7 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         joystick.transform.position = new Vector3(touchPoint.x, touchPoint.y, joystick.transform.position.z);
 
         InputManager.Instance.SetIsMoving(false);
+        InputManager.Instance.SetMoveDir(new Vector3(0, 0, 0));
     }
 
     // -------------------------------- Functions --------------------------------
