@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadingController : MonoBehaviour
+public class LoadingSceneController : MonoBehaviour
 {
     public float waitTime;
 

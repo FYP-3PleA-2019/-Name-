@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuAnim : MonoBehaviour
+public class MainMenuSceneController : MonoBehaviour
 {
     #region Variables
     [Space(3)]

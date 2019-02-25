@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour {
         }
         
         SetGameState(GAME_STATE.MAIN_MENU);
+
         player = GameObject.FindWithTag("Player").GetComponent<PlayerCoreController>();
     }
 
@@ -82,24 +83,6 @@ public class GameManager : MonoBehaviour {
     public void SetGameState(GAME_STATE gameState)
     {
         this.gameState = gameState;
-        
-        switch (gameState)
-        {
-            case GAME_STATE.LOADING:
-                break;
-
-            case GAME_STATE.MAIN_MENU:
-                break;
-
-            case GAME_STATE.LOBBY:
-                break;
-
-            case GAME_STATE.IN_GAME:
-                break;
-
-            default:
-                break;
-        }
     }
 
     public GAME_STATE GetGameState()

@@ -10,9 +10,11 @@ TagManager:
   - RoomManager
   - IcePlatform
   - Room
-  - Loading
-  - Lobby
-  - Game
+  - LoadingSceneController
+  - CustomSceneManager
+  - MainMenuController
+  - LobbySceneController
+  - GameSceneController
   layers:
   - Default
   - TransparentFX
