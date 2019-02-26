@@ -78,7 +78,13 @@ public class CustomSceneManager : MonoBehaviour
 
     public void ChangeScene(GameObject player, GAME_SCENE scene)
     {
+        Scene sceneName = SceneManager.GetSceneByBuildIndex((int)scene);
+
+        Debug.Log((int)scene);
+
         SceneManager.LoadScene((int)scene);
+
+        SceneManager.MoveGameObjectToScene(player, sceneName);
     }
 
     public IEnumerator WaitChangeScene(GAME_SCENE scene, float waitTime)
