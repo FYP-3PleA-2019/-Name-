@@ -44,15 +44,15 @@ public class InputManager : MonoBehaviour {
 
     #region General Variables
     [Header("General")]
-    public bool canControl;
-    public bool canMove;
-    public bool canShoot;
-    public bool isMoving;
-    public bool isShooting;
+    [HideInInspector] public bool canControl;
+    [HideInInspector] public bool canMove;
+    [HideInInspector] public bool canShoot;
+    [HideInInspector] public bool isMoving;
+    [HideInInspector] public bool isShooting;
 
-    public PlayerCoreController player;
-    public Vector3 moveDir;
-    public Vector3 shootDir;
+    [HideInInspector] public PlayerCoreController player;
+    [HideInInspector] public Vector3 moveDir;
+    [HideInInspector] public Vector3 shootDir;
     #endregion
 
     #region Joystick Variables

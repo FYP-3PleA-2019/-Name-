@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum SCENES
+public enum GAME_SCENE
 {
     LOADING_SCENE,
     LOBBY_SCENE,
+    SHOP_SCENE,
     GAME_SCENE,
 };
 
@@ -75,8 +76,15 @@ public class CustomSceneManager : MonoBehaviour
         
     }
 
-    public void ChangeScene(SCENES scene)
+    public void ChangeScene(GameObject player, GAME_SCENE scene)
     {
+        SceneManager.LoadScene((int)scene);
+    }
+
+    public IEnumerator WaitChangeScene(GAME_SCENE scene, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
         SceneManager.LoadScene((int)scene);
     }
 }

@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour {
 
     #region Player Variables
     [Header("Player")]
-    public float currHealth;
     public float defaultHealth;
     public float moveSpeed;
+    [HideInInspector] public float currHealth;
 
-    public Animator playerAnimator;
+    [HideInInspector] public Animator playerAnimator;
     
     private bool facingLeft;
     #endregion

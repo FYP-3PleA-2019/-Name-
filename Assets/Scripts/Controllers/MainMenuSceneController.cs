@@ -21,29 +21,33 @@ public class MainMenuSceneController : MonoBehaviour
     public Canvas mainMenuCanvas;
     public Canvas creditsCanvas;
     public Canvas uiCanvas;
-
-    bool hasStarted;
     #endregion
 
     #region Unity Functions
     private void Start()
     {
-        //hasStarted = false;
-        creditsCanvas.enabled = false;
-        uiCanvas.enabled = false;
+        if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
+        {
+            creditsCanvas.enabled = false;
+            uiCanvas.enabled = false;
 
-        StartMainMenuAnim();
+            StartMainMenuAnim();
+        }
+        else
+        {
+            mainMenuCanvas.enabled = false;
+            creditsCanvas.enabled = true;
+            uiCanvas.enabled = true;
+        }
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (GameManager.Instance.GetGameState() != GAME_STATE.MAIN_MENU)
-            return;
-
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
         {
-            StartCoroutine("StartGame");
+            if (Input.GetMouseButtonDown(0))
+                StartCoroutine("StartGame");
         }
     }
     #endregion
@@ -52,7 +56,6 @@ public class MainMenuSceneController : MonoBehaviour
 
     IEnumerator StartGame()
     {
-        //hasStarted = true;
         AnimationController.Instance.ResetAnimationTrigger(animators, triggerStrings);
         AnimationController.Instance.PlayAnimationOneShot(endingAnimators, endingTriggerStrings);
 

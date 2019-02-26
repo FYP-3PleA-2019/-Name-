@@ -6,9 +6,9 @@ public class PlayerCoreController : MonoBehaviour
 {
     #region General Variables
     [Header("General")]
-    public PlayerController controller;
-    public CrosshairController crosshair;
-    public WeaponController weapon;
+    [HideInInspector] public PlayerController controller;
+    [HideInInspector] public CrosshairController crosshair;
+    [HideInInspector] public WeaponController weapon;
     #endregion
 
     private void Awake()

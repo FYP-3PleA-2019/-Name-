@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
     #region General Variables
     [Header("General")]
     public GAME_STATE gameState;
-    public PlayerCoreController player;
+    [HideInInspector] public PlayerCoreController player;
     #endregion
 
     void Awake()
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-
+        DontDestroyOnLoad(player.gameObject);
     }
 
     private void Update()
