@@ -92,7 +92,7 @@ MonoBehaviour:
   attackRange: 5
   attackSpeed: 5
   spawnRange: 3
-  undeadPrefab: {fileID: 9187149809665257405, guid: 2ca7aa7cdbd9a8d40a4010147bc0e9b6,
+  undeadPrefab: {fileID: 8185237346370740633, guid: 4406052f4e98391498b25a58e7555a02,
     type: 3}
   noOfEnemies: 3
 --- !u!212 &3791642648634460316
@@ -131,8 +131,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: df89a24e9b397ab4e9d30aaa46468181, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 054e86a2af6fa0e499d8cd45359c1d5e, type: 3}
   m_Color: {r: 0.20131719, g: 0.49056602, b: 0.42018613, a: 1}
   m_FlipX: 0
   m_FlipY: 0
