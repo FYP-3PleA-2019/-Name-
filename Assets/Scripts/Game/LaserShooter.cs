@@ -22,7 +22,6 @@ public class LaserShooter : MonoBehaviour
 
     #region Componenet's Variables
     [Header("Timer Variables")]
-    public float activeRange;
     public float shooterCooldown;
     protected float cooldownTimer;
     public float activeDuration;
@@ -41,6 +40,7 @@ public class LaserShooter : MonoBehaviour
     public float attackRange;
 
     private RaycastHit2D hitInfo;
+    private Vector3 shootDir;
 
     [Space(3)]
     [Header("Laser Color")]
@@ -99,7 +99,7 @@ public class LaserShooter : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
         float distanceToTarget = Vector2.Distance(gameObject.transform.position, target.transform.position); //Calculate distance to target
 
-        if (distanceToTarget <= activeRange && cooldownTimer <= 0.0f) //If target is within range & cooldown = 0, state = active
+        if (distanceToTarget <= attackRange && cooldownTimer <= 0.0f) //If target is within range & cooldown = 0, state = active
             state = LaserShooterState.Active;
     }
 
@@ -114,18 +114,31 @@ public class LaserShooter : MonoBehaviour
 
     void Aiming()
     {
+        float distanceToTarget = Vector2.Distance(gameObject.transform.position, target.transform.position);
+
+        if (distanceToTarget > attackRange)
+        {
+            if (laserRenderer.enabled == true)
+                laserRenderer.enabled = false;
+
+            return;
+        }
+
         FaceTarget();
 
         //Enable laser line renderer
         laserRenderer.enabled = true;
-        SetLineRendererDirection(transform.up);
+        SetLineRendererDirection(transform.right);
 
         //Raycast
-        hitInfo = Physics2D.Raycast(attackPoint.position, transform.up, attackRange);
+        hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange);
         if(hitInfo.collider != null)
         {
-            if (hitInfo.collider.CompareTag("Player"))
+            if (hitInfo.collider.tag == "Player")
+            {
+                SetShootDirection(hitInfo.point);
                 state = LaserShooterState.Charging;
+            }
         }
     }
 
@@ -138,7 +151,8 @@ public class LaserShooter : MonoBehaviour
         currentColor.a += (1 - colorHolder.z) / (chargingDuration / Time.deltaTime);
 
         Color tempColor = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a);
-        laserRenderer.SetColors(tempColor, tempColor);
+        laserRenderer.startColor = tempColor;
+        laserRenderer.endColor = tempColor;
 
         chargingTimer -= Time.deltaTime;
         if (chargingTimer <= 0.0f)
@@ -150,6 +164,7 @@ public class LaserShooter : MonoBehaviour
         //_animator.SetTrigger("Shooting"); //Play Shooting animation
 
         GameObject laser = Instantiate(laserProjectile, attackPoint.position, transform.rotation);
+        laser.GetComponent<EnemyBullet>().SetShootDirection(GetShootDirection());
 
         ResetTimers();
         ResetChildComponents();
@@ -162,6 +177,20 @@ public class LaserShooter : MonoBehaviour
     #endregion
 
     #region Custom Functions
+    void SetShootDirection(Vector3 targetPos)
+    {
+        Vector3 direction = targetPos - transform.position;
+
+        direction = direction.normalized;
+
+        shootDir = direction;
+    }
+
+    Vector3 GetShootDirection()
+    {
+        return shootDir;
+    }
+
     void FaceTarget()
     {
         Vector3 direction = target.position - transform.position;
@@ -189,7 +218,8 @@ public class LaserShooter : MonoBehaviour
         laserRenderer.enabled = false;
         currentColor = originalColor;
         colorHolder = new Vector3(currentColor.g, currentColor.b, currentColor.a);
-        laserRenderer.SetColors(currentColor, currentColor);
+        laserRenderer.startColor = currentColor;
+        laserRenderer.endColor = currentColor;
     }
     #endregion
 }

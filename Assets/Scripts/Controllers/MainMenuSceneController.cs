@@ -61,7 +61,7 @@ public class MainMenuSceneController : MonoBehaviour
     {
         GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
         AnimationController.Instance.ResetAnimationTrigger(animators, triggerStrings);
         AnimationController.Instance.PlayAnimationOneShot(endingAnimators, endingTriggerStrings);
 
