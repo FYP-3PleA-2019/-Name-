@@ -1085,6 +1085,11 @@ PrefabInstance:
       propertyPath: uiCanvas
       value: 
       objectReference: {fileID: 1585135291}
+    - target: {fileID: 1525671407253049291, guid: 3697ece215aabf14faad1d6844621fc0,
+        type: 3}
+      propertyPath: animIntervals.Array.data[6]
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3697ece215aabf14faad1d6844621fc0, type: 3}
 --- !u!1001 &2054748546992100977

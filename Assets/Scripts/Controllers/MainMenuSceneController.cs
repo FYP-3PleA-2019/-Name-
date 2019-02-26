@@ -6,7 +6,7 @@ public class MainMenuSceneController : MonoBehaviour
 {
     #region Variables
     [Space(3)]
-    [Header("Main Menu Beinning Animations")]
+    [Header("Main Menu Beginning Animations")]
     public List<Animator> animators;
     public List<string> triggerStrings;
     public List<float> animIntervals;
@@ -46,8 +46,11 @@ public class MainMenuSceneController : MonoBehaviour
     {
         if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
         {
-            if (Input.GetMouseButtonDown(0))
-                StartCoroutine("StartGame");
+            if (animators[animators.Count - 1].GetCurrentAnimatorStateInfo(0).IsName("Tap-To-Start Blinking"))
+            {
+                if (Input.GetMouseButtonDown(0))
+                    StartCoroutine("StartGame");
+            }
         }
     }
     #endregion
@@ -56,10 +59,11 @@ public class MainMenuSceneController : MonoBehaviour
 
     IEnumerator StartGame()
     {
+        GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
+
+        yield return new WaitForSeconds(1f);
         AnimationController.Instance.ResetAnimationTrigger(animators, triggerStrings);
         AnimationController.Instance.PlayAnimationOneShot(endingAnimators, endingTriggerStrings);
-
-        GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
 
         yield return new WaitForSeconds(1f);
         mainMenuCanvas.enabled = false;

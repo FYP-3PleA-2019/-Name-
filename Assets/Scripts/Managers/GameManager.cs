@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        DontDestroyOnLoad(player.gameObject);
+        //DontDestroyOnLoad(player.gameObject);
     }
 
     private void Update()
