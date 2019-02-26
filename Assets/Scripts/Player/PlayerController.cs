@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Player")]
     public float defaultHealth;
     public float moveSpeed;
-    [HideInInspector] public float currHealth;
+    /*[HideInInspector]*/ public float currHealth;
 
     [HideInInspector] public Animator playerAnimator;
     

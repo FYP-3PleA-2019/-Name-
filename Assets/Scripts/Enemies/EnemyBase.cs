@@ -201,8 +201,10 @@ public class EnemyBase : MonoBehaviour
         //Temporary attack logic
         Collider2D[] gameObjectsToDamage = Physics2D.OverlapBoxAll(transform.position, new Vector2(attackRange * 2, attackRange * 2), 0, attackLayer); //Create an array of everything that is affected by this attack
         for (int i = 0; i < gameObjectsToDamage.Length; i++)
-            gameObjectsToDamage[i].GetComponent<Player_WX>().health -= attackDamage; //Damage all [Damage-able] gameobjects. NOTE! : Damage game objects by calling their Receive Damage function!
-
+        {
+            if(gameObjectsToDamage[i].gameObject.tag == "Player")
+                gameObjectsToDamage[i].GetComponent<PlayerCoreController>().controller.GetDamage(attackDamage); //Damage all [Damage-able] gameobjects. NOTE! : Damage game objects by calling their Receive Damage function!
+        }
         //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("AttackAnimationName")) //Check to see if animator is still playing attack animation
         idleDuration = Random.Range(minIdleTime, maxIdleTime); //Random idle duration
         _currentState = CurrentState.Idle; //Switch state to idle if attack animation is finished playing

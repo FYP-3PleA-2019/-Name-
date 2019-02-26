@@ -50,7 +50,7 @@ MonoBehaviour:
   _animator: {fileID: 0}
   target: {fileID: 0}
   health: 3
-  moveSpeed: 3
+  moveSpeed: 1
   wanderRange: 5
   minIdleTime: 1.5
   maxIdleTime: 3
@@ -97,9 +97,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: df89a24e9b397ab4e9d30aaa46468181, type: 3}
-  m_Color: {r: 0.20131719, g: 0.49056602, b: 0.42018613, a: 1}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 054e86a2af6fa0e499d8cd45359c1d5e, type: 3}
+  m_Color: {r: 0.5660378, g: 0.38547447, b: 0.09878961, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
