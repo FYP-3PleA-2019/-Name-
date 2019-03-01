@@ -86,5 +86,3 @@ MonoBehaviour:
   - SlideOut
   - SlideOut
   mainMenuCanvas: {fileID: 0}
-  creditsCanvas: {fileID: 0}
-  uiCanvas: {fileID: 0}

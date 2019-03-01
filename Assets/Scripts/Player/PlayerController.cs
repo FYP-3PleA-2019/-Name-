@@ -24,7 +24,12 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-        Reset();
+        //Reset();
+    }
+
+    private void Update()
+    {
+        if (InputManager.Instance.IsMoving()) Move();
     }
 
     // -------------------------------- Setters --------------------------------
@@ -34,8 +39,6 @@ public class PlayerController : MonoBehaviour {
     {
         this.facingLeft = facingLeft;
         playerAnimator.SetBool("facingLeft", facingLeft);
-
-        
     }
 
     // -------------------------------- Getters --------------------------------
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour {
     public void Reset()
     {
         SetFacingLeft(false);
-        currHealth = defaultHealth;
+        //currHealth = defaultHealth; //move this to reset game in game manager
     }
 
     public void Move()

@@ -55,7 +55,9 @@ public class GameManager : MonoBehaviour {
     #region General Variables
     [Header("General")]
     public GAME_STATE gameState;
-    [HideInInspector] public PlayerCoreController player;
+    public PlayerCoreController player;
+
+    private bool isReady;
     #endregion
 
     void Awake()
@@ -64,29 +66,49 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-        
-        SetGameState(GAME_STATE.MAIN_MENU);
 
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerCoreController>();
+        Initialize();
     }
 
     private void Start()
     {
-        //DontDestroyOnLoad(player.gameObject);
+        Reset();
     }
 
-    private void Update()
-    {
-            
-    }
+    // -------------------------------- Setters --------------------------------
 
     public void SetGameState(GAME_STATE gameState)
     {
         this.gameState = gameState;
     }
 
+    // -------------------------------- Getters --------------------------------
+
     public GAME_STATE GetGameState()
     {
         return gameState;
+    }
+
+    public bool GetIsReady()
+    {
+        return isReady;
+    }
+    
+    // -------------------------------- Functions --------------------------------
+
+    public void Reset()
+    {
+        InputManager.Instance.Reset();
+        player.Reset();
+    }
+
+    void Initialize()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerCoreController>();
+        DontDestroyOnLoad(player);
+        
+        SetGameState(GAME_STATE.LOADING);
+
+        isReady = true;
     }
 }

@@ -238,6 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454082093ce0a454da89983f69fbcd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDragDist: 20
+  maxDragDist: 80
 --- !u!1 &1587789667567530
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +252,7 @@ GameObject:
   - component: {fileID: 223897985420876874}
   - component: {fileID: 114870274007233054}
   - component: {fileID: 114001883108793896}
+  - component: {fileID: 1363662118438666985}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -338,6 +341,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1363662118438666985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587789667567530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f293b60aee4bae4cb2e2e19697ea37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCanvas: {fileID: 0}
+  joystick: {fileID: 0}
+  mainButton: {fileID: 0}
 --- !u!1 &1788790804084428
 GameObject:
   m_ObjectHideFlags: 0

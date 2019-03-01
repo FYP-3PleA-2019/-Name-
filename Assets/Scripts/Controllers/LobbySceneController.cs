@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class LobbySceneController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    #region General
+    [Header("Canvas")]
+    public GameObject uiCanvas;
+    public GameObject creditsCanvas;
+    #endregion
+    
+    private IEnumerator Start()
     {
-        
+        uiCanvas.SetActive(false);
+        creditsCanvas.SetActive(false);
+
+        while(GameManager.Instance.GetGameState() != GAME_STATE.LOBBY)
+        {
+            yield return null;
+        }
+
+        uiCanvas.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator WaitForGameState()
     {
-        
+        while(GameManager.Instance.GetGameState() != GAME_STATE.LOBBY)
+        {
+            yield return null;
+        }
+
+        uiCanvas.SetActive(false);
+
     }
 }

@@ -24,7 +24,7 @@ public class WeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Reset();
+        //Reset();
     }
 
     // -------------------------------- Setters --------------------------------
@@ -61,7 +61,7 @@ public class WeaponController : MonoBehaviour
     {
         float rotationZ;
 
-        Vector3 shootDir = InputManager.Instance.shootDir;
+        Vector3 shootDir = InputManager.Instance.GetShootDir();
 
         if (shootDir.x < 0 && !FacingLeft()) SetFacingLeft(true);
         else if (shootDir.x > 0 && FacingLeft()) SetFacingLeft(false);
@@ -104,7 +104,7 @@ public class WeaponController : MonoBehaviour
 
         GameObject projectile = currWeapon.GetProjectile();
 
-        while(InputManager.Instance.isShooting)
+        while(InputManager.Instance.IsShooting())
         {
             Instantiate(projectile, transform.position, transform.rotation);
             yield return new WaitForSeconds(fireRate);

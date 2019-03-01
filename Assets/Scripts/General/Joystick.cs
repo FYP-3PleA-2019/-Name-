@@ -9,8 +9,8 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 {
     #region General Variables
     [Header("Joystick")]
-    private float minDragDist;
-    private float maxDragDist;
+    public float minDragDist;
+    public float maxDragDist;
 
     private Image frame;
     private Image joystick;
@@ -27,10 +27,7 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // Use this for initialization
     void Start()
     {
-        touchPoint = new Vector3(0f, 0f, 0f);
-
-        minDragDist = InputManager.Instance.minDragDist;
-        maxDragDist = InputManager.Instance.maxDragDist;
+        touchPoint = joystick.transform.position;
     }
 
     // -------------------------------- Pointers --------------------------------
@@ -62,8 +59,8 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnDrag(PointerEventData eventData)
     {
         Vector3 dragPoint = eventData.position; //World point
-        //Vector3 newTouchPos = Camera.main.ScreenToWorldPoint(eventData.position) //Screen point; 
-        
+        //Vector3 newTouchPos = Camera.main.ScreenToWorldPoint(eventData.position) //Screen point;
+
         dragPoint.x -= touchPoint.x;
         dragPoint.y -= touchPoint.y;
 
@@ -82,6 +79,12 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
 
     // -------------------------------- Functions --------------------------------
+
+    public void Reset()
+    {
+        joystick.transform.position = new Vector3(touchPoint.x, touchPoint.y, joystick.transform.position.z);
+        HideJoystick();
+    }
 
     public void ShowJoystick()
     {
