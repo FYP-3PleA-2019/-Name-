@@ -2,16 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class InteractableObjSample : MonoBehaviour
 {
-    #region General Variables
-    [Header("General")]
-    public bool isActivated;
-    public bool interactable;
-
-    public GAME_SCENE gatewayTo;
-    #endregion
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,9 +18,9 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(isActivated && collision.tag == "Player")
+        if(collision.tag == "Player")
         {
-            CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 0.5f);
+
         }
     }
 }

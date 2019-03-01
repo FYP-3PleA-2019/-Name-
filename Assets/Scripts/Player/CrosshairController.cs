@@ -11,36 +11,31 @@ public class CrosshairController : MonoBehaviour {
     public float fadeDelay;
     public float fadeRange; //default = 0.05f;
     
-    public IEnumerator coroutine;
-    public SpriteRenderer sprite;
-    public PlayerCoreController player;
+    private SpriteRenderer sprite;
     #endregion
 
     private void Awake()
     {
-        coroutine = Fade();
         sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        player = GameManager.Instance.player;
-
-        Reset();
+        //Reset();
     }
 
     public void Reset()
     {
         DecreaseAlpha();
 
-        Vector3 playerPos = player.transform.position;
+        Vector3 playerPos = GameManager.Instance.player.transform.position;
         Vector3 shootDir = InputManager.Instance.GetShootDir();
         transform.position = playerPos + (shootDir * offsetPos);
     }
 
     public void Move()
     {
-        Vector3 playerPos = player.transform.position;
+        Vector3 playerPos = GameManager.Instance.player.transform.position;
         Vector3 shootDir = InputManager.Instance.GetShootDir();
         Vector3 movePos = playerPos + (shootDir * offsetPos);
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuSceneController : MonoBehaviour
+public class MainMenuController : MonoBehaviour
 {
     #region Variables
     [Space(3)]
@@ -18,9 +18,7 @@ public class MainMenuSceneController : MonoBehaviour
 
     [Space(3)]
     [Header("Canvas")]
-    public Canvas mainMenuCanvas;
-    public Canvas creditsCanvas;
-    public Canvas uiCanvas;
+    public GameObject mainMenuCanvas;
     #endregion
 
     #region Unity Functions
@@ -28,52 +26,58 @@ public class MainMenuSceneController : MonoBehaviour
     {
         if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
         {
-            creditsCanvas.enabled = false;
-            uiCanvas.enabled = false;
-
+            mainMenuCanvas.SetActive(true);
             StartMainMenuAnim();
         }
-        else
-        {
-            mainMenuCanvas.enabled = false;
-            creditsCanvas.enabled = true;
-            uiCanvas.enabled = true;
-        }
+        else mainMenuCanvas.SetActive(false);
     }
-
-    // Update is called once per frame
+    
     void Update ()
     {
-        if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
+        /*if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
         {
             if (animators[animators.Count - 1].GetCurrentAnimatorStateInfo(0).IsName("Tap-To-Start Blinking"))
             {
                 if (Input.GetMouseButtonDown(0))
                     StartCoroutine("StartGame");
             }
-        }
+        }*/
     }
     #endregion
-        
+
     #region Custom Functions
+    
+    public void StartMainMenuAnim()
+    {
+        StartCoroutine(AnimationController.Instance.PlayAnimationQueue(animators, triggerStrings, animIntervals));
+
+        StartCoroutine("WaitForTap");
+    }
+
+    IEnumerator WaitForTap()
+    {
+        while(!animators[animators.Count - 1].GetCurrentAnimatorStateInfo(0).IsName("Tap-To-Start Blinking"))
+        {
+            yield return null;
+        }
+
+        while(!Input.GetMouseButtonDown(0))
+        {
+            yield return null;
+        }
+
+        StartCoroutine("StartGame");
+    }
 
     IEnumerator StartGame()
     {
         GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
-
-        yield return new WaitForSeconds(1f);
+        
         AnimationController.Instance.ResetAnimationTrigger(animators, triggerStrings);
         AnimationController.Instance.PlayAnimationOneShot(endingAnimators, endingTriggerStrings);
 
         yield return new WaitForSeconds(1f);
-        mainMenuCanvas.enabled = false;
-        creditsCanvas.enabled = true;
-        uiCanvas.enabled = true;
-    }
-
-    public void StartMainMenuAnim()
-    {
-        StartCoroutine(AnimationController.Instance.PlayAnimationQueue(animators, triggerStrings, animIntervals));
+        mainMenuCanvas.SetActive(false);
     }
     #endregion 
 }

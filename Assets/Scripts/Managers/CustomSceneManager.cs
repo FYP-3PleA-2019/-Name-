@@ -53,7 +53,6 @@ public class CustomSceneManager : MonoBehaviour
 
     #region Scene Variables
     //[Header("Scene")]
-    //public List<string> scenes;
     #endregion
 
     void Awake()
@@ -64,32 +63,25 @@ public class CustomSceneManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void LoadScene(GAME_SCENE scene)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void ChangeScene(GameObject player, GAME_SCENE scene)
-    {
-        Scene sceneName = SceneManager.GetSceneByBuildIndex((int)scene);
-
-        Debug.Log((int)scene);
+        InputManager.Instance.Reset();
+        GameManager.Instance.player.Reset();
 
         SceneManager.LoadScene((int)scene);
-
-        SceneManager.MoveGameObjectToScene(player, sceneName);
     }
 
-    public IEnumerator WaitChangeScene(GAME_SCENE scene, float waitTime)
+    public void LoadSceneWait(GAME_SCENE scene, float waitTime)
+    {
+        StartCoroutine(SceneTransition(scene, waitTime));
+    }
+
+    public IEnumerator SceneTransition(GAME_SCENE scene, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        
+        InputManager.Instance.Reset();
+        GameManager.Instance.player.Reset();
 
         SceneManager.LoadScene((int)scene);
     }

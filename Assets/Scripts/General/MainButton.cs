@@ -43,6 +43,11 @@ public class MainButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     // -------------------------------- Functions --------------------------------
 
+    public void Reset()
+    {
+
+    }
+
     void ChangeSpr(Sprite newSpr)
     {
         frame.sprite = newSpr;

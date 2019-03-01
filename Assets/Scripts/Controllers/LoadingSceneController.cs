@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class LoadingSceneController : MonoBehaviour
 {
-    public float waitTime;
-
-    // Start is called before the first frame update
-    void Start()
+    private IEnumerator Start()
     {
-        StartCoroutine("LoadLogo");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    IEnumerator LoadLogo()
-    {
-        yield return new WaitForSeconds(waitTime);
+        while(!GameManager.Instance.GetIsReady())
+        {
+            yield return null;
+        }
 
         GameManager.Instance.SetGameState(GAME_STATE.MAIN_MENU);
+        CustomSceneManager.Instance.LoadScene(GAME_SCENE.LOBBY_SCENE);
     }
 }

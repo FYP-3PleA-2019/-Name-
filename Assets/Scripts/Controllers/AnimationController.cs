@@ -24,7 +24,7 @@ public class AnimationController : MonoBehaviour
                 {
                     GameObject obj = new GameObject("_AnimationController");
                     mInstance = obj.AddComponent<AnimationController>();
-                    obj.tag = "Animation Controller";
+                    obj.tag = "AnimationController";
                 }
                 else
                 {

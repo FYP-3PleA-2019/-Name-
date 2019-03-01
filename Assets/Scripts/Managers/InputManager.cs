@@ -44,21 +44,19 @@ public class InputManager : MonoBehaviour {
 
     #region General Variables
     [Header("General")]
-    [HideInInspector] public bool canControl;
-    [HideInInspector] public bool canMove;
-    [HideInInspector] public bool canShoot;
-    [HideInInspector] public bool isMoving;
-    [HideInInspector] public bool isShooting;
-
-    [HideInInspector] public PlayerCoreController player;
-    [HideInInspector] public Vector3 moveDir;
-    [HideInInspector] public Vector3 shootDir;
+    private Vector3 moveDir;
+    private Vector3 shootDir;
     #endregion
 
-    #region Joystick Variables
-    [Header("Joystick")]
-    public float minDragDist;
-    public float maxDragDist;
+    #region Controls Variables
+    [Header("Controls")]
+    private bool canControl;
+    private bool canMove;
+    private bool canShoot;
+    private bool canInteract;
+    private bool isMoving;
+    private bool isShooting;
+    private bool hasInteracted;
     #endregion
 
     void Awake()
@@ -67,74 +65,70 @@ public class InputManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-
-        player = GameManager.Instance.player;
     }
 
     // Use this for initialization
     void Start()
     {
-        Reset();
-    }
-
-    private void Update()
-    {
-        if (isMoving) player.controller.Move();
+        //Reset();
     }
 
     // -------------------------------- Setters --------------------------------
-
-    //Set all controls
+    
     void SeCanControl(bool canControl)
     {
         this.canControl = canControl;
     }
-
-    //Set move control
+    
     void SetCanMove(bool canMove)
     {
         this.canMove = canMove;
     }
-
-    //Set shoot control
+    
     void SetCanShoot(bool canShoot)
     {
         this.canShoot = canShoot;
     }
 
-    //Set moving boolean
+    void SetCanInteract(bool canInteract)
+    {
+        this.canInteract = canInteract;
+    }
+    
     public void SetIsMoving(bool isMoving)
     {
         this.isMoving = isMoving;
         
-        if (!IsInputting()) player.crosshair.DecreaseAlpha();
-        else player.crosshair.IncreaseAlpha();
+        if (!IsInputting()) GameManager.Instance.player.crosshair.DecreaseAlpha();
+        else GameManager.Instance.player.crosshair.IncreaseAlpha();
     }
-
-    //Set shooting boolean
+    
     public void SetIsShooting(bool isShooting)
     {
         this.isShooting = isShooting;
 
-        if (isShooting) player.weapon.OnShootBegin();
-        else player.weapon.OnShootEnd();
+        if (isShooting) GameManager.Instance.player.weapon.OnShootBegin();
+        else GameManager.Instance.player.weapon.OnShootEnd();
         
-        if (!IsInputting()) player.crosshair.DecreaseAlpha();
-        else player.crosshair.IncreaseAlpha();
+        if (!IsInputting()) GameManager.Instance.player.crosshair.DecreaseAlpha();
+        else GameManager.Instance.player.crosshair.IncreaseAlpha();
+    }
+    
+    public void SetHasInteracted(bool hasInteracted)
+    {
+        this.hasInteracted = hasInteracted;
     }
 
-    //Set move direction
     public void SetMoveDir(Vector3 direction)
     {
         moveDir = direction;
     }
-
-    //Set shoot direction
+    
     public void SetShootDir(Vector3 direction)
     {
         shootDir = direction;
-        player.crosshair.Move();
-        player.weapon.Rotate();
+        GameManager.Instance.player.crosshair.Move();
+        GameManager.Instance.player.weapon.Rotate();
     }
 
     // -------------------------------- Getters --------------------------------
@@ -151,45 +145,51 @@ public class InputManager : MonoBehaviour {
 
     // -------------------------------- Checkers --------------------------------
    
-    //Check if all controls are disabled or not
     public bool CanControl()
     {
         bool result = canControl;
         return result;
     }
-
-    //Check if move control is disabled or not
+    
     public bool CanMove()
     {
         bool result = canMove;
         return result;
     }
-
-    //Check if shoot control is disabled or not
+    
     public bool CanShoot()
     {
         bool result = canShoot;
         return result;
     }
     
-    //Check if there are basic (movement or shooting) inputs
+    public bool CanInteract()
+    {
+        bool result = canInteract;
+        return result;
+    }
+
     public bool IsInputting()
     {
         if (!IsShooting() && !IsMoving()) return false;
         else return true;
     }
-
-    //To check if player is moving
+    
     public bool IsMoving()
     {
         bool result = isMoving;
         return result;
     }
-
-    //To check if player is shooting
+    
     public bool IsShooting()
     {
         bool result = isShooting;
+        return result;
+    }
+
+    public bool HasInteracted()
+    {
+        bool result = hasInteracted;
         return result;
     }
 
@@ -200,9 +200,11 @@ public class InputManager : MonoBehaviour {
         canControl = true;
         canMove = true;
         canShoot = true;
+        canInteract = true;
 
         isMoving = false;
         isShooting = false;
+        hasInteracted = false;
 
         moveDir = new Vector3(0.0f, 0.0f, 0.0f);
         shootDir = new Vector3(1.0f, 0.0f, 0.0f);
