@@ -1,22 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum TeleporterState
-{
-    Deactivated,
-    Activated
-}
+using UnityEngine.UI;
 
 public class Teleporter : MonoBehaviour
 {
     private Animator _animator;
     private Transform target;
 
-    public Transform connectedTeleporter;
-    public float interactableRange;
-
-    private TeleporterState state;
+    //public Transform connectedTeleporter;
+    public GameObject indicator;
+    public string indicatorText;
 
     private void Start()
     {
@@ -26,54 +20,61 @@ public class Teleporter : MonoBehaviour
         if (target == null)
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        if (connectedTeleporter == null)
-            state = TeleporterState.Deactivated;
-
-        else
-            state = TeleporterState.Activated;
+        indicator.GetComponentInChildren<Text>().text = indicatorText;
+        indicator.SetActive(false);
     }
 
     private void Update()
     {
-        switch(state)
-        {
-            case TeleporterState.Activated:
-                Activated();
-                break;
+        if (Input.GetKeyDown(KeyCode.Space))
+            Interacted();
+    }
 
-            default:
-                Deactivated();
-                break;
+    public void Interacted()
+    {
+        _animator.SetTrigger("Interacted");
+        StartCoroutine(DisableUI());
+        //ChangeScene();
+    }
+
+    void EnableUI()
+    {
+        indicator.SetActive(true);
+    }
+
+    IEnumerator DisableUI()
+    {
+        indicator.GetComponent<Animator>().SetTrigger("Close");
+
+        yield return new WaitForSeconds(0.1f);
+        indicator.SetActive(false);
+    }
+
+    //void TeleportObject(GameObject obj)
+    //{
+    //    obj.transform.position = connectedTeleporter.transform.position;
+    //}
+
+    void ChangeScene(/*Scene*/)
+    {
+        //Change scene via SceneManager
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            EnableUI();
+            //Call player interact button
         }
     }
 
-    void Deactivated()
+    void OnTriggerExit2D(Collider2D other)
     {
-        //_animator.SetTrigger("Deactivated");
-    }
-
-    void Activated()
-    {
-        //_animator.SetTrigger("Activated");
-
-        float distanceFromTarget = Vector2.Distance(transform.position, target.position);
-
-        if (distanceFromTarget <= interactableRange)
-            Debug.Log("hi");
-            //Observer call player main button
-    }
-
-    public void TeleportObject(GameObject obj)
-    {
-        obj.transform.position = connectedTeleporter.transform.position;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (state == TeleporterState.Deactivated)
-            return;
-
         if (other.tag == "Player")
-            TeleportObject(other.gameObject);
+        {
+            StartCoroutine(DisableUI());
+            //Call player interact button
+        }
     }
 }
