@@ -21,16 +21,6 @@ public class LobbySceneController : MonoBehaviour
         }
 
         uiCanvas.SetActive(true);
-    }
-
-    IEnumerator WaitForGameState()
-    {
-        while(GameManager.Instance.GetGameState() != GAME_STATE.LOBBY)
-        {
-            yield return null;
-        }
-
-        uiCanvas.SetActive(false);
-
+        creditsCanvas.SetActive(true);
     }
 }

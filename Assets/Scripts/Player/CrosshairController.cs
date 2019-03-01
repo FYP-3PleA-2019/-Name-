@@ -39,7 +39,8 @@ public class CrosshairController : MonoBehaviour {
         Vector3 shootDir = InputManager.Instance.GetShootDir();
         Vector3 movePos = playerPos + (shootDir * offsetPos);
 
-        transform.position = Vector3.MoveTowards(transform.position , movePos, 1.5f); // Method 1
+        transform.position = movePos;
+        //transform.position = Vector3.MoveTowards(transform.position , movePos, 1.5f); // Method 1
         //transform.Translate(playerPos + (direction * offset)); //Method 2
     }
 

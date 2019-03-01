@@ -12,6 +12,7 @@ public class WeaponController : MonoBehaviour
     public Weapon prevWeapon;
     
     private Transform weaponHolder;
+    private Transform shootPoint;
 
     private bool facingLeft;
     #endregion
@@ -19,6 +20,7 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         weaponHolder = transform.parent;
+        shootPoint = GetComponentsInChildren<Transform>()[1];
     }
 
     // Start is called before the first frame update
@@ -106,7 +108,7 @@ public class WeaponController : MonoBehaviour
 
         while(InputManager.Instance.IsShooting())
         {
-            Instantiate(projectile, transform.position, transform.rotation);
+            Instantiate(projectile, shootPoint.position, transform.rotation);
             yield return new WaitForSeconds(fireRate);
         }
     }
