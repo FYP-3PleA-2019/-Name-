@@ -100,7 +100,6 @@ public class EnemyBase : MonoBehaviour
     #region Enemy Behaviour
     public virtual void Spawn()
     {
-        Debug.Log(name + ": Spawn");
         //Spawn Particle Effects
         //Instantiate();
 
@@ -110,7 +109,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Idle()
     {
-        Debug.Log(name + ": Idle");
         //_animator.SetTrigger("Idle"); //Play Idle Animation
 
         idleTimer += Time.deltaTime;
@@ -124,8 +122,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Move()
     {
-        Debug.Log(name + " : Move");
-
         //_animator.SetTrigger("Move"); //Play Move Animation
         //Instantiate() //Spawn Particle effects at feet
 
@@ -182,7 +178,6 @@ public class EnemyBase : MonoBehaviour
 
                 if(randState == 0)
                 {
-                    Debug.Log("Re-Do");
                     idleDuration = Random.Range(minIdleTime, maxIdleTime);
                     _currentState = CurrentState.Idle;
                 }
@@ -192,8 +187,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Attack()
     {
-        Debug.Log(name + ": Attack");
-
         attackTimer = 0; //Reset Attack Timer
 
         //_animator.SetTrigger("Attack"); //Play Attack Animation
@@ -217,7 +210,6 @@ public class EnemyBase : MonoBehaviour
 
         //Spawn Particle Effects and spawn blood stains
         //Instantiate();
-        Debug.Log(name + ": Death");
         //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("DeathAnimationName")) //Check to see if animator is still playing death animation
         Destroy(gameObject);
     }
@@ -234,6 +226,11 @@ public class EnemyBase : MonoBehaviour
             health = 0;
             _currentState = CurrentState.Death;
         }
+    }
+
+    public void FallOffPlatform()
+    {
+        _currentState = CurrentState.Death;
     }
 
     private Vector2 RandomPositionWithinRadius(float radius, Vector2 objectPos)
