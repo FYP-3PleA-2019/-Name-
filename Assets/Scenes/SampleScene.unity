@@ -522,6 +522,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2068949269}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1325453513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3070017613170758151, guid: bc275c95b3a4f424bb33c3117bb657f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1993439398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1429450689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -748,6 +754,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingPlatformRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 8119908902821541778, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8561384450765873605, guid: bc275c95b3a4f424bb33c3117bb657f2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -822,6 +833,42 @@ PrefabInstance:
         type: 3}
       propertyPath: activeRange
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 917543135954176909, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 917543135954176909, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: objects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 917543135954176909, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1325453513}
+    - target: {fileID: 917543135954176909, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: objects.Array.data[0]
+      value: 
+      objectReference: {fileID: 5070426742224821193, guid: 8558c051a48bb17448bc2ae698af94c0,
+        type: 3}
+    - target: {fileID: 917543135954176909, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: _spawnPoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683231635206568338, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: _interaction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683231635206568338, guid: bc275c95b3a4f424bb33c3117bb657f2,
+        type: 3}
+      propertyPath: moveRange
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc275c95b3a4f424bb33c3117bb657f2, type: 3}

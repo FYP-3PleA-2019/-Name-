@@ -96,7 +96,7 @@ public class LaserCannon : MonoBehaviour
         // _animator.SetTrigger("Active"); //Play Activate animation
 
         FaceTarget();
-        SetLineRendererDirection(transform.right);
+        //SetLineRendererDirection(transform.right);
 
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0.0f)
@@ -120,6 +120,9 @@ public class LaserCannon : MonoBehaviour
         //_animator.SetTrigger("Shooting"); //Play Shooting animation
         
         shootTimer -= Time.deltaTime;
+
+        SetLineRendererDirection(transform.right);
+
         //Raycast
         hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange);
 

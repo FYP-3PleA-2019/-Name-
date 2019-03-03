@@ -11,9 +11,7 @@ public enum GeneratorType
 public class Generator : MonoBehaviour
 {
     #region Control-able GameObjects
-    [Space(3)]
-    [Header("Manipulate-able GameObjects")]
-    public GameObject movingPlatform;
+    private MovingPlatform _movingPlatform;
     #endregion
 
     #region Generator Components
@@ -31,6 +29,11 @@ public class Generator : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>(); // Setting Generator's Animator Component
+
+        if(_generatorType == GeneratorType.MovePlatform)
+        {
+            _movingPlatform = transform.parent.gameObject.GetComponent<MovingPlatform>();
+        }
     }
 
     private void Update()
@@ -39,13 +42,25 @@ public class Generator : MonoBehaviour
             InitiateGeneratorFunction();
     }
 
+    public void SetGeneratorType(int type)
+    {
+        if (type == 0)
+            _generatorType = GeneratorType.MovePlatform;
+
+        else
+            _generatorType = GeneratorType.SpawnBridge;
+    }
+
     public void InitiateGeneratorFunction()
     {
         //_animator.SetTrigger("isTriggered"); //Play triggered animation
 
         //Executes mechanic based on [Generator Type]
         if (_generatorType == GeneratorType.MovePlatform)
-            Debug.Log("Moving Platform!");
+        {
+            if (_movingPlatform.isGrounded && !_movingPlatform.isMoving)
+                _movingPlatform.SetMoveTarget(_movingPlatform.moveRange);
+        }
 
         else if (_generatorType == GeneratorType.SpawnBridge)
             Debug.Log("Spawning Bridge!");

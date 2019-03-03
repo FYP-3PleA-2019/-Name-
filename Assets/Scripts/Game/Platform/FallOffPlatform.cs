@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class FallOffPlatform : MonoBehaviour
 {
-    public GameObject movingPlatform;
+    public GameObject platform;
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            if(movingPlatform.GetComponent<MovingPlatform>().isGrounded != true)
+            if(platform.GetComponent<MovingPlatform>().isGrounded != true)
                 Destroy(other.gameObject);
         }
     }
