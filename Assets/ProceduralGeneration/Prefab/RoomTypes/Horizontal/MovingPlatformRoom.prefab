@@ -342,8 +342,9 @@ MonoBehaviour:
   generator: {fileID: 6618120991853975218, guid: 4f7d7608dbd7efd49a993b2e89cd7473,
     type: 3}
   generatorSpawnPoint: {fileID: 3906515183247319645}
-  moveRange: 4
+  moveRange: 2
   moveSpeed: 5
+  tileOffset: 2
   isGrounded: 0
   isMoving: 0
   _moveDirection: 3

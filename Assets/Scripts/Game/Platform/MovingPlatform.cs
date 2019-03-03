@@ -27,6 +27,7 @@ public class MovingPlatform : MonoBehaviour
     public Transform generatorSpawnPoint;
     public float moveRange;
     public float moveSpeed;
+    public float tileOffset;
 
     [HideInInspector]
     public bool isGrounded, isMoving;
@@ -120,7 +121,7 @@ public class MovingPlatform : MonoBehaviour
 
         if(_moveDirection == MoveDirection.Up)
         {
-            if (ReturnMoveDirection(moveRange).y <= u_boundary)
+            if (ReturnMoveDirection(moveRange).y <= u_boundary - tileOffset)
             {
                 tempBool = true;
             }
@@ -131,7 +132,7 @@ public class MovingPlatform : MonoBehaviour
 
         else if (_moveDirection == MoveDirection.Down)
         {
-            if (ReturnMoveDirection(moveRange).y >= d_boundary)
+            if (ReturnMoveDirection(moveRange).y >= d_boundary + tileOffset)
             {
                 tempBool = true;
             }
@@ -142,7 +143,7 @@ public class MovingPlatform : MonoBehaviour
 
         else if (_moveDirection == MoveDirection.Left)
         {
-            if (ReturnMoveDirection(moveRange).x >= l_boundary)
+            if (ReturnMoveDirection(moveRange).x >= l_boundary + tileOffset)
             {
                 tempBool = true;
             }
@@ -153,7 +154,7 @@ public class MovingPlatform : MonoBehaviour
 
         else 
         {
-            if (ReturnMoveDirection(moveRange).x <= r_boundary)
+            if (ReturnMoveDirection(moveRange).x <= r_boundary - tileOffset)
             {
                 tempBool = true;
             }
