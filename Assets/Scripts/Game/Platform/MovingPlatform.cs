@@ -39,7 +39,7 @@ public class MovingPlatform : MonoBehaviour
     private void Start()
     {
         ResetMoveTarget();
-        isGrounded = true;
+        isGrounded = false;
         isMoving = false;
 
         if (_interaction == Interaction.Interactable)
@@ -110,14 +110,59 @@ public class MovingPlatform : MonoBehaviour
 
     bool ReturnCanMove() //Check if platform will go out of room bounds
     {
-        float parentRoomSize = transform.root.gameObject.GetComponent<BoxCollider2D>().size.x; //Retrieve room's size
-        float myRoomBounds = ReturnMoveDirection(moveRange).x + 2;
+        Vector2 roomPos = transform.root.gameObject.transform.position;
+        float r_boundary = roomPos.x + (transform.root.gameObject.GetComponent<BoxCollider2D>().size.x / 2);
+        float l_boundary = roomPos.x - (transform.root.gameObject.GetComponent<BoxCollider2D>().size.x / 2);
+        float u_boundary = roomPos.y + (transform.root.gameObject.GetComponent<BoxCollider2D>().size.y / 2);
+        float d_boundary = roomPos.y - (transform.root.gameObject.GetComponent<BoxCollider2D>().size.y / 2);
 
-        if (myRoomBounds <= parentRoomSize)
-            return true;
+        bool tempBool = false;
 
-        else
-            return false;
+        if(_moveDirection == MoveDirection.Up)
+        {
+            if (ReturnMoveDirection(moveRange).y <= u_boundary)
+            {
+                tempBool = true;
+            }
+
+            else
+                tempBool = false;
+        }
+
+        else if (_moveDirection == MoveDirection.Down)
+        {
+            if (ReturnMoveDirection(moveRange).y >= d_boundary)
+            {
+                tempBool = true;
+            }
+
+            else
+                tempBool = false;
+        }
+
+        else if (_moveDirection == MoveDirection.Left)
+        {
+            if (ReturnMoveDirection(moveRange).x >= l_boundary)
+            {
+                tempBool = true;
+            }
+
+            else
+                tempBool = false;
+        }
+
+        else 
+        {
+            if (ReturnMoveDirection(moveRange).x <= r_boundary)
+            {
+                tempBool = true;
+            }
+
+            else
+                tempBool = false;
+        }
+
+        return tempBool;
     }
 
     void ResetMoveTarget()

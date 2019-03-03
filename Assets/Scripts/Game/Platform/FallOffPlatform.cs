@@ -10,8 +10,10 @@ public class FallOffPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if(platform.GetComponent<MovingPlatform>().isGrounded != true)
+            if(platform.GetComponent<MovingPlatform>().isGrounded == false)
+            {
                 Destroy(other.gameObject);
+            }
         }
     }
 }
