@@ -26,6 +26,7 @@ public class Generator : MonoBehaviour
     public GeneratorType _generatorType;
     #endregion
 
+    #region Unity Functions
     private void Start()
     {
         _animator = GetComponent<Animator>(); // Setting Generator's Animator Component
@@ -36,12 +37,17 @@ public class Generator : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //Just for testing purposes
+        if(other.tag == "Bullet")
+        {
+            Destroy(other.gameObject);
             InitiateGeneratorFunction();
+        }
     }
+    #endregion
 
+    #region Custom Functions
     public void SetGeneratorType(int type)
     {
         if (type == 0)
@@ -65,4 +71,5 @@ public class Generator : MonoBehaviour
         else if (_generatorType == GeneratorType.SpawnBridge)
             Debug.Log("Spawning Bridge!");
     }
+    #endregion 
 }

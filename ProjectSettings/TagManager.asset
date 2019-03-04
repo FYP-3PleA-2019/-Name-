@@ -16,6 +16,7 @@ TagManager:
   - LobbySceneController
   - GameSceneController
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
