@@ -61,7 +61,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1714481512348301179}
-  - {fileID: 8022105443555477740}
+  - {fileID: 3932857635313907570}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,12 +102,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6ca17babde56b9e4f9bc6e96895ade27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb1082ca17c43cf4780e26f1790bcb01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.35, y: 1.35}
+  m_Size: {x: 1.53, y: 1.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -125,16 +125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d5c1f5e333b6d478a520aff68173a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserRenderer: {fileID: 427469640847609275}
+  laserRenderer: {fileID: 6642459895301354021}
   activeRange: 10
   cannonCooldown: 3
-  chargingDuration: 3
+  chargingDuration: 1
   shootDuration: 5
   attackPoint: {fileID: 1714481512348301179}
   attackRange: 7
   rotationSpeed: 10
-  shootDirection: 0
   state: 0
+  _shootDirection: 0
 --- !u!95 &1658546612
 Animator:
   serializedVersion: 3
@@ -145,7 +145,7 @@ Animator:
   m_GameObject: {fileID: 3476133360919580986}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3550c5e43a3cd0440ae4e8122f52ab3e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -154,7 +154,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1001 &5270444283181128349
+--- !u!1001 &1217113662954972419
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -164,7 +164,27 @@ PrefabInstance:
     - target: {fileID: 4403221148507448004, guid: 5a9d5123a87fba64a9227d42f6fa7881,
         type: 3}
       propertyPath: m_Name
-      value: LaserRenderer_Cannon
+      value: LaserRenderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2769818512915812977, guid: 5a9d5123a87fba64a9227d42f6fa7881,
         type: 3}
@@ -223,15 +243,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a9d5123a87fba64a9227d42f6fa7881, type: 3}
---- !u!4 &8022105443555477740 stripped
+--- !u!4 &3932857635313907570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2769818512915812977, guid: 5a9d5123a87fba64a9227d42f6fa7881,
     type: 3}
-  m_PrefabInstance: {fileID: 5270444283181128349}
+  m_PrefabInstance: {fileID: 1217113662954972419}
   m_PrefabAsset: {fileID: 0}
---- !u!120 &427469640847609275 stripped
+--- !u!120 &6642459895301354021 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
     type: 3}
-  m_PrefabInstance: {fileID: 5270444283181128349}
+  m_PrefabInstance: {fileID: 1217113662954972419}
   m_PrefabAsset: {fileID: 0}

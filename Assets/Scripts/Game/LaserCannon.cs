@@ -10,6 +10,14 @@ public enum LaserCannonState
     Shooting
 }
 
+public enum ShootDirection
+{
+    Up,
+    Down,
+    Left,
+    Right
+}
+
 public class LaserCannon : MonoBehaviour
 {
     #region GameObject References
@@ -36,12 +44,10 @@ public class LaserCannon : MonoBehaviour
     
     public float rotationSpeed;
 
-    [Tooltip("0 = Up, 1 = Down, 2 = Left, 3 = Right")]
-    public int shootDirection;
-
     private RaycastHit2D hitInfo;
 
     public LaserCannonState state;
+    public ShootDirection _shootDirection;
     #endregion
 
     #region Unity Functions
@@ -85,6 +91,7 @@ public class LaserCannon : MonoBehaviour
     #region Laser Cannon Behaviour
     void Idle()
     {
+        ResetAllAnimationTriggers();
         float distanceToTarget = Vector2.Distance(gameObject.transform.position, target.transform.position); //Calculate distance to target
 
         if (distanceToTarget <= activeRange) //If target is within range, state = active
@@ -93,10 +100,9 @@ public class LaserCannon : MonoBehaviour
 
     void Active()
     {
-        // _animator.SetTrigger("Active"); //Play Activate animation
+         _animator.SetTrigger("Activate"); //Play Activate animation
 
         FaceTarget();
-        //SetLineRendererDirection(transform.right);
 
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0.0f)
@@ -105,7 +111,7 @@ public class LaserCannon : MonoBehaviour
 
     void Charging()
     {
-        //_animator.SetTrigger("Charging"); //Play Charging animation
+        _animator.SetTrigger("Charge"); //Play Charging animation
 
         chargingTimer -= Time.deltaTime;
         if (chargingTimer <= 0.0f)
@@ -117,7 +123,7 @@ public class LaserCannon : MonoBehaviour
 
     void Shooting()
     {
-        //_animator.SetTrigger("Shooting"); //Play Shooting animation
+        _animator.SetTrigger("Shoot"); //Play Shooting animation
         
         shootTimer -= Time.deltaTime;
 
@@ -134,6 +140,7 @@ public class LaserCannon : MonoBehaviour
 
         if(shootTimer <= 0.0f)
         {
+            _animator.SetTrigger("Deactivate"); //Play deactivate animation after finish shooting
             ResetTimers();
             ResetChildComponents();
             state = LaserCannonState.Idle;
@@ -146,13 +153,13 @@ public class LaserCannon : MonoBehaviour
     {
         Vector3 tempDir;
 
-        if (shootDirection == 0)
+        if (_shootDirection == ShootDirection.Up)
             tempDir = new Vector3(transform.position.x, transform.position.y + attackRange, 0.0f);
 
-        else if(shootDirection == 1)
+        else if(_shootDirection == ShootDirection.Down)
             tempDir = new Vector3(transform.position.x, transform.position.y - attackRange, 0.0f);
 
-        else if(shootDirection == 2)
+        else if(_shootDirection == ShootDirection.Left)
             tempDir = new Vector3(transform.position.x - attackRange, transform.position.y, 0.0f);
 
         else
@@ -176,6 +183,14 @@ public class LaserCannon : MonoBehaviour
         cooldownTimer = cannonCooldown;
         chargingTimer = chargingDuration;
         shootTimer = shootDuration;
+    }
+
+    public void ResetAllAnimationTriggers()
+    {
+        _animator.ResetTrigger("Activate");
+        _animator.ResetTrigger("Charge");
+        _animator.ResetTrigger("Shoot");
+        _animator.ResetTrigger("Deactivate");
     }
 
     public void ResetChildComponents()

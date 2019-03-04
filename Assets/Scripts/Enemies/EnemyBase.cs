@@ -15,8 +15,8 @@ public class EnemyBase : MonoBehaviour
     #region General Variables
     [Header("General Variables")]
     public CurrentState _currentState;
-    public Animator _animator;
-    public Transform target;
+    private Animator _animator;
+    private Transform target;
     private Transform currTarget;
 
     public int health;
@@ -52,17 +52,9 @@ public class EnemyBase : MonoBehaviour
 
         attackTimer = 0;
 
-        if (target == null) //Automatically sets player as target for this game object if it is not assigned in the inspector
-        {
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            Debug.LogWarning("BEWARE : The [Target] for " + name + " have not been assigned in the inspector! [Player] have been set as " + name + "'s target by default!");
-        }
-
-        if (_animator == null) //Automatically sets animator for this game object if it is not assigned in the inspector
-        {
-            _animator = gameObject.GetComponent<Animator>();
-            Debug.LogWarning("BEWARE : The [Animator] for " + name + " have not been assigned in the inspector!");
-        }
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        
+        _animator = gameObject.GetComponent<Animator>();
 
         attackTimer = attackSpeed;
         currTarget = target; //Setting current target to default target [Player]
