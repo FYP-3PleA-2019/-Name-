@@ -130,6 +130,9 @@ MonoBehaviour:
   cannonCooldown: 3
   chargingDuration: 1
   shootDuration: 5
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
   attackPoint: {fileID: 1714481512348301179}
   attackRange: 7
   rotationSpeed: 10

@@ -122,6 +122,9 @@ MonoBehaviour:
   chargingDuration: 1
   rotationSpeed: 3
   rotationOffset: 0
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
   attackPoint: {fileID: 7037856574411521416}
   attackRange: 7
   originalColor: {r: 1, g: 1, b: 0.4862745, a: 0.3137255}

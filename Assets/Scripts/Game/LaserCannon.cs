@@ -39,6 +39,7 @@ public class LaserCannon : MonoBehaviour
 
     [Space(3)]
     [Header("Attacking Variables")]
+    public LayerMask attackLayer;
     public Transform attackPoint;
     public float attackRange;
     
@@ -130,7 +131,7 @@ public class LaserCannon : MonoBehaviour
         SetLineRendererDirection(transform.right);
 
         //Raycast
-        hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange);
+        hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange, attackLayer);
 
         if (hitInfo.collider != null)
         {
