@@ -107,7 +107,7 @@ public class CrosshairController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
+        /*if(collision.tag == "Enemy")
         {
             if(collision.gameObject.GetComponent<EnemyBase>() != null)
             {
@@ -115,12 +115,12 @@ public class CrosshairController : MonoBehaviour {
 
                 FindNearestEnemy();
             }
-        }
+        }*/
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
+        /*if(collision.tag == "Enemy")
         {
             if (collision.gameObject.GetComponent<EnemyBase>() != null)
             {
@@ -131,6 +131,6 @@ public class CrosshairController : MonoBehaviour {
                     InputManager.Instance.SetIsFreeAim(true);
                 }
             }
-        }
+        }*/
     }
 }

@@ -220,7 +220,7 @@ public class InputManager : MonoBehaviour {
 
         SetMoveDir(dir);
 
-        if (isFreeAim) SetShootDir(dir);
+        SetShootDir(dir);
         
         #region //Implementing minimum drag distance
         /*if (Mathf.Abs(direction.x) >= minDragDist ||
