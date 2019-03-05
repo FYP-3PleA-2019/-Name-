@@ -12,16 +12,18 @@ public class CrosshairController : MonoBehaviour {
     public float fadeRange; //default = 0.05f;
     
     private SpriteRenderer sprite;
+    public List<GameObject> enemyList;
     #endregion
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        enemyList = new List<GameObject>();
     }
 
     private void Start()
     {
-        //Reset();
+
     }
 
     public void Reset()
@@ -42,6 +44,37 @@ public class CrosshairController : MonoBehaviour {
         transform.position = movePos;
         //transform.position = Vector3.MoveTowards(transform.position , movePos, 1.5f); // Method 1
         //transform.Translate(playerPos + (direction * offset)); //Method 2
+    }
+
+    public void FindNearestEnemy()
+    {
+        int index = 0;
+        float distance = int.MaxValue;
+
+        for(int i = 0; i < enemyList.Count; i++)
+        {
+            float tempDistance = Vector3.Distance(GameManager.Instance.player.transform.position, enemyList[i].transform.position);
+
+            if(tempDistance < distance)
+            {
+                index = i;
+                distance = tempDistance;
+            }
+        }
+
+        CalculateDistance(enemyList[index].transform.position);
+        InputManager.Instance.SetIsFreeAim(false);
+    }
+
+    void CalculateDistance(Vector3 enemyPos)
+    {
+        Vector3 playerPos = GameManager.Instance.player.transform.position;
+
+        Vector3 dir = enemyPos - playerPos;
+
+        dir.Normalize();
+
+        InputManager.Instance.SetShootDir(dir);
     }
 
     public void IncreaseAlpha()
@@ -69,6 +102,35 @@ public class CrosshairController : MonoBehaviour {
             newColor.a = i;
             sprite.color = newColor;
             yield return new WaitForSeconds(fadeRange);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            if(collision.gameObject.GetComponent<EnemyBase>() != null)
+            {
+                enemyList.Add(collision.gameObject);
+
+                FindNearestEnemy();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            if (collision.gameObject.GetComponent<EnemyBase>() != null)
+            {
+                enemyList.Remove(collision.gameObject);
+
+                if(enemyList.Count <= 0)
+                {
+                    InputManager.Instance.SetIsFreeAim(true);
+                }
+            }
         }
     }
 }

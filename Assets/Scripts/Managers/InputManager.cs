@@ -57,6 +57,8 @@ public class InputManager : MonoBehaviour {
     private bool isMoving;
     private bool isShooting;
     private bool hasInteracted;
+
+    private bool isFreeAim;
     #endregion
 
     void Awake()
@@ -70,7 +72,7 @@ public class InputManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        isFreeAim = true;
     }
 
     // -------------------------------- Setters --------------------------------
@@ -217,7 +219,8 @@ public class InputManager : MonoBehaviour {
         dir.Normalize();
 
         SetMoveDir(dir);
-        SetShootDir(dir);
+
+        if (isFreeAim) SetShootDir(dir);
         
         #region //Implementing minimum drag distance
         /*if (Mathf.Abs(direction.x) >= minDragDist ||
@@ -233,5 +236,15 @@ public class InputManager : MonoBehaviour {
                 PlayerInputManager.Instance.SetMoving(false);
         }*/
         #endregion
+    }
+
+    public void SetIsFreeAim(bool isFreeAim)
+    {
+        this.isFreeAim = isFreeAim;
+    }
+
+    public bool GetIsFreeAim()
+    {
+        return isFreeAim;
     }
 }
