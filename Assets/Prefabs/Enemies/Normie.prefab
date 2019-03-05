@@ -49,8 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 0
-  _animator: {fileID: 0}
-  target: {fileID: 0}
   health: 3
   moveSpeed: 1
   wanderRange: 5
