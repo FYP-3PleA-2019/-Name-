@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     #region General Variables
     [Header("General")]
     public float moveSpeed;
+    protected float damage;
 
     protected Vector3 shootDir;
     #endregion
@@ -26,5 +27,19 @@ public class Projectile : MonoBehaviour
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
+    }
+
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Enemy")
+        {
+            other.GetComponent<EnemyBase>().ReceiveDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }

@@ -36,6 +36,11 @@ public class Weapon : MonoBehaviour
         return projectile;
     }
 
+    public float GetDamage()
+    {
+        return damage;
+    }
+
     // -------------------------------- Checkers --------------------------------
 
 

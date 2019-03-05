@@ -31,18 +31,6 @@ public class MainMenuController : MonoBehaviour
         }
         else mainMenuCanvas.SetActive(false);
     }
-    
-    void Update ()
-    {
-        /*if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
-        {
-            if (animators[animators.Count - 1].GetCurrentAnimatorStateInfo(0).IsName("Tap-To-Start Blinking"))
-            {
-                if (Input.GetMouseButtonDown(0))
-                    StartCoroutine("StartGame");
-            }
-        }*/
-    }
     #endregion
 
     #region Custom Functions

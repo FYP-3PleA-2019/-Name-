@@ -19,7 +19,7 @@ public class EnemyBase : MonoBehaviour
     private Transform target;
     private Transform currTarget;
 
-    public int health;
+    public float health;
     public float moveSpeed;
     public float wanderRange;
 
@@ -208,7 +208,7 @@ public class EnemyBase : MonoBehaviour
     #endregion
 
     #region Tools Functions
-    public void ReceiveDamage(int damage)
+    public void ReceiveDamage(float damage)
     {
         if(health > 0)
             health -= damage;

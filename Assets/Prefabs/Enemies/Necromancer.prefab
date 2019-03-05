@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3791642648634460313}
   m_Layer: 0
   m_Name: Necromancer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,8 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 0
-  _animator: {fileID: 3791642648634460313}
-  target: {fileID: 0}
   health: 2
   moveSpeed: 1
   wanderRange: 10

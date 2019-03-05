@@ -357,6 +357,18 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 2054748546992100977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1674530017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4312728429885501799, guid: 752149e9c4c0b5e41a333aa1f7fc0026,
+    type: 3}
+  m_PrefabInstance: {fileID: 2054748546992100977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1752244065
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,8 +399,8 @@ Transform:
   - {fileID: 1810973426}
   - {fileID: 2054748546992100978}
   - {fileID: 1044632374}
-  - {fileID: 3396620112414255848}
   - {fileID: 9155490083443870327}
+  - {fileID: 3396620112414255848}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -691,11 +703,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreditsCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 2054748547812079236, guid: 752149e9c4c0b5e41a333aa1f7fc0026,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2054748547812079240, guid: 752149e9c4c0b5e41a333aa1f7fc0026,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -907,6 +914,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
+      propertyPath: panelImage
+      value: 
+      objectReference: {fileID: 1674530017}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
       propertyPath: openCreditAnimators.Array.data[0]
       value: 
       objectReference: {fileID: 1542937440}
@@ -915,6 +927,16 @@ PrefabInstance:
       propertyPath: closeCreditAnimators.Array.data[0]
       value: 
       objectReference: {fileID: 1542937440}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
+      propertyPath: blurSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
+      propertyPath: blurDuration
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2812344713375076888, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -968,11 +990,6 @@ PrefabInstance:
     - target: {fileID: 2812344713375076888, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812344713375076889, guid: dbf42b59cde66b94bbed3c28786c0cef,
-        type: 3}
-      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1033,7 +1050,7 @@ PrefabInstance:
     - target: {fileID: 9155490083443870327, guid: d1a2774a7246e354ab7e409a96466f6e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9155490083443870327, guid: d1a2774a7246e354ab7e409a96466f6e,
         type: 3}

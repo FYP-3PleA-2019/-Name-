@@ -93,6 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b17fd2065edc24f9bfefdf4c4bf81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panelImage: {fileID: 0}
+  startingColor: {r: 1, g: 1, b: 1, a: 1}
+  targetColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0}
+  blurSize: 5
+  blurDuration: 0.4
   openCreditAnimators:
   - {fileID: 0}
   openCreditStrings:

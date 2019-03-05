@@ -108,7 +108,8 @@ public class WeaponController : MonoBehaviour
 
         while(InputManager.Instance.IsShooting())
         {
-            Instantiate(projectile, shootPoint.position, transform.rotation);
+            Projectile bullet = Instantiate(projectile, shootPoint.position, transform.rotation).GetComponent<Projectile>();
+            bullet.SetDamage(currWeapon.GetDamage());
             yield return new WaitForSeconds(fireRate);
         }
     }
