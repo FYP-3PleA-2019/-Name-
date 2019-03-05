@@ -10,17 +10,17 @@ PrefabInstance:
     - target: {fileID: 5028686205158572024, guid: eb66a3c743f36544aa6472006a285abe,
         type: 3}
       propertyPath: m_Name
-      value: PortalToShop
+      value: PortalToShop Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6466996965430395135, guid: eb66a3c743f36544aa6472006a285abe,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6466996965430395135, guid: eb66a3c743f36544aa6472006a285abe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.61
+      value: -11.290001
       objectReference: {fileID: 0}
     - target: {fileID: 6466996965430395135, guid: eb66a3c743f36544aa6472006a285abe,
         type: 3}
@@ -74,14 +74,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5028686205158572026, guid: eb66a3c743f36544aa6472006a285abe,
         type: 3}
-      propertyPath: gatewayTo
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028686205158572026, guid: eb66a3c743f36544aa6472006a285abe,
-        type: 3}
       propertyPath: indicator
       value: 
       objectReference: {fileID: 7916014527717664480}
+    - target: {fileID: 5028686205158572026, guid: eb66a3c743f36544aa6472006a285abe,
+        type: 3}
+      propertyPath: gatewayTo
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb66a3c743f36544aa6472006a285abe, type: 3}
 --- !u!1 &7916014527717664480 stripped

@@ -35,6 +35,8 @@ public class CreditScript : MonoBehaviour
     {
         AnimationController.Instance.OpenPopUpOneShot(openCreditAnimators, openCreditStrings, ref isOpen);
         StartCoroutine(StartBlur());
+
+        UIManager.Instance.controlUI.HideCanvas();
     }
 
     IEnumerator StartBlur()
@@ -70,6 +72,8 @@ public class CreditScript : MonoBehaviour
     {
         AnimationController.Instance.ClosePopUpOneShot(closeCreditAnimators, closeCreditStrings, ref isOpen);
         StartCoroutine(EndBlur());
+
+        UIManager.Instance.controlUI.ShowCanvas();
     }
 
     void ResetBlur()
