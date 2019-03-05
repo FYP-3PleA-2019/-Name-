@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //Reset();
+
     }
 
     // -------------------------------- Setters --------------------------------

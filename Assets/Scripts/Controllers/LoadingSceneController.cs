@@ -6,6 +6,8 @@ public class LoadingSceneController : MonoBehaviour
 {
     private IEnumerator Start()
     {
+        UIManager.Instance.controlUI.HideCanvas();
+
         while(!GameManager.Instance.GetIsReady())
         {
             yield return null;

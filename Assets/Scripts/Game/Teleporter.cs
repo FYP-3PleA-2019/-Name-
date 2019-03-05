@@ -3,38 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Teleporter : MonoBehaviour
+public class Teleporter : MonoBehaviour, ISubject
 {
-    private Animator _animator;
-    private Transform target;
+    #region observer
+    public void Notify(NOTIFY_TYPE type)
+    {
+        for (int i = 0; i < UIManager.Instance.registeredObserver.Count; i++)
+        {
+            UIManager.Instance.registeredObserver[i].OnNotify(type);
+        }
+    }
+    #endregion
 
-    //public Transform connectedTeleporter;
-    public GameObject indicator;
+    #region General Variables
+    [Header("General")]
+    public bool isActivated;
+    public bool interactable;
+
     public string indicatorText;
+
+    public GameObject indicator;
+    public Transform connectedTeleporter;
+    public GAME_SCENE gatewayTo;
+
+    private Animator _animator;
+    #endregion
+
+    private void Awake()
+    {
+        if (_animator == null)
+            _animator = gameObject.GetComponent<Animator>();
+
+        indicator.GetComponentInChildren<Text>().text = indicatorText;
+    }
 
     private void Start()
     {
-        if(_animator == null)
-            _animator = gameObject.GetComponent<Animator>();
+        UIManager.Instance.RegisterSubject(this);
 
-        if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
-        indicator.GetComponentInChildren<Text>().text = indicatorText;
         indicator.SetActive(false);
     }
 
-    private void Update()
+    // -------------------------------- Functions --------------------------------
+    
+    IEnumerator WaitForInteract()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Interacted();
+        while(!InputManager.Instance.HasInteracted())
+        {
+            yield return null;
+        }
+
+        InputManager.Instance.SetHasInteracted(false);
+        Interacted();
     }
 
-    public void Interacted()
+    void TeleportPlayer()
     {
+        GameManager.Instance.player.transform.position = connectedTeleporter.transform.position;
+    }
+
+    void Interacted()
+    {
+        Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
+        StopCoroutine("WaitForInteract");
+
         _animator.SetTrigger("Interacted");
         StartCoroutine(DisableUI());
-        //ChangeScene();
+        CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 0.5f);
     }
 
     void EnableUI()
@@ -49,23 +84,22 @@ public class Teleporter : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         indicator.SetActive(false);
     }
-
-    //void TeleportObject(GameObject obj)
-    //{
-    //    obj.transform.position = connectedTeleporter.transform.position;
-    //}
-
-    void ChangeScene(/*Scene*/)
-    {
-        //Change scene via SceneManager
-    }
-
+    
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && isActivated)
         {
             EnableUI();
-            //Call player interact button
+
+            if (interactable)
+            {
+                Notify(NOTIFY_TYPE.UI_INTERACT_BUTTON);
+                StartCoroutine("WaitForInteract");
+            }
+            else
+            {
+                TeleportPlayer();
+            }
         }
     }
 
@@ -74,7 +108,12 @@ public class Teleporter : MonoBehaviour
         if (other.tag == "Player")
         {
             StartCoroutine(DisableUI());
-            //Call player interact button
+
+            if (interactable)
+            {
+                Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
+                StopCoroutine("WaitForInteract");
+            }
         }
     }
 }

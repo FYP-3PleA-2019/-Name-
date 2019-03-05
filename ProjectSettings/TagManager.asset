@@ -15,6 +15,7 @@ TagManager:
   - MainMenuController
   - LobbySceneController
   - GameSceneController
+  - UIManager
   layers:
   - Default
   - TransparentFX

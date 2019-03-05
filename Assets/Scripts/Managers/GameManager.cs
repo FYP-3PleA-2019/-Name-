@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour {
     public void Reset()
     {
         InputManager.Instance.Reset();
+        UIManager.Instance.Reset();
         player.Reset();
     }
 

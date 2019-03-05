@@ -83,7 +83,7 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void Reset()
     {
         joystick.transform.position = new Vector3(touchPoint.x, touchPoint.y, joystick.transform.position.z);
-        HideJoystick();
+        //HideJoystick();
     }
 
     public void ShowJoystick()
