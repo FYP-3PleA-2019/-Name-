@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3698915390148449775, guid: 4e305813c0306d442b397bd2ed40f3e3,
         type: 3}
       propertyPath: m_Name
-      value: PortalToGame
+      value: PortalToGame Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3396620112414255848, guid: 4e305813c0306d442b397bd2ed40f3e3,
         type: 3}
@@ -72,6 +72,26 @@ PrefabInstance:
       propertyPath: indicator
       value: 
       objectReference: {fileID: 5434406061974744168}
+    - target: {fileID: 270263145863103393, guid: 4e305813c0306d442b397bd2ed40f3e3,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1630905471
+      objectReference: {fileID: 0}
+    - target: {fileID: 270263145863103393, guid: 4e305813c0306d442b397bd2ed40f3e3,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538660371191476091, guid: 4e305813c0306d442b397bd2ed40f3e3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538660371191476091, guid: 4e305813c0306d442b397bd2ed40f3e3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e305813c0306d442b397bd2ed40f3e3, type: 3}
 --- !u!1 &5434406061974744168 stripped

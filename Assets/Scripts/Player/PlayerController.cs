@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-        //Reset();
+
     }
 
     private void Update()
@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour {
     public void GetDamage(float damage)
     {
         currHealth -= damage;
+
         if (currHealth <= 0)
         {
             
@@ -84,6 +85,8 @@ public class PlayerController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Room")
+        {
             RoomManager.Instance.EnteredRoomChecker(other.gameObject);
+        }
     }
 }

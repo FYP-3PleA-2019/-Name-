@@ -23,6 +23,8 @@ public class CreditScript : MonoBehaviour
     private void OnMouseDown()
     {
         AnimationController.Instance.OpenPopUpOneShot(openCreditAnimators, openCreditStrings, ref isOpen);
+
+        UIManager.Instance.controlUI.HideCanvas();
     }
     #endregion
 
@@ -30,6 +32,8 @@ public class CreditScript : MonoBehaviour
     public void CloseCredits()
     {
         AnimationController.Instance.ClosePopUpOneShot(closeCreditAnimators, closeCreditStrings, ref isOpen);
+
+        UIManager.Instance.controlUI.ShowCanvas();
     }
     #endregion
 }

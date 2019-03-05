@@ -52,7 +52,9 @@ public class CustomSceneManager : MonoBehaviour
     }
 
     #region Scene Variables
-    //[Header("Scene")]
+    [Header("Scene")]
+    private GAME_SCENE currScene;
+    private GAME_SCENE prevScene;
     #endregion
 
     void Awake()
@@ -63,8 +65,31 @@ public class CustomSceneManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        currScene = GAME_SCENE.LOADING_SCENE;
+        prevScene = currScene;
+    }
+
+    // -------------------------------- Getters --------------------------------
+
+    public GAME_SCENE GetCurrScene()
+    {
+        return currScene;
+    }
+
+    public GAME_SCENE GetPrevScene()
+    {
+        return prevScene;
+    }
+
+    // -------------------------------- Functions --------------------------------
+
     public void LoadScene(GAME_SCENE scene)
     {
+        prevScene = currScene;
+        currScene = scene;
+
         InputManager.Instance.Reset();
         GameManager.Instance.player.Reset();
 
@@ -80,6 +105,9 @@ public class CustomSceneManager : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         
+        prevScene = currScene;
+        currScene = scene;
+
         InputManager.Instance.Reset();
         GameManager.Instance.player.Reset();
 
