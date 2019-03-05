@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectableRoomTypes:
   - {fileID: 11400000, guid: 0727b38f0a82c0c4eb6356f16d9368fd, type: 2}
-  - {fileID: 11400000}
   roomVariations:
   - {fileID: 8119908902821541778, guid: bc275c95b3a4f424bb33c3117bb657f2, type: 3}
