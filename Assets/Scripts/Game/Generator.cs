@@ -11,9 +11,7 @@ public enum GeneratorType
 public class Generator : MonoBehaviour
 {
     #region Control-able GameObjects
-    [Space(3)]
-    [Header("Manipulate-able GameObjects")]
-    public GameObject movingPlatform;
+    private MovingPlatform _movingPlatform;
     #endregion
 
     #region Generator Components
@@ -28,15 +26,35 @@ public class Generator : MonoBehaviour
     public GeneratorType _generatorType;
     #endregion
 
+    #region Unity Functions
     private void Start()
     {
         _animator = GetComponent<Animator>(); // Setting Generator's Animator Component
+
+        if(_generatorType == GeneratorType.MovePlatform)
+        {
+            _movingPlatform = transform.parent.gameObject.GetComponent<MovingPlatform>();
+        }
     }
 
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //Just for testing purposes
+        if(other.tag == "Bullet")
+        {
+            Destroy(other.gameObject);
             InitiateGeneratorFunction();
+        }
+    }
+    #endregion
+
+    #region Custom Functions
+    public void SetGeneratorType(int type)
+    {
+        if (type == 0)
+            _generatorType = GeneratorType.MovePlatform;
+
+        else
+            _generatorType = GeneratorType.SpawnBridge;
     }
 
     public void InitiateGeneratorFunction()
@@ -45,9 +63,13 @@ public class Generator : MonoBehaviour
 
         //Executes mechanic based on [Generator Type]
         if (_generatorType == GeneratorType.MovePlatform)
-            Debug.Log("Moving Platform!");
+        {
+            if (_movingPlatform.isGrounded && !_movingPlatform.isMoving)
+                _movingPlatform.SetMoveTarget(_movingPlatform.moveRange);
+        }
 
         else if (_generatorType == GeneratorType.SpawnBridge)
             Debug.Log("Spawning Bridge!");
     }
+    #endregion 
 }

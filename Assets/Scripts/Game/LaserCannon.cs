@@ -10,6 +10,14 @@ public enum LaserCannonState
     Shooting
 }
 
+public enum ShootDirection
+{
+    Up,
+    Down,
+    Left,
+    Right
+}
+
 public class LaserCannon : MonoBehaviour
 {
     #region GameObject References
@@ -18,7 +26,7 @@ public class LaserCannon : MonoBehaviour
     protected Animator _animator;
     #endregion 
 
-    #region Componenet's Variables
+    #region Component's Variables
     [Header("Component's Variables")]
     //Timers
     public float activeRange;
@@ -31,15 +39,16 @@ public class LaserCannon : MonoBehaviour
 
     [Space(3)]
     [Header("Attacking Variables")]
+    public LayerMask attackLayer;
     public Transform attackPoint;
     public float attackRange;
+    
+    public float rotationSpeed;
 
     private RaycastHit2D hitInfo;
 
-    [Tooltip("0 = Up, 1 = Down, 2 = Left, 3 = Right")]
-    public int attackDir;
-
     public LaserCannonState state;
+    public ShootDirection _shootDirection;
     #endregion
 
     #region Unity Functions
@@ -49,8 +58,6 @@ public class LaserCannon : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>(); //Assigning animator
 
         state = LaserCannonState.Idle; //Set beginning state to Idle
-
-        SetLineRendererDirection();
 
         ResetTimers();
         ResetChildComponents();
@@ -85,6 +92,7 @@ public class LaserCannon : MonoBehaviour
     #region Laser Cannon Behaviour
     void Idle()
     {
+        ResetAllAnimationTriggers();
         float distanceToTarget = Vector2.Distance(gameObject.transform.position, target.transform.position); //Calculate distance to target
 
         if (distanceToTarget <= activeRange) //If target is within range, state = active
@@ -93,7 +101,9 @@ public class LaserCannon : MonoBehaviour
 
     void Active()
     {
-        // _animator.SetTrigger("Active"); //Play Activate animation
+         _animator.SetTrigger("Activate"); //Play Activate animation
+
+        FaceTarget();
 
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0.0f)
@@ -102,7 +112,7 @@ public class LaserCannon : MonoBehaviour
 
     void Charging()
     {
-        //_animator.SetTrigger("Charging"); //Play Charging animation
+        _animator.SetTrigger("Charge"); //Play Charging animation
 
         chargingTimer -= Time.deltaTime;
         if (chargingTimer <= 0.0f)
@@ -114,11 +124,14 @@ public class LaserCannon : MonoBehaviour
 
     void Shooting()
     {
-        //_animator.SetTrigger("Shooting"); //Play Shooting animation
+        _animator.SetTrigger("Shoot"); //Play Shooting animation
         
         shootTimer -= Time.deltaTime;
+
+        SetLineRendererDirection(transform.right);
+
         //Raycast
-        hitInfo = Physics2D.Raycast(attackPoint.position, AssignDirection(attackPoint), attackRange);
+        hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange, attackLayer);
 
         if (hitInfo.collider != null)
         {
@@ -128,6 +141,7 @@ public class LaserCannon : MonoBehaviour
 
         if(shootTimer <= 0.0f)
         {
+            _animator.SetTrigger("Deactivate"); //Play deactivate animation after finish shooting
             ResetTimers();
             ResetChildComponents();
             state = LaserCannonState.Idle;
@@ -136,6 +150,34 @@ public class LaserCannon : MonoBehaviour
     #endregion
 
     #region Custom Functions
+    Vector3 ReturnShootDirection()
+    {
+        Vector3 tempDir;
+
+        if (_shootDirection == ShootDirection.Up)
+            tempDir = new Vector3(transform.position.x, transform.position.y + attackRange, 0.0f);
+
+        else if(_shootDirection == ShootDirection.Down)
+            tempDir = new Vector3(transform.position.x, transform.position.y - attackRange, 0.0f);
+
+        else if(_shootDirection == ShootDirection.Left)
+            tempDir = new Vector3(transform.position.x - attackRange, transform.position.y, 0.0f);
+
+        else
+            tempDir = new Vector3(transform.position.x + attackRange, transform.position.y, 0.0f);
+
+        return tempDir;
+    }
+
+    void FaceTarget()
+    {
+        Vector3 direction = ReturnShootDirection() - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
+    }
+
+
     public void ResetTimers()
     {
         //Setting all timers to default value
@@ -144,34 +186,23 @@ public class LaserCannon : MonoBehaviour
         shootTimer = shootDuration;
     }
 
+    public void ResetAllAnimationTriggers()
+    {
+        _animator.ResetTrigger("Activate");
+        _animator.ResetTrigger("Charge");
+        _animator.ResetTrigger("Shoot");
+        _animator.ResetTrigger("Deactivate");
+    }
+
     public void ResetChildComponents()
     {
         laserRenderer.enabled = false;
     }
 
-    public void SetLineRendererDirection()
+    public void SetLineRendererDirection(Vector3 direction)
     {
         laserRenderer.SetPosition(0, attackPoint.position);
-        laserRenderer.SetPosition(1, attackPoint.position + AssignDirection(attackPoint) * attackRange);
-    }
-
-    public Vector3 AssignDirection(Transform attackPos)
-    {
-        Vector3 tempDir = new Vector3(0.0f, 0.0f, 0.0f);
-
-        if (attackDir == 0) //Up
-            tempDir = attackPos.up;
-
-        else if (attackDir == 1) //Down
-            tempDir = -attackPos.up;
-
-        else if (attackDir == 2) //Left
-            tempDir = -attackPos.right;
-
-        else //Right
-            tempDir = attackPos.right;
-
-        return tempDir;
+        laserRenderer.SetPosition(1, attackPoint.position + direction * attackRange);
     }
     #endregion 
 }

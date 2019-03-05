@@ -8,13 +8,14 @@ TagManager:
   - InputManager
   - AnimationController
   - RoomManager
-  - IcePlatform
   - Room
   - LoadingSceneController
   - CustomSceneManager
   - MainMenuController
   - LobbySceneController
   - GameSceneController
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 

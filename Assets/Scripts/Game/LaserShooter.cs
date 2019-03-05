@@ -8,7 +8,8 @@ public enum LaserShooterState
     Active,
     Aiming,
     Charging,
-    Shooting
+    Shooting,
+    Post_Shoot
 }
 
 public class LaserShooter : MonoBehaviour
@@ -36,6 +37,7 @@ public class LaserShooter : MonoBehaviour
 
     [Space(3)]
     [Header("Attacking Variables")]
+    public LayerMask attackLayer;
     public Transform attackPoint;
     public float attackRange;
 
@@ -86,6 +88,10 @@ public class LaserShooter : MonoBehaviour
                 Shooting();
                 break;
 
+            case LaserShooterState.Post_Shoot:
+                PostShoot();
+                break;
+
             default:
                 Idle();
                 break;
@@ -96,6 +102,8 @@ public class LaserShooter : MonoBehaviour
     #region Laser Shooter Behaviour
     void Idle()
     {
+        ResetAllAnimationTriggers();
+
         cooldownTimer -= Time.deltaTime;
         float distanceToTarget = Vector2.Distance(gameObject.transform.position, target.transform.position); //Calculate distance to target
 
@@ -105,7 +113,7 @@ public class LaserShooter : MonoBehaviour
 
     void Active()
     {
-        // _animator.SetTrigger("Activate"); //Play Activate animation
+        _animator.SetTrigger("Activate"); //Play Activate animation
 
         activeTimer -= Time.deltaTime;
         if (activeTimer <= 0.0f)
@@ -131,7 +139,7 @@ public class LaserShooter : MonoBehaviour
         SetLineRendererDirection(transform.right);
 
         //Raycast
-        hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange);
+        hitInfo = Physics2D.Raycast(attackPoint.position, transform.right, attackRange, attackLayer);
         if(hitInfo.collider != null)
         {
             if (hitInfo.collider.tag == "Player")
@@ -144,7 +152,7 @@ public class LaserShooter : MonoBehaviour
 
     void Charging()
     {
-        //_animator.SetTrigger("Charging"); //Play Charging animation
+        _animator.SetTrigger("Charge"); //Play Charging animation
 
         currentColor.g -= colorHolder.x / (chargingDuration / Time.deltaTime);
         currentColor.b -= colorHolder.y / (chargingDuration / Time.deltaTime);
@@ -161,7 +169,7 @@ public class LaserShooter : MonoBehaviour
 
     void Shooting()
     {
-        //_animator.SetTrigger("Shooting"); //Play Shooting animation
+        _animator.SetTrigger("Shoot"); //Play Shooting animation
 
         GameObject laser = Instantiate(laserProjectile, attackPoint.position, transform.rotation);
         laser.GetComponent<EnemyBullet>().SetShootDirection(GetShootDirection());
@@ -169,11 +177,15 @@ public class LaserShooter : MonoBehaviour
         ResetTimers();
         ResetChildComponents();
 
-        //_animator.SetTrigger("Deactivate"); //Play Deactivate animation
+        state = LaserShooterState.Post_Shoot;
+    }
+
+    void PostShoot()
+    {
+        _animator.SetTrigger("Deactivate"); //Play Deactivate animation
 
         state = LaserShooterState.Idle;
     }
-
     #endregion
 
     #region Custom Functions
@@ -203,6 +215,14 @@ public class LaserShooter : MonoBehaviour
     {
         laserRenderer.SetPosition(0, attackPoint.position);
         laserRenderer.SetPosition(1, attackPoint.position + direction * attackRange);
+    }
+
+    public void ResetAllAnimationTriggers()
+    {
+        _animator.ResetTrigger("Activate");
+        _animator.ResetTrigger("Charge");
+        _animator.ResetTrigger("Shoot");
+        _animator.ResetTrigger("Deactivate");
     }
 
     public void ResetTimers()

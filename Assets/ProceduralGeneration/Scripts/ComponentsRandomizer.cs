@@ -50,7 +50,7 @@ public class ComponentsRandomizer : MonoBehaviour
             int rand = Random.Range(0, objects.Count);
             Vector3 sp = spawnPoints[i].transform.position;
 
-            GameObject GO = Instantiate(objects[rand], sp, Quaternion.identity) as GameObject;
+            GameObject GO = Instantiate(objects[rand], sp, Quaternion.identity);
             GO.transform.parent = gameObject.transform; //Set spawned objects as children of the room.
 
             //Remove all spawnpoints from scene to reduce excess Game objects

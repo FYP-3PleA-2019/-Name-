@@ -15,8 +15,8 @@ public class EnemyBase : MonoBehaviour
     #region General Variables
     [Header("General Variables")]
     public CurrentState _currentState;
-    public Animator _animator;
-    public Transform target;
+    private Animator _animator;
+    private Transform target;
     private Transform currTarget;
 
     public int health;
@@ -52,17 +52,9 @@ public class EnemyBase : MonoBehaviour
 
         attackTimer = 0;
 
-        if (target == null) //Automatically sets player as target for this game object if it is not assigned in the inspector
-        {
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            Debug.LogWarning("BEWARE : The [Target] for " + name + " have not been assigned in the inspector! [Player] have been set as " + name + "'s target by default!");
-        }
-
-        if (_animator == null) //Automatically sets animator for this game object if it is not assigned in the inspector
-        {
-            _animator = gameObject.GetComponent<Animator>();
-            Debug.LogWarning("BEWARE : The [Animator] for " + name + " have not been assigned in the inspector!");
-        }
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        
+        _animator = gameObject.GetComponent<Animator>();
 
         attackTimer = attackSpeed;
         currTarget = target; //Setting current target to default target [Player]
@@ -100,7 +92,6 @@ public class EnemyBase : MonoBehaviour
     #region Enemy Behaviour
     public virtual void Spawn()
     {
-        Debug.Log(name + ": Spawn");
         //Spawn Particle Effects
         //Instantiate();
 
@@ -110,7 +101,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Idle()
     {
-        Debug.Log(name + ": Idle");
         //_animator.SetTrigger("Idle"); //Play Idle Animation
 
         idleTimer += Time.deltaTime;
@@ -124,8 +114,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Move()
     {
-        Debug.Log(name + " : Move");
-
         //_animator.SetTrigger("Move"); //Play Move Animation
         //Instantiate() //Spawn Particle effects at feet
 
@@ -182,7 +170,6 @@ public class EnemyBase : MonoBehaviour
 
                 if(randState == 0)
                 {
-                    Debug.Log("Re-Do");
                     idleDuration = Random.Range(minIdleTime, maxIdleTime);
                     _currentState = CurrentState.Idle;
                 }
@@ -192,8 +179,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Attack()
     {
-        Debug.Log(name + ": Attack");
-
         attackTimer = 0; //Reset Attack Timer
 
         //_animator.SetTrigger("Attack"); //Play Attack Animation
@@ -217,7 +202,6 @@ public class EnemyBase : MonoBehaviour
 
         //Spawn Particle Effects and spawn blood stains
         //Instantiate();
-        Debug.Log(name + ": Death");
         //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("DeathAnimationName")) //Check to see if animator is still playing death animation
         Destroy(gameObject);
     }
@@ -234,6 +218,11 @@ public class EnemyBase : MonoBehaviour
             health = 0;
             _currentState = CurrentState.Death;
         }
+    }
+
+    public void FallOffPlatform()
+    {
+        _currentState = CurrentState.Death;
     }
 
     private Vector2 RandomPositionWithinRadius(float radius, Vector2 objectPos)

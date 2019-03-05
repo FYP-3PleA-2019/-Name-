@@ -16,9 +16,9 @@ public class EnemyBullet : Projectile
         shootDir = dir;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerCoreController>().controller.GetDamage(damage);
             Destroy(gameObject);
