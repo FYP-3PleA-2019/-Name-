@@ -180,7 +180,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2812344713871682878}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1662484866}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6b17fd2065edc24f9bfefdf4c4bf81c, type: 3}
@@ -363,6 +363,33 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 2054748546992100977}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1662484866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2812344713375076890, guid: dbf42b59cde66b94bbed3c28786c0cef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2812344713871682878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1662484867
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662484866}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!114 &1674530017 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4312728429885501799, guid: 752149e9c4c0b5e41a333aa1f7fc0026,

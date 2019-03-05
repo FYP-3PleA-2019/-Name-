@@ -382,6 +382,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 85a0a92da705f7e45b0688a55065323b,
         type: 2}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
+      propertyPath: startingRoomTypes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0727b38f0a82c0c4eb6356f16d9368fd,
+        type: 2}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
+      propertyPath: startingRoomTypes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: cebdcdf8803d63e4298e9289a6a2dc8c,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52c4eab269555f4b87544d045e2ddad, type: 3}
 --- !u!1 &1926329800

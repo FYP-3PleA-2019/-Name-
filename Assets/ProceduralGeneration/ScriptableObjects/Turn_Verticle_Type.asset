@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fa70a789c6414459d8be0959e71d1b, type: 3}
   m_Name: Turn_Verticle_Type
   m_EditorClassIdentifier: 
-  connectableRoomTypes: []
-  roomVariations: []
+  connectableRoomTypes:
+  - {fileID: 11400000, guid: 85a0a92da705f7e45b0688a55065323b, type: 2}
+  - {fileID: 11400000, guid: cebdcdf8803d63e4298e9289a6a2dc8c, type: 2}
+  roomVariations:
+  - {fileID: 9055143692944653844, guid: cee9228a81af9f94da0a767f5ba3aed4, type: 3}
