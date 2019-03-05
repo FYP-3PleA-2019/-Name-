@@ -6,13 +6,12 @@ public class LobbySceneController : MonoBehaviour
 {
     #region General
     [Header("Canvas")]
-    public GameObject uiCanvas;
     public GameObject creditsCanvas;
     #endregion
     
     private IEnumerator Start()
     {
-        uiCanvas.SetActive(false);
+        UIManager.Instance.controlUI.HideCanvas();
         creditsCanvas.SetActive(false);
 
         while(GameManager.Instance.GetGameState() != GAME_STATE.LOBBY)
@@ -20,7 +19,7 @@ public class LobbySceneController : MonoBehaviour
             yield return null;
         }
 
-        uiCanvas.SetActive(true);
+        UIManager.Instance.controlUI.ShowCanvas();
         creditsCanvas.SetActive(true);
     }
 }

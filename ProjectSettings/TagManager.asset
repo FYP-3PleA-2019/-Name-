@@ -16,6 +16,7 @@ TagManager:
   - GameSceneController
   - Enemy
   - Bullet
+  - UIManager
   layers:
   - Default
   - TransparentFX

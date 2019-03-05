@@ -4,52 +4,92 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MainButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class MainButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IObserver
 {
+    enum BUTTON_TYPE
+    {
+        SHOOT,
+        INTERACT,
+    };
+
     #region General Variables
     [Header("General")]
-    public Sprite frame_shaded;
-
+    public Sprite frame_onHold;
+    public Sprite icon_shoot;
+    public Sprite icon_interact;
+    
     private Image frame;
+    private Image icon;
     private Sprite frame_default;
+
+    private BUTTON_TYPE buttonType;
     #endregion
 
     private void Awake()
     {
         frame = GetComponentsInChildren<Image>()[0];
+        icon = GetComponentsInChildren<Image>()[1];
     }
 
     // Use this for initialization
     void Start()
     {
+        UIManager.Instance.RegisterObserver(this);
+
         frame_default = frame.sprite;
+
+        buttonType = BUTTON_TYPE.SHOOT;
     }
 
     // -------------------------------- Pointers --------------------------------
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        ChangeSpr(frame_shaded);
+        frame.sprite = frame_onHold;
 
-        InputManager.Instance.SetIsShooting(true);
+        if (buttonType == BUTTON_TYPE.SHOOT)
+            InputManager.Instance.SetIsShooting(true);
+
+        else
+            InputManager.Instance.SetHasInteracted(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        ChangeSpr(frame_default);
+        frame.sprite = frame_default;
 
-        InputManager.Instance.SetIsShooting(false);
+        if (buttonType == BUTTON_TYPE.SHOOT)
+            InputManager.Instance.SetIsShooting(false);
+
+        else
+            InputManager.Instance.SetHasInteracted(false);
     }
 
     // -------------------------------- Functions --------------------------------
 
     public void Reset()
     {
-
+        buttonType = BUTTON_TYPE.SHOOT;
+        frame.sprite = frame_default;
+        SwitchIcon(icon_shoot);
     }
 
-    void ChangeSpr(Sprite newSpr)
+    public void SwitchIcon(Sprite sprite)
     {
-        frame.sprite = newSpr;
+        icon.sprite = sprite;
+    }
+
+    public void OnNotify(NOTIFY_TYPE type)
+    {
+        if (type == NOTIFY_TYPE.UI_SHOOT_BUTTON)
+        {
+            SwitchIcon(icon_shoot);
+            buttonType = BUTTON_TYPE.SHOOT;
+        }
+        else if(type == NOTIFY_TYPE.UI_INTERACT_BUTTON)
+        {
+            SwitchIcon(icon_interact);
+            buttonType = BUTTON_TYPE.INTERACT;
+        }
     }
 }
