@@ -8,7 +8,17 @@ using UnityEngine;
 //    RISK
 //}
 
-public class ChestDrops : MonoBehaviour {
+public class ChestDrops : MonoBehaviour, ISubject {
+
+    #region Observer
+    public void Notify(NOTIFY_TYPE type)
+    {
+        for (int i = 0; i < UIManager.Instance.registeredObserver.Count; i++)
+        {
+            UIManager.Instance.registeredObserver[i].OnNotify(type);
+        }
+    }
+    #endregion
 
     #region Variables
     [System.Serializable]
@@ -20,6 +30,7 @@ public class ChestDrops : MonoBehaviour {
     }
 
     public List<itemPool> itemList = new List<itemPool>();
+    public float waitDuration;
     private Animator _animator;
     private bool chestOpened;
     //public ChestType chestType;
@@ -28,21 +39,48 @@ public class ChestDrops : MonoBehaviour {
     #region Unity Functions
     private void Start()
     {
+        UIManager.Instance.RegisterSubject(this);
         chestOpened = false;
         _animator = gameObject.GetComponent<Animator>();
     }
-
-    // Update is called once per frame
-    void Update () {
-        //Test purposes
-		if(Input.GetKeyDown(KeyCode.E))
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player")
         {
-            dropProb();
+            Notify(NOTIFY_TYPE.UI_INTERACT_BUTTON);
+
+            StartCoroutine(WaitForInteract());
         }
-	}
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
+        }
+    }
     #endregion
 
     #region Custom Functions
+    IEnumerator WaitForInteract()
+    {
+        while (!InputManager.Instance.HasInteracted())
+        {
+            yield return null;
+        }
+
+        InputManager.Instance.SetHasInteracted(false);
+        dropProb();
+    }
+
+    IEnumerator WaitToSpawn()
+    {
+        yield return new WaitForSeconds(waitDuration);
+        SpawnObject();
+    }
+
     public void dropProb()
     {
         if(chestOpened)
@@ -54,19 +92,23 @@ public class ChestDrops : MonoBehaviour {
         chestOpened = true;
         _animator.SetTrigger("Interact");
 
+        StartCoroutine(WaitToSpawn());
+    }
+
+    void SpawnObject()
+    {
         int dropRarity = 0;
 
-        for(int i = 0; i < itemList.Count; i++)
+        for (int i = 0; i < itemList.Count; i++)
         {
             dropRarity += itemList[i].itemRarity;
-
         }
 
         int randVal = Random.Range(0, dropRarity);
 
-        for(int j = 0; j < itemList.Count; j++)
+        for (int j = 0; j < itemList.Count; j++)
         {
-            if(randVal <= itemList[j].itemRarity)
+            if (randVal <= itemList[j].itemRarity)
             {
                 Instantiate(itemList[j].dropItems, transform.position, Quaternion.identity);
                 return;
