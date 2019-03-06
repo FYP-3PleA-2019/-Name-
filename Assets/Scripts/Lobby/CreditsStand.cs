@@ -16,8 +16,6 @@ public class CreditsStand : MonoBehaviour, ISubject
 
     //Bluring Variables
     public Image panelImage;
-    public Color startingColor;
-    public Color targetColor;
     public float blurSize;
     public float blurDuration;
 
@@ -42,6 +40,7 @@ public class CreditsStand : MonoBehaviour, ISubject
 
     private void Start()
     {
+        panelImage.enabled = false;
         indicator.SetActive(false);
         isOpen = false;
         ResetBlur();
@@ -85,6 +84,7 @@ public class CreditsStand : MonoBehaviour, ISubject
         StartCoroutine(StartBlur());
 
         UIManager.Instance.controlUI.HideCanvas();
+        panelImage.enabled = true;
     }
 
     public void CloseCredits()
@@ -97,7 +97,6 @@ public class CreditsStand : MonoBehaviour, ISubject
 
     void ResetBlur()
     {
-        panelImage.material.SetColor("_Color", startingColor);
         panelImage.material.SetFloat("_Size", 0.0f);
     }
 
@@ -126,6 +125,7 @@ public class CreditsStand : MonoBehaviour, ISubject
             currBlurSize = panelImage.material.GetFloat("_Size"); ;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+        panelImage.enabled = false;
     }
 
     void EnableUI()

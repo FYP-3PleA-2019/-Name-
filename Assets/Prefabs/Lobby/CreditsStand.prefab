@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelImage: {fileID: 0}
   startingColor: {r: 1, g: 1, b: 1, a: 1}
-  targetColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0}
+  targetColor: {r: 1, g: 1, b: 1, a: 0}
   blurSize: 5
   blurDuration: 0.4
   openCreditAnimators:
