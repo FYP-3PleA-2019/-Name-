@@ -105,8 +105,7 @@ public class GameManager : MonoBehaviour {
     // -------------------------------- Functions --------------------------------
 
     public void Reset()
-    {
-        Debug.Log("game");
+    { 
         InputManager.Instance.Reset();
         RoomManager.Instance.Reset();
         UIManager.Instance.Reset();

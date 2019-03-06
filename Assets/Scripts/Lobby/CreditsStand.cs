@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreditsStand : MonoBehaviour
+public class CreditsStand : MonoBehaviour, ISubject
 {
+    public void Notify(NOTIFY_TYPE type)
+    {
+        for(int i = 0; i < UIManager.Instance.registeredObserver.Count; i++)
+        {
+            UIManager.Instance.registeredObserver[i].OnNotify(type);
+        }
+    }
     #region Variables
 
     //Bluring Variables
@@ -21,22 +28,77 @@ public class CreditsStand : MonoBehaviour
     public List<Animator> closeCreditAnimators;
     public List<string> closeCreditStrings;
 
+    public GameObject indicator;
+    public string indicatorText;
+
     bool isOpen;
     #endregion
 
     #region Unity Functions
+    void Awake()
+    {
+        indicator.GetComponentInChildren<Text>().text = indicatorText;
+    }
+
     private void Start()
     {
+        indicator.SetActive(false);
         isOpen = false;
         ResetBlur();
     }
 
-    private void OnMouseDown()
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            EnableUI();
+            Notify(NOTIFY_TYPE.UI_INTERACT_BUTTON);
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            if (InputManager.Instance.HasInteracted())
+            {
+                InputManager.Instance.SetHasInteracted(false);
+                OpenCredits();
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            StartCoroutine(DisableUI());
+            Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
+        }
+    }
+    #endregion
+
+    #region Custom Functions
+    void OpenCredits()
     {
         AnimationController.Instance.OpenPopUpOneShot(openCreditAnimators, openCreditStrings, ref isOpen);
         StartCoroutine(StartBlur());
 
         UIManager.Instance.controlUI.HideCanvas();
+    }
+
+    public void CloseCredits()
+    {
+        AnimationController.Instance.ClosePopUpOneShot(closeCreditAnimators, closeCreditStrings, ref isOpen);
+        StartCoroutine(EndBlur());
+
+        UIManager.Instance.controlUI.ShowCanvas();
+    }
+
+    void ResetBlur()
+    {
+        panelImage.material.SetColor("_Color", startingColor);
+        panelImage.material.SetFloat("_Size", 0.0f);
     }
 
     IEnumerator StartBlur()
@@ -48,7 +110,7 @@ public class CreditsStand : MonoBehaviour
         while (currBlurSize < blurSize)
         {
             panelImage.material.SetFloat("_Size", currBlurSize + sizeToIncrease);
-            currBlurSize = panelImage.material.GetFloat("_Size");;
+            currBlurSize = panelImage.material.GetFloat("_Size"); ;
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }
@@ -65,21 +127,18 @@ public class CreditsStand : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }
-    #endregion
 
-    #region Custom Functions
-    public void CloseCredits()
+    void EnableUI()
     {
-        AnimationController.Instance.ClosePopUpOneShot(closeCreditAnimators, closeCreditStrings, ref isOpen);
-        StartCoroutine(EndBlur());
-
-        UIManager.Instance.controlUI.ShowCanvas();
+        indicator.SetActive(true);
     }
 
-    void ResetBlur()
+    IEnumerator DisableUI()
     {
-        panelImage.material.SetColor("_Color", startingColor);
-        panelImage.material.SetFloat("_Size", 0.0f);
+        indicator.GetComponent<Animator>().SetTrigger("Close");
+
+        yield return new WaitForSeconds(0.1f);
+        indicator.SetActive(false);
     }
     #endregion
 }

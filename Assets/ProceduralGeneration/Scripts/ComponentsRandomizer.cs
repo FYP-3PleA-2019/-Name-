@@ -49,6 +49,9 @@ public class ComponentsRandomizer : MonoBehaviour
     #region Custom Functions
     void FillRoom()
     {
+        if (enemyValue == 0)
+            return;
+
         while(enemyValue - minimumValue >= 0)
         {
             int randObj = Random.Range(0, objects.Count);
@@ -57,13 +60,13 @@ public class ComponentsRandomizer : MonoBehaviour
             GameObject GO = Instantiate(objects[randObj], spawnPoints[randPoint].transform.position, Quaternion.identity);
             GO.transform.parent = gameObject.transform; //Set spawned objects as children of the room.
 
-            int enemyVal = GO.GetComponent<EnemyBase>().myValue;
+            int enemyVal = GO.GetComponent<Enemy>().myValue;
 
             if (enemyValue - enemyVal < 0)
                 Destroy(GO);
 
             else
-                enemyValue -= GO.GetComponent<EnemyBase>().myValue;
+                enemyValue -= GO.GetComponent<Enemy>().myValue;
 
             //Remove position that was randomed to avoid spawning next object at the same position
             spawnPoints.Remove(spawnPoints[randPoint]);
