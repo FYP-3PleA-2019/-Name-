@@ -61,6 +61,7 @@ MonoBehaviour:
   attackDamage: 1
   attackRange: 1
   attackSpeed: 3
+  myValue: 200
 --- !u!212 &8185237346370740631
 SpriteRenderer:
   m_ObjectHideFlags: 0

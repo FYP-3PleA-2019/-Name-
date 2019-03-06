@@ -44,6 +44,9 @@ public class Enemy : MonoBehaviour
     protected float attackTimer;
     #endregion
 
+    //Temporary
+    public int myValue;
+
     #region Unity Functions
     // Start is called before the first frame update
     public virtual void Start()
@@ -139,6 +142,7 @@ public class Enemy : MonoBehaviour
 
                 GameObject tempPos = new GameObject(); //Create new [GameObject] to hold temporary randomized position
                 tempList.Add(tempPos); //Add created [GameObject] to a list 
+                tempPos.transform.parent = gameObject.transform;
 
                 Vector2 randWanderPos = RandomPositionWithinRadius(wanderRange, target.position); // Randomize a position in close proximity to the [Player]
 

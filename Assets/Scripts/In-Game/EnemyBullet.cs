@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : Projectile
+public class EnemyBullet : MonoBehaviour
 {
     public float damage;
+    public float moveSpeed;
 
-    public override void Start()
+    protected Vector3 shootDir;
+
+    public virtual void Update()
     {
-        //Used to override Projectile's Start function
+        transform.Translate(new Vector3(shootDir.x, shootDir.y) * Time.deltaTime * moveSpeed, Space.World);
     }
 
     public void SetShootDirection(Vector3 dir)

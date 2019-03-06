@@ -25,6 +25,7 @@ public class Necromancer : Enemy
             Vector2 randSpawnPoint = new Vector2(transform.position.x + rand.x, transform.position.y + rand.y);
 
             newEnemy = Instantiate(undeadPrefab, randSpawnPoint, Quaternion.identity) as GameObject; //Spawn minions
+            newEnemy.transform.parent = gameObject.transform; //Set minions as Necromancer's children.
         }
 
         Debug.Log("Attacking!");

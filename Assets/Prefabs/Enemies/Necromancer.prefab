@@ -90,6 +90,7 @@ MonoBehaviour:
   attackDamage: 1
   attackRange: 5
   attackSpeed: 5
+  myValue: 500
   spawnRange: 3
   undeadPrefab: {fileID: 8185237346370740633, guid: 4406052f4e98391498b25a58e7555a02,
     type: 3}

@@ -16,6 +16,10 @@ public class ComponentsRandomizer : MonoBehaviour
     public SpawnPoint _spawnPoint;
     #endregion
 
+    //Temporary
+    public int enemyValue;
+    public int minimumValue;
+
     #region Unity Functions
     // Start is called before the first frame update
     private void Awake()
@@ -45,16 +49,24 @@ public class ComponentsRandomizer : MonoBehaviour
     #region Custom Functions
     void FillRoom()
     {
-        for (int i = 0; i < spawnPoints.Count; i++)
+        while(enemyValue - minimumValue >= 0)
         {
-            int rand = Random.Range(0, objects.Count);
-            Vector3 sp = spawnPoints[i].transform.position;
+            int randObj = Random.Range(0, objects.Count);
+            int randPoint = Random.Range(0, spawnPoints.Count);
 
-            GameObject GO = Instantiate(objects[rand], sp, Quaternion.identity);
+            GameObject GO = Instantiate(objects[randObj], spawnPoints[randPoint].transform.position, Quaternion.identity);
             GO.transform.parent = gameObject.transform; //Set spawned objects as children of the room.
 
-            //Remove all spawnpoints from scene to reduce excess Game objects
-            Destroy(spawnPoints[i]);
+            int enemyVal = GO.GetComponent<EnemyBase>().myValue;
+
+            if (enemyValue - enemyVal < 0)
+                Destroy(GO);
+
+            else
+                enemyValue -= GO.GetComponent<EnemyBase>().myValue;
+
+            //Remove position that was randomed to avoid spawning next object at the same position
+            spawnPoints.Remove(spawnPoints[randPoint]);
         }
 
         //Clear lists to free up memory
