@@ -14,18 +14,23 @@ public class FallOffPlatform : MonoBehaviour
 
     public PlatformType _platformType;
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
             if (_platformType == PlatformType.Movable)
             {
                 if (platform.GetComponent<MovingPlatform>().isGrounded == false)
-                    Destroy(other.gameObject);
+                {
+                    GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
+                    CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
+                }
             }
-
             else
-                Destroy(other.gameObject);
+            {
+                GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
+                CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
+            }
         }
     }
 }

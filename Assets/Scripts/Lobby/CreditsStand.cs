@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreditScript : MonoBehaviour
+public class CreditsStand : MonoBehaviour
 {
     #region Variables
 

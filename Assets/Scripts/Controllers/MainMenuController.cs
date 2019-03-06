@@ -24,7 +24,7 @@ public class MainMenuController : MonoBehaviour
     #region Unity Functions
     private void Start()
     {
-        if (GameManager.Instance.GetGameState() == GAME_STATE.MAIN_MENU)
+        if (GameManager.Instance.GetCurrGameState() == GAME_STATE.MAIN_MENU)
         {
             mainMenuCanvas.SetActive(true);
             StartMainMenuAnim();

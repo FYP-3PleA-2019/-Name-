@@ -69,6 +69,11 @@ public class Teleporter : MonoBehaviour, ISubject
 
         _animator.SetTrigger("Interacted");
         StartCoroutine(DisableUI());
+
+        if (gatewayTo == GAME_SCENE.SHOP_SCENE) GameManager.Instance.SetGameState(GAME_STATE.SHOP);
+        else if (gatewayTo == GAME_SCENE.GAME_SCENE) GameManager.Instance.SetGameState(GAME_STATE.IN_GAME);
+        else if (gatewayTo == GAME_SCENE.LOBBY_SCENE) GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
+
         CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 0.5f);
     }
 

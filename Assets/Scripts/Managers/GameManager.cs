@@ -8,8 +8,9 @@ public enum GAME_STATE
     LOADING,
     MAIN_MENU,
     LOBBY,
-    PAUSED,
+    SHOP,
     IN_GAME,
+    PAUSED,
 };
 
 public class GameManager : MonoBehaviour {
@@ -54,7 +55,8 @@ public class GameManager : MonoBehaviour {
 
     #region General Variables
     [Header("General")]
-    public GAME_STATE gameState;
+    public GAME_STATE currGameState;
+    public GAME_STATE prevGameState;
     public PlayerCoreController player;
 
     private bool isReady;
@@ -79,14 +81,20 @@ public class GameManager : MonoBehaviour {
 
     public void SetGameState(GAME_STATE gameState)
     {
-        this.gameState = gameState;
+        prevGameState = currGameState;
+        currGameState = gameState;
     }
 
     // -------------------------------- Getters --------------------------------
 
-    public GAME_STATE GetGameState()
+    public GAME_STATE GetCurrGameState()
     {
-        return gameState;
+        return currGameState;
+    }
+
+    public GAME_STATE GetPrevGameState()
+    {
+        return prevGameState;
     }
 
     public bool GetIsReady()
@@ -98,7 +106,9 @@ public class GameManager : MonoBehaviour {
 
     public void Reset()
     {
+        Debug.Log("game");
         InputManager.Instance.Reset();
+        RoomManager.Instance.Reset();
         UIManager.Instance.Reset();
         player.Reset();
     }
@@ -107,7 +117,8 @@ public class GameManager : MonoBehaviour {
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerCoreController>();
         DontDestroyOnLoad(player);
-        
+
+        currGameState = GAME_STATE.LOADING;
         SetGameState(GAME_STATE.LOADING);
 
         isReady = true;

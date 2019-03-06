@@ -10,7 +10,7 @@ public enum CurrentState
     Attack,
     Death,
 }
-public class EnemyBase : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     #region General Variables
     [Header("General Variables")]

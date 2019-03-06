@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 
         if (currHealth <= 0)
         {
-            
+            //CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
         }
     }
 

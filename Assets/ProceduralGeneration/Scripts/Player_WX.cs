@@ -16,7 +16,7 @@ public class Player_WX : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            enemy.GetComponent<EnemyBase>().ReceiveDamage(1);
+            enemy.GetComponent<Enemy>().ReceiveDamage(1);
         }
     }
 

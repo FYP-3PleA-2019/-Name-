@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class GameSceneController : MonoBehaviour
 {
+    #region General
+    [Header("General")]
+    public Transform mainSpawnPoint;
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
+        {
+            Initialize();
+        }
+        else
+        {
+            StartCoroutine("WaitForState");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Initialize()
     {
-        
+        UIManager.Instance.controlUI.ShowCanvas();
+
+        RoomManager.Instance.Initialize();
+    }
+
+    private IEnumerator WaitForState()
+    {
+        while (GameManager.Instance.GetCurrGameState() != GAME_STATE.IN_GAME)
+        {
+            yield return null;
+        }
+
+        Initialize();
     }
 }

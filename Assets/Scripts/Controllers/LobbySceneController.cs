@@ -11,31 +11,40 @@ public class LobbySceneController : MonoBehaviour
     public Transform shopSpawnPoint;
     #endregion
     
-    private IEnumerator Start()
+    private void Start()
     {
-        UIManager.Instance.controlUI.HideCanvas();
-        creditsCanvas.SetActive(false);
+        if (GameManager.Instance.GetCurrGameState() == GAME_STATE.LOBBY)
+        {
+            Initialize();
+        }
+        else
+        {
+            UIManager.Instance.controlUI.HideCanvas();
+            creditsCanvas.SetActive(false);
 
-        while(GameManager.Instance.GetGameState() != GAME_STATE.LOBBY)
+            StartCoroutine("WaitForState");
+        }
+    }
+
+    void Initialize()
+    {
+        UIManager.Instance.controlUI.ShowCanvas();
+        creditsCanvas.SetActive(true);
+
+        if(GameManager.Instance.GetPrevGameState() == GAME_STATE.SHOP)
+            GameManager.Instance.player.transform.position = shopSpawnPoint.position;
+
+        else
+            GameManager.Instance.player.transform.position = mainSpawnPoint.position;
+    }
+
+    private IEnumerator WaitForState()
+    {
+        while (GameManager.Instance.GetCurrGameState() != GAME_STATE.LOBBY)
         {
             yield return null;
         }
 
-        UIManager.Instance.controlUI.ShowCanvas();
-        creditsCanvas.SetActive(true);
-
-        TeleportPlayer();
-    }
-
-    void TeleportPlayer()
-    {
-        if(CustomSceneManager.Instance.GetPrevScene() == GAME_SCENE.SHOP_SCENE)
-        {
-            GameManager.Instance.player.transform.position = shopSpawnPoint.position;
-        }
-        else
-        {
-            GameManager.Instance.player.transform.position = mainSpawnPoint.position;
-        }
+        Initialize();
     }
 }
