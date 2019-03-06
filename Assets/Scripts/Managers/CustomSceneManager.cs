@@ -52,9 +52,8 @@ public class CustomSceneManager : MonoBehaviour
     }
 
     #region Scene Variables
-    [Header("Scene")]
-    private GAME_SCENE currScene;
-    private GAME_SCENE prevScene;
+    //[Header("Scene")]
+    //private GAME_SCENE scene;
     #endregion
 
     void Awake()
@@ -67,31 +66,26 @@ public class CustomSceneManager : MonoBehaviour
 
     private void Start()
     {
-        currScene = GAME_SCENE.LOADING_SCENE;
-        prevScene = currScene;
+
     }
 
     // -------------------------------- Getters --------------------------------
 
-    public GAME_SCENE GetCurrScene()
-    {
-        return currScene;
-    }
+    //public GAME_SCENE GetCurrScene()
+    //{
+    //    return currScene;
+    //}
 
-    public GAME_SCENE GetPrevScene()
-    {
-        return prevScene;
-    }
+    //public GAME_SCENE GetPrevScene()
+    //{
+    //    return prevScene;
+    //}
 
     // -------------------------------- Functions --------------------------------
 
     public void LoadScene(GAME_SCENE scene)
     {
-        prevScene = currScene;
-        currScene = scene;
-
-        InputManager.Instance.Reset();
-        GameManager.Instance.player.Reset();
+        GameManager.Instance.Reset();
 
         SceneManager.LoadScene((int)scene);
     }
@@ -104,12 +98,8 @@ public class CustomSceneManager : MonoBehaviour
     public IEnumerator SceneTransition(GAME_SCENE scene, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        
-        prevScene = currScene;
-        currScene = scene;
 
-        InputManager.Instance.Reset();
-        GameManager.Instance.player.Reset();
+        GameManager.Instance.Reset();
 
         SceneManager.LoadScene((int)scene);
     }

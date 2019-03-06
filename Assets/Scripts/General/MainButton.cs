@@ -18,9 +18,9 @@ public class MainButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public Sprite icon_shoot;
     public Sprite icon_interact;
     
-    private Image frame;
-    private Image icon;
-    private Sprite frame_default;
+    public Image frame;
+    public Image icon;
+    public Sprite frame_default;
 
     private BUTTON_TYPE buttonType;
     #endregion

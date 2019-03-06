@@ -56,9 +56,9 @@ public class RoomManager : MonoBehaviour
     //Publics
     public List<RoomType> startingRoomTypes;
 
-    [Space(10)]
-    [Header("Player Related")]
-    public PlayerCoreController player;
+    //[Space(10)]
+    //[Header("Player Related")]
+    //public PlayerCoreController player;
 
     [Space(10)]
     [Header("Room Related")]
@@ -66,7 +66,7 @@ public class RoomManager : MonoBehaviour
     public int startingNumberOfRooms;
     
     //Privates
-    List<GameObject> spawnedRooms;
+    public List<GameObject> spawnedRooms;
     RoomType currentRoomType;
 
     //Variables below are uncomfirmed / Might be used in latest implementation of enemy spawner system
@@ -91,24 +91,22 @@ public class RoomManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+                
+        spawnedRooms = new List<GameObject>();
     }
     
     private void Start()
     {
-        if (player == null) //Automatically sets player as target for this game object if it is not assigned in the inspector
-        {
-            Debug.LogWarning("BEWARE : [Player] have not been assigned in the inspector!");
-            player = GameManager.Instance.player;
-        }
-
-        spawnedRooms = new List<GameObject>();
-
-        for(int i = 0; i < startingNumberOfRooms; i++)
-            SpawnRoom();
+        //if (player == null) //Automatically sets player as target for this game object if it is not assigned in the inspector
+        //{
+        //    Debug.LogWarning("BEWARE : [Player] have not been assigned in the inspector!");
+        //    player = GameManager.Instance.player;
+        //}
     }
     #endregion
 
     #region Custom Functions
+
     void SpawnRoom()
     {
         int randNum = Random.Range(0, startingRoomTypes.Count); //Random initial room type to spawn
@@ -117,7 +115,7 @@ public class RoomManager : MonoBehaviour
 
         if (spawnedRooms.Count < 1) //If no room is spawned, randomly spawn a type of room
         {
-            roomSpawnPoint = player.transform; //Set room's spawn point
+            roomSpawnPoint = GameManager.Instance.player.transform; //Set room's spawn point
             roomToSpawn = startingRoomTypes[randNum].ReturnGO();
             currentRoomType = startingRoomTypes[randNum]; //Set current room type
         }
@@ -160,6 +158,17 @@ public class RoomManager : MonoBehaviour
     {
         if (roomList.Contains(roomToRemove))
             roomList.Remove(roomToRemove);
+    }
+
+    public void Initialize()
+    {
+        for (int i = 0; i < startingNumberOfRooms; i++)
+            SpawnRoom();
+    }
+
+    public void Reset()
+    {
+        spawnedRooms.Clear();
     }
     #endregion
 }

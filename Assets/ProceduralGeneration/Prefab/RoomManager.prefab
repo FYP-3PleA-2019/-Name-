@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0acc9bca24d07b4ab73ecc178f2589e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingRoomTypes: []
+  startingRoomTypes:
+  - {fileID: 11400000, guid: 85a0a92da705f7e45b0688a55065323b, type: 2}
   player: {fileID: 0}
   roomLimit: 3
   startingNumberOfRooms: 1
