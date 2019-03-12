@@ -46,6 +46,7 @@ public class ArrowIndicator : MonoBehaviour
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _arrowSpirteRenderer = arrow.GetComponent<SpriteRenderer>();
         SetSprite(_spriteToDisplay);
+        DisableIndicators();
         canSet = true;
     }
 
@@ -55,15 +56,15 @@ public class ArrowIndicator : MonoBehaviour
 
         if (IsOutOfBounds(targetPosition))
         {
-            FaceTarget(arrow);
-            MoveToTarget(targetPosition, this.transform, distanceFromEdge);
-            MoveToTarget(targetPosition, arrow, arrowDistanceFromEdge);
-
             if (canSet)
             {
                 canSet = false;
                 EnableIndicators();
             }
+
+            FaceTarget(arrow);
+            MoveToTarget(targetPosition, this.transform, distanceFromEdge);
+            MoveToTarget(targetPosition, arrow, arrowDistanceFromEdge);
         }
 
         else

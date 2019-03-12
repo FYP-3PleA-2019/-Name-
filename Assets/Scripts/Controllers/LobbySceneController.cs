@@ -10,12 +10,13 @@ public class LobbySceneController : MonoBehaviour
     public Transform mainSpawnPoint;
     public Transform shopSpawnPoint;
     #endregion
-    
+
     private void Start()
     {
         if (GameManager.Instance.GetCurrGameState() == GAME_STATE.LOBBY)
         {
             Initialize();
+            UIManager.Instance.transitionUI.PlayTransitionAnimation(1);
         }
         else
         {

@@ -14,6 +14,7 @@ public class GameSceneController : MonoBehaviour
     {
         if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
         {
+            UIManager.Instance.transitionUI.PlayTransitionAnimation(1);
             Initialize();
         }
         else

@@ -67,10 +67,11 @@ public class UIManager : MonoBehaviour
     #region General Variables
     [Header("General")]
     [HideInInspector] public ControlUIController controlUI;
-    //StatUIController StatUI;
+    [HideInInspector] public TransitionScript transitionUI;
+   //StatUIController StatUI;
     #endregion
 
-    void Awake()
+   void Awake()
     {
         if (UIManager.CheckInstanceExist())
         {
@@ -78,6 +79,7 @@ public class UIManager : MonoBehaviour
         }
 
         controlUI = GetComponentInChildren<ControlUIController>();
+        transitionUI = GetComponentInChildren<TransitionScript>();
     }
 
     // -------------------------------- Functions --------------------------------
@@ -85,5 +87,6 @@ public class UIManager : MonoBehaviour
     public void Reset()
     {
         controlUI.Reset();
+        transitionUI.Reset();
     }
 }

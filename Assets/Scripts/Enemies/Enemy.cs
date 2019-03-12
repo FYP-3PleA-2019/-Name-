@@ -66,10 +66,7 @@ public class Enemy : MonoBehaviour
         canCreate = true;
 
         //Temporary [Instantiate arrow indicator for this obj]
-        GameObject indicator = Instantiate(arrowIndicator, transform.position, Quaternion.identity);
-        indicator.transform.SetParent(this.transform);
-        indicator.GetComponent<ArrowIndicator>().Target = this.transform;
-        indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
+        InstantiateArrowIndicator();
     }
 
     // Update is called once per frame
@@ -246,6 +243,14 @@ public class Enemy : MonoBehaviour
         Vector2 randSpawnPoint = new Vector2(objectPos.x + rand.x, objectPos.y + rand.y);
 
         return randSpawnPoint;
+    }
+
+    void InstantiateArrowIndicator()
+    {
+        GameObject indicator = Instantiate(arrowIndicator, transform.position, Quaternion.identity);
+        indicator.transform.SetParent(this.transform);
+        indicator.GetComponent<ArrowIndicator>().Target = this.transform;
+        indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
     }
     #endregion
 

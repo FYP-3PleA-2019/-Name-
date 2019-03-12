@@ -13,5 +13,6 @@ public class ShopSceneController : MonoBehaviour
     void Start()
     {
         GameManager.Instance.player.transform.position = shopSpawnPoint.position;
+        UIManager.Instance.transitionUI.PlayTransitionAnimation(1);
     }
 }

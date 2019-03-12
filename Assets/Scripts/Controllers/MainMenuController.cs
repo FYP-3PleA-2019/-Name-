@@ -29,12 +29,15 @@ public class MainMenuController : MonoBehaviour
             mainMenuCanvas.SetActive(true);
             StartMainMenuAnim();
         }
-        else mainMenuCanvas.SetActive(false);
+
+        else
+        {
+            mainMenuCanvas.SetActive(false);
+        }
     }
     #endregion
 
     #region Custom Functions
-    
     public void StartMainMenuAnim()
     {
         StartCoroutine(AnimationController.Instance.PlayAnimationQueue(animators, triggerStrings, animIntervals));

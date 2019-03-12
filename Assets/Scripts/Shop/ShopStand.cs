@@ -45,6 +45,7 @@ public class ShopStand : MonoBehaviour, ISubject
     public string equipString;
     public string fundsString;
     public string weaponPurchasedString;
+    public string weaponEquippedString;
 
     [Range(0f, 0.3f)] public float textSpeed;
 
@@ -116,6 +117,7 @@ public class ShopStand : MonoBehaviour, ISubject
     public void EquipWeapon()
     {
         GameManager.Instance.player.weapon.SetCurrentWeapon(_weapon);
+        StartCoroutine(DisplayText(weaponEquippedString, textSpeed));
     }
 
     public void PurchaseWeapon()

@@ -29,10 +29,13 @@ public class Teleporter : MonoBehaviour, ISubject
     private Animator _animator;
     #endregion
 
+    [Space(5)][Header("Arrow Indicator")]
+    public GameObject arrowIndicator;
+    public Sprite indicatorSprite;
+
     private void Awake()
     {
-        if (_animator == null)
-            _animator = gameObject.GetComponent<Animator>();
+        _animator = gameObject.GetComponent<Animator>();
 
         indicator.GetComponentInChildren<Text>().text = indicatorText;
     }
@@ -42,6 +45,8 @@ public class Teleporter : MonoBehaviour, ISubject
         UIManager.Instance.RegisterSubject(this);
 
         indicator.SetActive(false);
+
+        InstantiateArrowIndicator();
     }
 
     // -------------------------------- Functions --------------------------------
@@ -74,7 +79,9 @@ public class Teleporter : MonoBehaviour, ISubject
         else if (gatewayTo == GAME_SCENE.GAME_SCENE) GameManager.Instance.SetGameState(GAME_STATE.IN_GAME);
         else if (gatewayTo == GAME_SCENE.LOBBY_SCENE) GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
 
-        CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 0.5f);
+        UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
+
+        CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 1.5f);
     }
 
     void EnableUI()
@@ -89,7 +96,16 @@ public class Teleporter : MonoBehaviour, ISubject
         yield return new WaitForSeconds(0.1f);
         indicator.SetActive(false);
     }
-    
+
+    void InstantiateArrowIndicator()
+    {
+        GameObject indicator = Instantiate(arrowIndicator, transform.position, Quaternion.identity);
+        indicator.transform.SetParent(this.transform);
+        indicator.GetComponent<ArrowIndicator>().Target = this.transform;
+        indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
+        Debug.Log("Hi");
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && isActivated)

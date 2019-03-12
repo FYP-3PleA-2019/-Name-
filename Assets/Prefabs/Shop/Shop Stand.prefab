@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300026, guid: 033330f1fd25ab648b6c3e6773c84f11, type: 3}
   m_Color: {r: 1, g: 0.14044957, b: 0, a: 1}
   m_FlipX: 0
@@ -94,11 +94,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac52f741e7bd1bd4d84e69414e32a75c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weapon: {fileID: 0}
   _shopCanvas: {fileID: 4622002690039840085}
   shopText: {fileID: 4622002690382235300}
-  purchaseString: Purchase Weapon?
-  equipString: Equip Weapon?
+  purchaseString: Purchase [Weapon]?
+  equipString: Equip [Weapon]?
   fundsString: Insufficient Funds!
+  weaponPurchasedString: '[Weapon] Purchased!'
+  weaponEquippedString: '[Weapon] Equipped!'
   textSpeed: 0
 --- !u!61 &6976642429738689617
 BoxCollider2D:

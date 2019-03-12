@@ -151,6 +151,9 @@ MonoBehaviour:
   indicator: {fileID: 4464957307123385983}
   connectedTeleporter: {fileID: 0}
   gatewayTo: 3
+  arrowIndicator: {fileID: 3283214891397892474, guid: 3ad70a70f02978a4eb2ea577895d2c6f,
+    type: 3}
+  indicatorSprite: {fileID: 21300020, guid: 9ebd3a7ce3980fd46b00a959b061b66f, type: 3}
 --- !u!61 &3698915390148449772
 BoxCollider2D:
   m_ObjectHideFlags: 0

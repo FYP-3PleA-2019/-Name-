@@ -22,14 +22,16 @@ public class FallOffPlatform : MonoBehaviour
             {
                 if (platform.GetComponent<MovingPlatform>().isGrounded == false)
                 {
+                    UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
                     GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
-                    CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
+                    CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
                 }
             }
             else
             {
+                UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
                 GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
-                CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
+                CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
             }
         }
     }

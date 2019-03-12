@@ -77,6 +77,19 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    public void PlaySingularTriggerAnimation(Animator _animator, string triggerString)
+    {
+        _animator.SetTrigger(triggerString);
+    }
+
+    public void ResetSingularAnimatorTriggers(Animator _animator, List<string> triggerStrings)
+    {
+        for(int i = 0; i < triggerStrings.Count; i++)
+        {
+            _animator.ResetTrigger(triggerStrings[i]);
+        }
+    }
+
     public void ResetAnimationTrigger(List<Animator> animatorsToReset, List<string> triggerStrings)
     {
         for(int i = 0; i < animatorsToReset.Count; i++)
