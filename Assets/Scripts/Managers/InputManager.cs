@@ -54,11 +54,10 @@ public class InputManager : MonoBehaviour {
     private bool canMove;
     private bool canShoot;
     private bool canInteract;
+    private bool canFreeAim;
     private bool isMoving;
     private bool isShooting;
     private bool hasInteracted;
-
-    private bool isFreeAim;
     #endregion
 
     void Awake()
@@ -72,7 +71,7 @@ public class InputManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        isFreeAim = true;
+
     }
 
     // -------------------------------- Setters --------------------------------
@@ -97,6 +96,11 @@ public class InputManager : MonoBehaviour {
         this.canInteract = canInteract;
     }
     
+    public void SetCanFreeAim(bool canFreeAim)
+    {
+        this.canFreeAim = canFreeAim;
+    }
+
     public void SetIsMoving(bool isMoving)
     {
         this.isMoving = isMoving;
@@ -129,6 +133,7 @@ public class InputManager : MonoBehaviour {
     public void SetShootDir(Vector3 direction)
     {
         shootDir = direction;
+
         GameManager.Instance.player.crosshair.Move();
         GameManager.Instance.player.weapon.Rotate();
     }
@@ -171,6 +176,12 @@ public class InputManager : MonoBehaviour {
         return result;
     }
 
+    public bool CanFreeAim()
+    {
+        bool result = canFreeAim;
+        return result;
+    }
+
     public bool IsInputting()
     {
         if (!IsShooting() && !IsMoving()) return false;
@@ -203,6 +214,7 @@ public class InputManager : MonoBehaviour {
         canMove = true;
         canShoot = true;
         canInteract = true;
+        canFreeAim = true;
 
         isMoving = false;
         isShooting = false;
@@ -210,41 +222,5 @@ public class InputManager : MonoBehaviour {
 
         moveDir = new Vector3(0.0f, 0.0f, 0.0f);
         shootDir = new Vector3(1.0f, 0.0f, 0.0f);
-    }
-
-    public void CalculateDir(Vector3 touchPoint, Vector3 dragPoint)
-    {
-        Vector3 dir = dragPoint - touchPoint;
-
-        dir.Normalize();
-
-        SetMoveDir(dir);
-
-        SetShootDir(dir);
-        
-        #region //Implementing minimum drag distance
-        /*if (Mathf.Abs(direction.x) >= minDragDist ||
-            Mathf.Abs(direction.y) >= minDragDist)
-        {
-            direction.Normalize();
-            PlayerInputManager.Instance.SetMoving(true, direction);
-            PlayerInputManager.Instance.SetShootDir(direction);
-        }
-        else
-        {
-            if(PlayerInputManager.Instance.isMoving)
-                PlayerInputManager.Instance.SetMoving(false);
-        }*/
-        #endregion
-    }
-
-    public void SetIsFreeAim(bool isFreeAim)
-    {
-        this.isFreeAim = isFreeAim;
-    }
-
-    public bool GetIsFreeAim()
-    {
-        return isFreeAim;
     }
 }

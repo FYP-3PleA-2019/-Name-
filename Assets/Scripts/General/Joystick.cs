@@ -67,7 +67,7 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         dragPoint = Vector3.ClampMagnitude(new Vector3(dragPoint.x, dragPoint.y, 0f), maxDragDist) + touchPoint;
         joystick.transform.position = new Vector3(dragPoint.x, dragPoint.y, joystick.transform.position.z);
         
-        InputManager.Instance.CalculateDir(touchPoint, dragPoint);
+        CalculateDir(touchPoint, dragPoint);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -96,5 +96,32 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if (frame.enabled) frame.enabled = false;
         if (joystick.enabled) joystick.enabled = false;
+    }
+
+    private void CalculateDir(Vector3 touchPoint, Vector3 dragPoint)
+    {
+        Vector3 dir = dragPoint - touchPoint;
+
+        dir.Normalize();
+
+        InputManager.Instance.SetMoveDir(dir);
+
+        if (InputManager.Instance.CanFreeAim())
+            InputManager.Instance.SetShootDir(dir);
+
+        #region //Implementing minimum drag distance
+        /*if (Mathf.Abs(direction.x) >= minDragDist ||
+            Mathf.Abs(direction.y) >= minDragDist)
+        {
+            direction.Normalize();
+            PlayerInputManager.Instance.SetMoving(true, direction);
+            PlayerInputManager.Instance.SetShootDir(direction);
+        }
+        else
+        {
+            if(PlayerInputManager.Instance.isMoving)
+                PlayerInputManager.Instance.SetMoving(false);
+        }*/
+        #endregion
     }
 }

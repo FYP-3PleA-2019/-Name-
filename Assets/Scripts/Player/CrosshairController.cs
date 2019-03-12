@@ -2,28 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrosshairController : MonoBehaviour {
-
+public class CrosshairController : MonoBehaviour
+{
     #region General Variables
     [Header("General")]
     public float offsetPos;
     public float minAlpha;
     public float fadeDelay;
     public float fadeRange; //default = 0.05f;
-    
+
+    public LayerMask destroyableLayer;
+
     private SpriteRenderer sprite;
-    public List<GameObject> enemyList;
+    private Transform target;
     #endregion
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-        enemyList = new List<GameObject>();
     }
 
     private void Start()
     {
 
+    }
+
+    void Update()
+    {
+        //if (GameManager.Instance.GetCurrGameState() != GAME_STATE.IN_GAME)
+            //return;
+
+        FindNearest();
     }
 
     public void Reset()
@@ -37,44 +46,20 @@ public class CrosshairController : MonoBehaviour {
 
     public void Move()
     {
-        Vector3 playerPos = GameManager.Instance.player.transform.position;
-        Vector3 shootDir = InputManager.Instance.GetShootDir();
-        Vector3 movePos = playerPos + (shootDir * offsetPos);
-
-        transform.position = movePos;
-        //transform.position = Vector3.MoveTowards(transform.position , movePos, 1.5f); // Method 1
-        //transform.Translate(playerPos + (direction * offset)); //Method 2
-    }
-
-    public void FindNearestEnemy()
-    {
-        int index = 0;
-        float distance = int.MaxValue;
-
-        for(int i = 0; i < enemyList.Count; i++)
+        if(InputManager.Instance.CanFreeAim())
         {
-            float tempDistance = Vector3.Distance(GameManager.Instance.player.transform.position, enemyList[i].transform.position);
+            Vector3 playerPos = GameManager.Instance.player.transform.position;
+            Vector3 shootDir = InputManager.Instance.GetShootDir();
+            Vector3 movePos = playerPos + (shootDir * offsetPos);
 
-            if(tempDistance < distance)
-            {
-                index = i;
-                distance = tempDistance;
-            }
+            transform.position = movePos;
+            //transform.position = Vector3.MoveTowards(transform.position , movePos, 1.5f); // Method 1
+            //transform.Translate(playerPos + (direction * offset)); //Method 2
         }
-
-        CalculateDistance(enemyList[index].transform.position);
-        InputManager.Instance.SetIsFreeAim(false);
-    }
-
-    void CalculateDistance(Vector3 enemyPos)
-    {
-        Vector3 playerPos = GameManager.Instance.player.transform.position;
-
-        Vector3 dir = enemyPos - playerPos;
-
-        dir.Normalize();
-
-        InputManager.Instance.SetShootDir(dir);
+        else
+        {
+            transform.position = target.position;
+        }
     }
 
     public void IncreaseAlpha()
@@ -89,10 +74,64 @@ public class CrosshairController : MonoBehaviour {
     //When the crosshair is not transparent, decrease aplha
     public void DecreaseAlpha()
     {
-        if(sprite.color.a == 1.0f) StartCoroutine("Fade");
+        if (sprite.color.a == 1.0f) StartCoroutine("Fade");
+    }
+    
+    private void FindNearest()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(GameManager.Instance.player.transform.position, 4f, destroyableLayer);
+
+        if (colliders.Length > 0)
+        {
+            int index = -1;
+            float shortestDist = int.MaxValue;
+
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                float tempDist = Vector2.Distance(GameManager.Instance.player.transform.position, colliders[i].transform.position);
+                
+                if (colliders[i].tag == "Generator")
+                {
+                    if(CheckList(colliders, "Enemy"))
+                        continue;
+                }
+
+                if (tempDist < shortestDist)
+                {
+                    index = i;
+                    shortestDist = tempDist;
+                }
+            }
+
+            InputManager.Instance.SetCanFreeAim(false);
+
+            target = colliders[index].transform;
+            CalculateDir();
+        }
+        else InputManager.Instance.SetCanFreeAim(true);
     }
 
-    public IEnumerator Fade()
+    private bool CheckList(Collider2D[] collider, string tagName)
+    {
+        for(int i = 0; i < collider.Length; i++)
+        {
+            if (collider[i].tag == tagName)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void CalculateDir()
+    {
+        Vector3 dir = target.position - GameManager.Instance.player.transform.position;
+
+        dir.Normalize();
+
+        InputManager.Instance.SetShootDir(dir);
+    }
+
+    private IEnumerator Fade()
     {
         yield return new WaitForSeconds(fadeDelay);
 
@@ -103,34 +142,5 @@ public class CrosshairController : MonoBehaviour {
             sprite.color = newColor;
             yield return new WaitForSeconds(fadeRange);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        /*if(collision.tag == "Enemy")
-        {
-            if(collision.gameObject.GetComponent<EnemyBase>() != null)
-            {
-                enemyList.Add(collision.gameObject);
-
-                FindNearestEnemy();
-            }
-        }*/
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        /*if(collision.tag == "Enemy")
-        {
-            if (collision.gameObject.GetComponent<EnemyBase>() != null)
-            {
-                enemyList.Remove(collision.gameObject);
-
-                if(enemyList.Count <= 0)
-                {
-                    InputManager.Instance.SetIsFreeAim(true);
-                }
-            }
-        }*/
     }
 }
