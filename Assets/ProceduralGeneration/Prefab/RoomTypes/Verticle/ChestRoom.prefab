@@ -3980,7 +3980,7 @@ MonoBehaviour:
   - {fileID: 8645882799948622313}
   nextRoomSpawnPoint: {fileID: 322678715121861972}
   _spawnPoint: 0
-  enemyValue: 0
+  enemyValue: 1000
   minimumValue: 0
 --- !u!61 &7943297229654145008
 BoxCollider2D:

@@ -64,9 +64,18 @@ public class PlayerController : MonoBehaviour {
     public void Move()
     {
         Vector3 moveDir = InputManager.Instance.GetMoveDir();
+        Vector3 shootDir = InputManager.Instance.GetShootDir();
 
-        if (moveDir.x < 0  && !FacingLeft()) SetFacingLeft(true);
-        else if (moveDir.x > 0 && FacingLeft()) SetFacingLeft(false);
+        if (InputManager.Instance.CanFreeAim())
+        {
+            if (moveDir.x < 0 && !FacingLeft()) SetFacingLeft(true);
+            else if (moveDir.x > 0 && FacingLeft()) SetFacingLeft(false);
+        }
+        else
+        {
+            if (shootDir.x < 0 && !FacingLeft()) SetFacingLeft(true);
+            else if (shootDir.x > 0 && FacingLeft()) SetFacingLeft(false);
+        }
         
         transform.position += moveDir * moveSpeed * Time.deltaTime;
     }

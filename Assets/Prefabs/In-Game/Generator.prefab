@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6618120991853975216}
   - component: {fileID: 6600758900313675936}
   - component: {fileID: 2161283954031971655}
-  m_Layer: 0
-  m_Name: Generator Prefab
-  m_TagString: Untagged
+  m_Layer: 9
+  m_Name: Generator
+  m_TagString: Generator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
