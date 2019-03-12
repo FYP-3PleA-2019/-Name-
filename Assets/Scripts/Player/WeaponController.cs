@@ -38,6 +38,11 @@ public class WeaponController : MonoBehaviour
         Flip(facingLeft);
     }
 
+    public void SetCurrentWeapon(Weapon weaponToSet)
+    {
+        currWeapon = weaponToSet;
+    }
+
     // -------------------------------- Getters --------------------------------
 
 

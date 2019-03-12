@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour
 
     //Temporary
     public int myValue;
+    public GameObject arrowIndicator;
+    public Sprite indicatorSprite;
 
     #region Unity Functions
     // Start is called before the first frame update
@@ -62,11 +64,20 @@ public class Enemy : MonoBehaviour
         attackTimer = attackSpeed;
         currTarget = target; //Setting current target to default target [Player]
         canCreate = true;
+
+        //Temporary [Instantiate arrow indicator for this obj]
+        GameObject indicator = Instantiate(arrowIndicator, transform.position, Quaternion.identity);
+        indicator.transform.SetParent(this.transform);
+        indicator.GetComponent<ArrowIndicator>().Target = this.transform;
+        indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
+        if (target == null)
+            return;
+
         switch (_currentState)
         {
             case CurrentState.Idle:

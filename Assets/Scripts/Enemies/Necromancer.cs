@@ -28,8 +28,6 @@ public class Necromancer : Enemy
             newEnemy.transform.parent = gameObject.transform; //Set minions as Necromancer's children.
         }
 
-        Debug.Log("Attacking!");
-
         //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("AttackAnimationName")) //Check to see if animator is still playing attack animation
         idleDuration = Random.Range(1.0f, 2.5f); //Random idle duration
         _currentState = CurrentState.Idle; //Switch state to idle if attack animation is finished playing
