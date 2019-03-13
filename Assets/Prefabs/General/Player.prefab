@@ -310,7 +310,9 @@ MonoBehaviour:
   minAlpha: 0.3
   fadeDelay: 1.5
   fadeRange: 0.05
-  destroyableLayer: 9
+  destroyableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &6910188262870000902
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,5 +436,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa4759e32ee1c45b25811fdb828e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currWeapon: {fileID: 11400000, guid: 2041c2e310190794384d7b2a34f1dae3, type: 2}
-  prevWeapon: {fileID: 11400000, guid: fdc0904bb2d088544b7918ec43b7b25e, type: 2}
+  currWeapon: {fileID: 0}
+  prevWeapon: {fileID: 0}
