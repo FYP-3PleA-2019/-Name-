@@ -17,6 +17,11 @@ public class SoundManager : MonoBehaviour
 
     [Header("In-Game SFX")]
     public AudioClip chestOpen;
+    public AudioClip playerTeleport;
+    public AudioClip laserCharging;
+    public AudioClip purchasedSfx;
+    public AudioClip insufficientFunds;
+    public AudioClip weaponEquipped;
 
     // Use this for initialization
     void Awake()
@@ -62,5 +67,29 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(chestOpen);
     }
 
+    public void pTeleport()
+    {
+        sfxSource.PlayOneShot(playerTeleport);
+    }
+
+    public void _laserCharging()
+    {
+        sfxSource.PlayOneShot(laserCharging);
+    }
+
+    public void _purchased()
+    {
+        sfxSource.PlayOneShot(purchasedSfx);
+    }
+
+    public void _insufficientFunds()
+    {
+        sfxSource.PlayOneShot(insufficientFunds);
+    }
+
+    public void _weaponEquipped()
+    {
+        sfxSource.PlayOneShot(weaponEquipped);
+    }
     //! Enemies's SFX Functions
 }

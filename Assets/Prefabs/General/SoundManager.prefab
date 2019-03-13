@@ -51,6 +51,11 @@ MonoBehaviour:
   highPitchRange: 1.05
   playerShoot: {fileID: 8300000, guid: 279df7f5a1cb7e4419d8d4e82873d497, type: 3}
   chestOpen: {fileID: 8300000, guid: 37178b8ffdc4602419d0979999869608, type: 3}
+  playerTeleport: {fileID: 8300000, guid: efc34c12b2fbc4f429db8ff1f4186ec9, type: 3}
+  laserCharging: {fileID: 8300000, guid: 32d652f122fd32740ab7a276e93ee47e, type: 3}
+  purchasedSfx: {fileID: 8300000, guid: d3839f7ddf225f143b2f5f8ea6cbc20c, type: 3}
+  insufficientFunds: {fileID: 8300000, guid: 4d49b9ca40a0cd147aa3d74f19bf1ab3, type: 3}
+  weaponEquipped: {fileID: 8300000, guid: 79058258333ce5147a2fc7b78dcb7aa8, type: 3}
 --- !u!82 &1145337530167585927
 AudioSource:
   m_ObjectHideFlags: 0

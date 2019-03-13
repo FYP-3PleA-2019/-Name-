@@ -82,6 +82,7 @@ public class Teleporter : MonoBehaviour, ISubject
         UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
 
         CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 1.5f);
+        SoundManager.instance.playSingle(SoundManager.instance.playerTeleport);
     }
 
     void EnableUI()

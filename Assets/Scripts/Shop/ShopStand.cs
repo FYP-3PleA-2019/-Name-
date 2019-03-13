@@ -111,17 +111,20 @@ public class ShopStand : MonoBehaviour, ISubject
 
     public void InsufficientFunds()
     {
+        SoundManager.instance.playSingle(SoundManager.instance.insufficientFunds);
         StartCoroutine(DisplayText(fundsString, textSpeed));
     }
 
     public void EquipWeapon()
     {
+        SoundManager.instance.playSingle(SoundManager.instance.weaponEquipped);
         GameManager.Instance.player.weapon.SetCurrentWeapon(_weapon);
         StartCoroutine(DisplayText(weaponEquippedString, textSpeed));
     }
 
     public void PurchaseWeapon()
     {
+        SoundManager.instance.playSingle(SoundManager.instance.purchasedSfx);
         //Check if player's money > weapon's cost
         //If not InsufficientFunds();
         //Else Weapon is Purchased;
