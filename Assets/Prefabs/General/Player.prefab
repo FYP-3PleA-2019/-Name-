@@ -436,5 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa4759e32ee1c45b25811fdb828e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currWeapon: {fileID: 0}
-  prevWeapon: {fileID: 0}
+  currWeapon: {fileID: 8919954970903586261, guid: f93dc17bba84db44eb9de740faedea57,
+    type: 3}
+  prevWeapon: {fileID: 8919954970903586261, guid: f93dc17bba84db44eb9de740faedea57,
+    type: 3}

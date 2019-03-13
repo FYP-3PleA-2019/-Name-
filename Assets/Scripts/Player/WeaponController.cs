@@ -62,6 +62,9 @@ public class WeaponController : MonoBehaviour
         SetFacingLeft(false);
 
         Rotate();
+
+        currWeapon.Reset();
+        prevWeapon.Reset();
     }
 
     public void Rotate()
@@ -97,26 +100,11 @@ public class WeaponController : MonoBehaviour
 
     public void OnShootBegin()
     {
-        StartCoroutine("Shoot");
+        StartCoroutine(currWeapon.Shoot(shootPoint));
     }
 
     public void OnShootEnd()
     {
-        StopCoroutine("Shoot");
-    }
-
-    IEnumerator Shoot()
-    {
-        float fireRate = currWeapon.GetFireRate();
-
-        GameObject projectilePrefab = currWeapon.GetProjectile();
-
-        while(InputManager.Instance.IsShooting())
-        {
-            Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, transform.rotation).GetComponent<Projectile>();
-            projectile.SetDamage(currWeapon.GetDamage());
-            projectile.SetFireRange(currWeapon.GetFireRange());
-            yield return new WaitForSeconds(fireRate);
-        }
+        //StopCoroutine(currWeapon.Shoot(shootPoint));
     }
 }

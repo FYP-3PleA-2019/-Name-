@@ -136,7 +136,13 @@ public class LaserCannon : MonoBehaviour
         if (hitInfo.collider != null)
         {
             if (hitInfo.collider.CompareTag("Player")) //Destroy player if player is detected (Just for testing)
-                Destroy(hitInfo.collider.gameObject);
+            {
+                //TEMPORARY
+                GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
+                UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
+
+                CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
+            }
         }
 
         if(shootTimer <= 0.0f)
