@@ -103,7 +103,6 @@ public class Teleporter : MonoBehaviour, ISubject
         indicator.transform.SetParent(this.transform);
         indicator.GetComponent<ArrowIndicator>().Target = this.transform;
         indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
-        Debug.Log("Hi");
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -29,6 +29,11 @@ public class CreditsStand : MonoBehaviour, ISubject
     public GameObject indicator;
     public string indicatorText;
 
+    [Space(5)]
+    [Header("Arrow Indicator")]
+    public GameObject arrowIndicator;
+    public Sprite indicatorSprite;
+
     bool isOpen;
     #endregion
 
@@ -44,6 +49,7 @@ public class CreditsStand : MonoBehaviour, ISubject
         indicator.SetActive(false);
         isOpen = false;
         ResetBlur();
+        InstantiateArrowIndicator();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -78,6 +84,14 @@ public class CreditsStand : MonoBehaviour, ISubject
     #endregion
 
     #region Custom Functions
+    void InstantiateArrowIndicator()
+    {
+        GameObject indicator = Instantiate(arrowIndicator, transform.position, Quaternion.identity);
+        indicator.transform.SetParent(this.transform);
+        indicator.GetComponent<ArrowIndicator>().Target = this.transform;
+        indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
+    }
+
     void OpenCredits()
     {
         AnimationController.Instance.OpenPopUpOneShot(openCreditAnimators, openCreditStrings, ref isOpen);
