@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     [Header("General")]
     public float moveSpeed;
     protected float damage;
+    protected float fireRange;
 
     protected Vector3 shootDir;
     #endregion
@@ -34,13 +35,8 @@ public class Projectile : MonoBehaviour
         this.damage = damage;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void SetFireRange(float fireRange)
     {
-        if(other.tag == "Enemy")
-        {
-            other.GetComponent<Enemy>().ReceiveDamage(damage);
-
-            Destroy(gameObject);
-        }
+        this.fireRange = fireRange;
     }
 }

@@ -109,12 +109,13 @@ public class WeaponController : MonoBehaviour
     {
         float fireRate = currWeapon.GetFireRate();
 
-        GameObject projectile = currWeapon.GetProjectile();
+        GameObject projectilePrefab = currWeapon.GetProjectile();
 
         while(InputManager.Instance.IsShooting())
         {
-            Projectile bullet = Instantiate(projectile, shootPoint.position, transform.rotation).GetComponent<Projectile>();
-            bullet.SetDamage(currWeapon.GetDamage());
+            Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, transform.rotation).GetComponent<Projectile>();
+            projectile.SetDamage(currWeapon.GetDamage());
+            projectile.SetFireRange(currWeapon.GetFireRange());
             yield return new WaitForSeconds(fireRate);
         }
     }

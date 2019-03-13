@@ -23,9 +23,20 @@ public class Weapon : MonoBehaviour
     #endregion
 
     // -------------------------------- Setters --------------------------------
-    
+
 
     // -------------------------------- Getters --------------------------------
+
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    public float GetFireRange()
+    {
+        return fireRange;
+    }
+
     public float GetFireRate()
     {
         return fireRate;
@@ -36,19 +47,8 @@ public class Weapon : MonoBehaviour
         return projectile;
     }
 
-    public float GetDamage()
-    {
-        return damage;
-    }
-
     // -------------------------------- Checkers --------------------------------
 
 
     // -------------------------------- Functions --------------------------------
-    public virtual IEnumerator Shoot()
-    {
-        Debug.Log("gggg");
-
-        yield return null;
-    }
 }
