@@ -30,6 +30,11 @@ public class HealthBar : MonoBehaviour
         Reset();
     }
 
+    private void OnEnable()
+    {
+        Reset();
+    }
+
     private void Update()
     {
         //Temporary
@@ -47,6 +52,10 @@ public class HealthBar : MonoBehaviour
         //Set all health values
         currHealth = GameManager.Instance.player.controller.currHealth;
         totalHealth = currHealth;
+
+        //Set all fillAmount to health value
+        healthBar_LerpHealth.fillAmount = currHealth;
+        healthBar_CurrHealth.fillAmount = currHealth;
         lerpVal = healthBar_LerpHealth.fillAmount;
 
         //Deactivate fills
