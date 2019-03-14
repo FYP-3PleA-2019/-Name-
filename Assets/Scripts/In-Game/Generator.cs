@@ -37,6 +37,15 @@ public class Generator : MonoBehaviour
         }
     }
 
+    //Temporary for  [D E B U G G I N G]
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            InitiateGeneratorFunction();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Bullet")
