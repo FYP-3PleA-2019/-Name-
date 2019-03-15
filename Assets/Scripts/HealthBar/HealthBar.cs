@@ -14,7 +14,10 @@ public class HealthBar : MonoBehaviour
 
     private float currHealth;
     private float totalHealth;
+    private float calcHealth; //Decimal Value of currHealth / totalHealth
     private float lerpVal;
+    private float healthLerpVal;
+    private bool canLerp;
     #endregion
 
     #region Unity Functions 
@@ -30,33 +33,40 @@ public class HealthBar : MonoBehaviour
         Reset();
     }
 
-    private void OnEnable()
-    {
-        Reset();
-    }
-
     private void Update()
     {
-        //Temporary
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))//Temporary
         {
             GameManager.Instance.player.controller.currHealth -= 1;
-            UpdateHealthBar();
+            UpdateHealthBar(); //Call this when player is damaged
+        }
+
+        if(!ReturnApproximation(calcHealth, lerpVal, 0.003f) && canLerp) //Lerp bars
+        {
+            LerpBar(calcHealth, ref lerpVal, healthBar_LerpHealth, lerpSpeed * 1.5f);
+            LerpBar(calcHealth, ref healthLerpVal, healthBar_CurrHealth, lerpSpeed);
         }
     }
     #endregion 
 
     #region Custom Functions
-    void Reset() //Reset health values
+    //==========================Public Functions====================================
+    public void Reset() //Reset health bar componenets, call this function when enabling health bar.
     {
+        //Reset lerp boolean
+        canLerp = false;
+
         //Set all health values
         currHealth = GameManager.Instance.player.controller.currHealth;
         totalHealth = currHealth;
 
+        calcHealth = currHealth / totalHealth;
+
         //Set all fillAmount to health value
-        healthBar_LerpHealth.fillAmount = currHealth;
-        healthBar_CurrHealth.fillAmount = currHealth;
+        healthBar_LerpHealth.fillAmount = 0f;
+        healthBar_CurrHealth.fillAmount = 0f;
         lerpVal = healthBar_LerpHealth.fillAmount;
+        healthLerpVal = healthBar_CurrHealth.fillAmount;
 
         //Deactivate fills
         StartCoroutine(DeactivateAfter(0f, healthBar_CurrHealth));
@@ -64,17 +74,15 @@ public class HealthBar : MonoBehaviour
         StartCoroutine(DeactivateAfter(0f, healthBar_Background));
 
         //Enable fills after Open animation is done playing
-        StartCoroutine(WaitForLoad());
+        StartCoroutine(WaitForLoad(calcHealth));
     }
 
     public void UpdateHealthBar() //Call from player controller when player recieves damage
     {
         currHealth = GameManager.Instance.player.controller.currHealth; //Set currHealth to player's current health
-        float calcHealth = currHealth / totalHealth; //Calculate decimal value of health
+        calcHealth = currHealth / totalHealth; //Calculate decimal value of health
 
         healthBar_CurrHealth.fillAmount = calcHealth; //Set fill amount to health
-
-        StartCoroutine(LerpHealthBar(calcHealth));
 
         //Temporary (Will be called from player)
         if(calcHealth <= 0)
@@ -92,20 +100,14 @@ public class HealthBar : MonoBehaviour
         _animator.SetTrigger("Close");
         //Disable health bar after short delay (0.1f maybe - called from player)
     }
+    //===============================================================================
 
-    void ActivateAfter(Image imageToActivate)
+    
+    //===============================Private Functions==================================
+    void LerpBar(float calculatedHealth, ref float lerpValue, Image barToFill, float speed)
     {
-        imageToActivate.enabled = true;
-    }
-
-    IEnumerator LerpHealthBar(float calcHealth)
-    {
-        while(lerpVal > calcHealth + 0.005f)
-        {
-            healthBar_LerpHealth.fillAmount = Mathf.Lerp(healthBar_LerpHealth.fillAmount, calcHealth, Time.deltaTime * lerpSpeed);
-            lerpVal = healthBar_LerpHealth.fillAmount;
-            yield return null;
-        }
+        barToFill.fillAmount = Mathf.Lerp(barToFill.fillAmount, calculatedHealth, Time.deltaTime * speed);
+        lerpValue = barToFill.fillAmount;
     }
 
     IEnumerator DeactivateAfter(float delay, Image imageToDeactivate)
@@ -114,16 +116,28 @@ public class HealthBar : MonoBehaviour
         imageToDeactivate.enabled = false;
     }
 
-    IEnumerator WaitForLoad() //Activate healthbar fills after Opening animation is finished playing
+    IEnumerator WaitForLoad(float calculatedHealth) //Activate healthbar fills after Opening animation is finished playing
     {
         while(!_animator.GetCurrentAnimatorStateInfo(0).IsName("HealthBar_Idle"))
         {
             yield return null;
         }
 
-        ActivateAfter(healthBar_Background);
-        ActivateAfter(healthBar_CurrHealth);
-        ActivateAfter(healthBar_LerpHealth);
+        //Enable all healthbar fills
+        healthBar_Background.enabled = true;
+        healthBar_CurrHealth.enabled = true;
+        healthBar_LerpHealth. enabled = true;
+
+        //Allow fills to start lerping
+        canLerp = true;
+    }
+    //================================================================================================
+    #endregion
+
+    #region Tools
+    bool ReturnApproximation(float a, float b, float value) //Used for checking if 2 seperate values are similar.
+    {
+        return (Mathf.Abs(a - b) < value);
     }
     #endregion 
 }
