@@ -10,7 +10,6 @@ public class HealthBar : MonoBehaviour
     private Animator _animator;
     private Image healthBar_CurrHealth;
     private Image healthBar_LerpHealth;
-    private Image healthBar_Background;
 
     private float currHealth;
     private float totalHealth;
@@ -21,19 +20,13 @@ public class HealthBar : MonoBehaviour
     #endregion
 
     #region Unity Functions 
-    private void OnEnable()
+    private void OnEnable() //Enable health bar from player
     {
         Reset(); //Reset components
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))//Temporary
-        {
-            GameManager.Instance.player.controller.currHealth -= 1;
-            UpdateHealthBar(); //Call this when player is damaged
-        }
-
         if(!ReturnApproximation(calcHealth, lerpVal, 0.001f) && canLerp) //Lerp bars
         {
             LerpBar(calcHealth, ref lerpVal, healthBar_LerpHealth, lerpSpeed);
@@ -46,9 +39,27 @@ public class HealthBar : MonoBehaviour
     }
     #endregion 
 
-    #region Custom Functions
-    //==========================Public Functions====================================
-    public void Reset() //Reset health bar componenets, call this function when enabling health bar.
+    #region Public Functions
+    public void UpdateHealthBar() //Call from player controller when player recieves damage
+    {
+        currHealth = GameManager.Instance.player.controller.currHealth; //Set currHealth to player's current health
+        calcHealth = currHealth / totalHealth; //Calculate decimal value of health
+
+        healthBar_CurrHealth.fillAmount = calcHealth; //Set fill amount to health
+    }
+
+    public void DeactivateHealthBar() //Call this function if player health = 0;
+    {
+        healthBar_CurrHealth.enabled = false;
+        healthBar_LerpHealth.enabled = false;
+
+        _animator.SetTrigger("Close");
+        //READ : Disable health bar after short delay (0.1f maybe - called from player)
+    }
+    #endregion
+
+    #region Private Functions
+    void Reset() //Reset health bar componenets, call this function when enabling health bar.
     {
         //Set references for this object
         SetReferences();
@@ -69,7 +80,6 @@ public class HealthBar : MonoBehaviour
         healthLerpVal = healthBar_CurrHealth.fillAmount;
 
         //Deactivate fills
-        healthBar_Background.enabled = false;
         healthBar_CurrHealth.enabled = false;
         healthBar_LerpHealth.enabled = false;
 
@@ -77,40 +87,10 @@ public class HealthBar : MonoBehaviour
         StartCoroutine(WaitForLoad(calcHealth));
     }
 
-    public void UpdateHealthBar() //Call from player controller when player recieves damage
-    {
-        currHealth = GameManager.Instance.player.controller.currHealth; //Set currHealth to player's current health
-        calcHealth = currHealth / totalHealth; //Calculate decimal value of health
-
-        healthBar_CurrHealth.fillAmount = calcHealth; //Set fill amount to health
-
-        //Temporary (Will be called from player)
-        if(calcHealth <= 0)
-        {
-            DeactivateHealthBar();
-        }
-    }
-
-    public void DeactivateHealthBar()
-    {
-        healthBar_Background.enabled = false;
-        healthBar_CurrHealth.enabled = false;
-        healthBar_LerpHealth.enabled = false;
-
-        _animator.SetTrigger("Close");
-        //Disable health bar after short delay (0.1f maybe - called from player)
-    }
-    //===============================================================================
-
-    
-    //===============================Private Functions==================================
     void SetReferences()
     {
         if (_animator == null)
             _animator = GetComponent<Animator>();
-
-        if (healthBar_Background == null)
-            healthBar_Background = GetComponentsInChildren<Image>()[0];
 
         if (healthBar_LerpHealth == null)
             healthBar_LerpHealth = GetComponentsInChildren<Image>()[1];
@@ -133,7 +113,6 @@ public class HealthBar : MonoBehaviour
         }
 
         //Enable all healthbar fills
-        healthBar_Background.enabled = true;
         healthBar_CurrHealth.enabled = true;
         healthBar_LerpHealth. enabled = true;
 
