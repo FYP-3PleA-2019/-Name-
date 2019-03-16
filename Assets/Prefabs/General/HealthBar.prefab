@@ -369,7 +369,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8859386877aedf94eae0d5d778f2eecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpSpeed: 0
+  lerpSpeed: 1
+  healthBar_CurrHealth: {fileID: 1637924906438997302}
+  healthBar_LerpHealth: {fileID: 8121383834495013450}
+  healthBar_Background: {fileID: 7322904910367452793}
 --- !u!95 &8928231689190256903
 Animator:
   serializedVersion: 3
