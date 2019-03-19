@@ -479,7 +479,7 @@ PrefabInstance:
         type: 3}
       propertyPath: theEntity
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1655752426}
     - target: {fileID: 6682934801278109089, guid: 1d1e9d456bc346d4a9e1cb2fe91ce795,
         type: 3}
       propertyPath: transitionAnimator
