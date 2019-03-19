@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3791642648634460316}
   - component: {fileID: 3791642648634460313}
   - component: {fileID: 2733081961873211222}
+  - component: {fileID: 4043882115589579632}
   m_Layer: 9
   m_Name: Necromancer
   m_TagString: Enemy
@@ -91,6 +92,8 @@ MonoBehaviour:
   attackRange: 5
   attackSpeed: 5
   myValue: 500
+  arrowIndicator: {fileID: 0}
+  indicatorSprite: {fileID: 0}
   spawnRange: 3
   undeadPrefab: {fileID: 8185237346370740633, guid: 4406052f4e98391498b25a58e7555a02,
     type: 3}
@@ -182,4 +185,30 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
+--- !u!61 &4043882115589579632
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791642648634460317}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

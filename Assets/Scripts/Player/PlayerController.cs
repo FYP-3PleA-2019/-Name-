@@ -13,13 +13,15 @@ public class PlayerController : MonoBehaviour {
     /*[HideInInspector]*/ public float currHealth;
 
     [HideInInspector] public Animator playerAnimator;
-    
+
+    private Rigidbody2D _rBody;
     private bool facingLeft;
     #endregion
 
     private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
+        _rBody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -77,7 +79,8 @@ public class PlayerController : MonoBehaviour {
             else if (shootDir.x > 0 && FacingLeft()) SetFacingLeft(false);
         }
         
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
+        _rBody.MovePosition(new Vector2(transform.position.x + moveDir.x * moveSpeed * Time.deltaTime,
+                                        transform.position.y + moveDir.y * moveSpeed * Time.deltaTime));
     }
     
     public void GetDamage(float damage)
@@ -88,6 +91,13 @@ public class PlayerController : MonoBehaviour {
         {
             //CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
         }
+    }
+
+    public void MoveWithPlatform(Vector3 target)
+    {
+        Vector3 g = new Vector3(transform.position.x + target.x, transform.position.y + target.y, 0);
+
+        transform.position = g;
     }
 
     //Temporary (For Room Manager)

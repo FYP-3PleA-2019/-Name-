@@ -21,6 +21,7 @@ public class MovingPlatform : MonoBehaviour
     #region Variables
     //Private Variables
     private Vector3 moveTarget;
+    private Vector3 init;
 
     //Public Variables
     public GameObject generator;
@@ -29,7 +30,7 @@ public class MovingPlatform : MonoBehaviour
     public float moveSpeed;
     public float tileOffset;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isGrounded, isMoving;
 
     public MoveDirection _moveDirection;
@@ -60,7 +61,10 @@ public class MovingPlatform : MonoBehaviour
     {
         if (transform.position != moveTarget)
         {
+            init = transform.position;
             transform.position = Vector2.MoveTowards(transform.position, moveTarget, Time.deltaTime * moveSpeed);
+            Vector3 k = transform.position - init;
+            GameManager.Instance.player.controller.MoveWithPlatform(k);
             isMoving = true;
         }
 
@@ -74,7 +78,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.transform.SetParent(gameObject.transform);
+            init = transform.position;
             isGrounded = true;
         }
     }
@@ -83,7 +87,6 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.transform.parent = null;
             isGrounded = false;
         }
     }
