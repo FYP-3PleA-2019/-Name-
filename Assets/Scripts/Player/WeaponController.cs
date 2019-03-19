@@ -10,7 +10,9 @@ public class WeaponController : MonoBehaviour
     [Header("Weapon")]
     public Weapon currWeapon;
     public Weapon prevWeapon;
-    
+
+    private SpriteRenderer weaponSprRdr;
+
     private Transform weaponHolder;
     private Transform shootPoint;
 
@@ -19,6 +21,8 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
+        weaponSprRdr = GetComponent<SpriteRenderer>();
+
         weaponHolder = transform.parent;
         shootPoint = GetComponentsInChildren<Transform>()[1];
     }
@@ -45,6 +49,10 @@ public class WeaponController : MonoBehaviour
 
     // -------------------------------- Getters --------------------------------
 
+    public Transform GetShootPoint()
+    {
+        return shootPoint;
+    }
 
     // -------------------------------- Checkers --------------------------------
 
@@ -63,8 +71,29 @@ public class WeaponController : MonoBehaviour
 
         Rotate();
 
+        UpdateSprite();
+
         currWeapon.Reset();
         prevWeapon.Reset();
+    }
+
+    public void OnShootBegin()
+    {
+        StartCoroutine(currWeapon.Shoot());
+    }
+
+    public void OnShootEnd()
+    {
+        //StopCoroutine(currWeapon.Shoot(shootPoint));
+    }
+
+    public void SwitchWeapon()
+    {
+        Weapon temp = currWeapon;
+        currWeapon = prevWeapon;
+        prevWeapon = temp;
+
+        UpdateSprite();
     }
 
     public void Rotate()
@@ -88,7 +117,7 @@ public class WeaponController : MonoBehaviour
         #endregion
     }
 
-    void Flip(bool facingLeft)
+    private void Flip(bool facingLeft)
     {
         float rotationY = 0f;
 
@@ -98,13 +127,8 @@ public class WeaponController : MonoBehaviour
         weaponHolder.eulerAngles = new Vector3(0f, rotationY, 0f);
     }
 
-    public void OnShootBegin()
+    private void UpdateSprite()
     {
-        StartCoroutine(currWeapon.Shoot(shootPoint));
-    }
-
-    public void OnShootEnd()
-    {
-        //StopCoroutine(currWeapon.Shoot(shootPoint));
+        weaponSprRdr.sprite = currWeapon.GetSprite();
     }
 }

@@ -49,6 +49,11 @@ public abstract class Weapon : MonoBehaviour
         return projectile;
     }
 
+    public Sprite GetSprite()
+    {
+        return sprite;
+    }
+
     // -------------------------------- Functions --------------------------------
 
     public void Reset()
@@ -56,5 +61,5 @@ public abstract class Weapon : MonoBehaviour
         canShoot = true;
     }
 
-    public abstract IEnumerator Shoot(Transform shootPoint);
+    public abstract IEnumerator Shoot();
 }

@@ -2,8 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-    
+public class PlayerController : MonoBehaviour, ISubject
+{
+    #region Observer
+    public List<IObserver> registeredObserver = new List<IObserver>();
+    public List<ISubject> registeredSubject = new List<ISubject>();
+
+    public void RegisterSubject(ISubject subject)
+    {
+        registeredSubject.Add(subject);
+    }
+
+    public void RegisterObserver(IObserver observer)
+    {
+        registeredObserver.Add(observer);
+    }
+
+    public void DeregisterObserver(IObserver observer)
+    {
+        registeredObserver.Remove(observer);
+    }
+
+    public void Notify(NOTIFY_TYPE type)
+    {
+        for (int i = 0; i < UIManager.Instance.registeredObserver.Count; i++)
+        {
+            registeredObserver[i].OnNotify(type);
+        }
+    }
+    #endregion
+
     //!!!Player's Stats!!!
 
     #region Player Variables
@@ -24,12 +52,17 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-
+        RegisterSubject(this);
     }
 
     private void Update()
     {
         if (InputManager.Instance.IsMoving()) Move();
+        else
+        {
+            if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
+                Notify(NOTIFY_TYPE.ENTITY_MOVE);
+        }
     }
 
     // -------------------------------- Setters --------------------------------
@@ -57,14 +90,22 @@ public class PlayerController : MonoBehaviour {
     
     public void Reset()
     {
+        registeredObserver.Clear();
+        registeredSubject.Clear();
+
         SetFacingLeft(false);
         //currHealth = defaultHealth; //move this to reset game in game manager
     }
 
     public void Move()
     {
+        if(GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME) Notify(NOTIFY_TYPE.ENTITY_IDLE);
+
         Vector3 moveDir = InputManager.Instance.GetMoveDir();
         Vector3 shootDir = InputManager.Instance.GetShootDir();
+
+        if(moveDir.y < 0f && GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
+            Notify(NOTIFY_TYPE.ENTITY_MOVE);
 
         if (InputManager.Instance.CanFreeAim())
         {
