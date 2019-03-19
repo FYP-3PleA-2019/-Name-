@@ -76,7 +76,7 @@ public class Teleporter : MonoBehaviour, ISubject
         StartCoroutine(DisableUI());
 
         if (gatewayTo == GAME_SCENE.SHOP_SCENE) GameManager.Instance.SetGameState(GAME_STATE.SHOP);
-        else if (gatewayTo == GAME_SCENE.GAME_SCENE) GameManager.Instance.SetGameState(GAME_STATE.IN_GAME);
+        else if (gatewayTo == GAME_SCENE.GAME_SCENE) GameManager.Instance.SetGameState(GAME_STATE.PAUSED);
         else if (gatewayTo == GAME_SCENE.LOBBY_SCENE) GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
 
         UIManager.Instance.transitionUI.PlayTransitionAnimation(0);

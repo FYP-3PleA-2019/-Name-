@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     #region General Variables
     [Header("General")]
@@ -20,6 +20,8 @@ public class Weapon : MonoBehaviour
 
     public GameObject projectile;
     public Sprite sprite;
+
+    protected bool canShoot;
     #endregion
 
     // -------------------------------- Setters --------------------------------
@@ -47,8 +49,17 @@ public class Weapon : MonoBehaviour
         return projectile;
     }
 
-    // -------------------------------- Checkers --------------------------------
-
+    public Sprite GetSprite()
+    {
+        return sprite;
+    }
 
     // -------------------------------- Functions --------------------------------
+
+    public void Reset()
+    {
+        canShoot = true;
+    }
+
+    public abstract IEnumerator Shoot();
 }

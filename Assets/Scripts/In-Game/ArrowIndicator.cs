@@ -52,6 +52,9 @@ public class ArrowIndicator : MonoBehaviour
 
     private void Update()
     {
+        if (player == null)
+            return;
+
         Vector3 targetPosition = Camera.main.WorldToScreenPoint(_target.position);
 
         if (IsOutOfBounds(targetPosition))
