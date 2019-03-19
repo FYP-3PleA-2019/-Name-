@@ -15,9 +15,8 @@ public class CreditsStand : MonoBehaviour, ISubject
     #region Variables
 
     //Bluring Variables
-    public Image panelImage;
-    public float blurSize;
-    public float blurDuration;
+    [Range(0, 5)] public float blurSize;
+    [Range(0, 2)] public float blurDuration;
 
     //Credits Base
     public List<Animator> openCreditAnimators;
@@ -45,10 +44,14 @@ public class CreditsStand : MonoBehaviour, ISubject
 
     private void Start()
     {
-        panelImage.enabled = false;
+        //Blur
+        UIManager.Instance.blurUI.DisableCanvas();
+        UIManager.Instance.blurUI.Reset();
+        UIManager.Instance.blurUI.BlurDuration = blurDuration;
+        UIManager.Instance.blurUI.BlurSize = blurSize;
+
         indicator.SetActive(false);
         isOpen = false;
-        ResetBlur();
         InstantiateArrowIndicator();
     }
 
@@ -95,51 +98,18 @@ public class CreditsStand : MonoBehaviour, ISubject
     void OpenCredits()
     {
         AnimationController.Instance.OpenPopUpOneShot(openCreditAnimators, openCreditStrings, ref isOpen);
-        StartCoroutine(StartBlur());
+        StartCoroutine(UIManager.Instance.blurUI.StartBlur());
 
         UIManager.Instance.controlUI.HideCanvas();
-        panelImage.enabled = true;
+        UIManager.Instance.blurUI.EnableCanvas();
     }
 
     public void CloseCredits()
     {
         AnimationController.Instance.ClosePopUpOneShot(closeCreditAnimators, closeCreditStrings, ref isOpen);
-        StartCoroutine(EndBlur());
+        StartCoroutine(UIManager.Instance.blurUI.EndBlur());
 
         UIManager.Instance.controlUI.ShowCanvas();
-    }
-
-    void ResetBlur()
-    {
-        panelImage.material.SetFloat("_Size", 0.0f);
-    }
-
-    IEnumerator StartBlur()
-    {
-        float currBlurSize = panelImage.material.GetFloat("_Size");
-        float blurDifference = blurSize - currBlurSize;
-        float sizeToIncrease = blurDifference / (blurDuration / Time.deltaTime);
-
-        while (currBlurSize < blurSize)
-        {
-            panelImage.material.SetFloat("_Size", currBlurSize + sizeToIncrease);
-            currBlurSize = panelImage.material.GetFloat("_Size"); ;
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-    }
-
-    IEnumerator EndBlur()
-    {
-        float currBlurSize = panelImage.material.GetFloat("_Size");
-        float sizeToIncrease = blurSize / (blurDuration / Time.deltaTime);
-
-        while (currBlurSize > 0.0f)
-        {
-            panelImage.material.SetFloat("_Size", currBlurSize - sizeToIncrease);
-            currBlurSize = panelImage.material.GetFloat("_Size"); ;
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-        panelImage.enabled = false;
     }
 
     void EnableUI()

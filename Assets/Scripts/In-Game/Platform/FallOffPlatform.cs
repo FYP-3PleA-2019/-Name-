@@ -26,8 +26,10 @@ public class FallOffPlatform : MonoBehaviour
     void PlayerDetected()
     {
         canLoad = false;
-        UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
-        GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
-        CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
+        float damage = GameManager.Instance.player.controller.currHealth;
+        GameManager.Instance.player.controller.GetDamage(damage);
+        //UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
+        //GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
+        //CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
     }
 }

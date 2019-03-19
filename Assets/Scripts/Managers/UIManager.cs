@@ -68,6 +68,7 @@ public class UIManager : MonoBehaviour
     [Header("General")]
     [HideInInspector] public ControlUIController controlUI;
     [HideInInspector] public TransitionScript transitionUI;
+    [HideInInspector] public BlurScript blurUI;
    //StatUIController StatUI;
     #endregion
 
@@ -80,6 +81,7 @@ public class UIManager : MonoBehaviour
 
         controlUI = GetComponentInChildren<ControlUIController>();
         transitionUI = GetComponentInChildren<TransitionScript>();
+        blurUI = GetComponentInChildren<BlurScript>();
     }
 
     // -------------------------------- Functions --------------------------------
@@ -88,5 +90,6 @@ public class UIManager : MonoBehaviour
     {
         controlUI.Reset();
         transitionUI.Reset();
+        blurUI.Reset();
     }
 }
