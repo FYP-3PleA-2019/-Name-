@@ -141,12 +141,11 @@ public class PlayerController : MonoBehaviour, ISubject
         transform.position = g;
     }
 
-    //Temporary (For Room Manager)
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.tag == "Room")
+        if(collision.tag == "Enemy")
         {
-            RoomManager.Instance.EnteredRoomChecker(other.gameObject);
+            InputManager.Instance.SetIsMoving(false);
         }
     }
 }

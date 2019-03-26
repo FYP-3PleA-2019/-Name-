@@ -30,7 +30,7 @@ public class RainbowLaser : Projectile
         
         shootDir = InputManager.Instance.GetShootDir();
 
-        RaycastHit2D hit = Physics2D.Raycast(shootPoint.position, shootDir, fireRange, destroyableLayer);
+        RaycastHit2D hit = Physics2D.Raycast(shootPoint.position, shootDir, range, destroyableLayer);
         
         if (hit.collider != null)
         {
@@ -40,7 +40,7 @@ public class RainbowLaser : Projectile
         else
         {
             lineRenderer.SetPosition(0, shootPoint.position);
-            lineRenderer.SetPosition(1, shootPoint.position + (shootDir * fireRange));
+            lineRenderer.SetPosition(1, shootPoint.position + (shootDir * range));
         }
 
         lineRenderer.enabled = true;

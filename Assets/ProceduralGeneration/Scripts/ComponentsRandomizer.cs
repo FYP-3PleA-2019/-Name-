@@ -7,6 +7,7 @@ public class ComponentsRandomizer : MonoBehaviour
     #region Variables
     public List<GameObject> objects;
     public List<GameObject> spawnPoints;
+    public List<Enemy> enemyList;
 
     [Space(5)]
     [Header("Next Room Variables")]
@@ -60,13 +61,16 @@ public class ComponentsRandomizer : MonoBehaviour
             GameObject GO = Instantiate(objects[randObj], spawnPoints[randPoint].transform.position, Quaternion.identity);
             GO.transform.parent = gameObject.transform; //Set spawned objects as children of the room.
 
-            int enemyVal = GO.GetComponent<Enemy>().myValue;
+            //Add enemy into enemy list
+            enemyList.Add(GO.GetComponent<Enemy>());
+
+            int enemyVal = GO.GetComponent<EnemyBase>().myValue;
 
             if (enemyValue - enemyVal < 0)
                 Destroy(GO);
 
             else
-                enemyValue -= GO.GetComponent<Enemy>().myValue;
+                enemyValue -= GO.GetComponent<EnemyBase>().myValue;
 
             //Remove position that was randomed to avoid spawning next object at the same position
             spawnPoints.Remove(spawnPoints[randPoint]);
@@ -75,6 +79,19 @@ public class ComponentsRandomizer : MonoBehaviour
         //Clear lists to free up memory
         spawnPoints.Clear();
         objects.Clear();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            RoomManager.Instance.EnteredRoomChecker(this.gameObject);
+
+            for(int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].SetEnemyState(ENEMY_STATE.MOVE);
+            }
+        }
     }
     #endregion
 

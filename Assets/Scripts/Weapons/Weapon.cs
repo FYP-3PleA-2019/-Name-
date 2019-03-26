@@ -11,6 +11,8 @@ public abstract class Weapon : MonoBehaviour
     public float damage;
     public float fireRange;
     public float fireRate;
+    public float projectileSpeed;
+    public float projectileSpread;
 
     public int fireCost;
     public int areaOfEffect;
@@ -44,6 +46,16 @@ public abstract class Weapon : MonoBehaviour
         return fireRate;
     }
 
+    public float GetProjectileSpeed()
+    {
+        return projectileSpeed;
+    }
+
+    public float GetProjectileSpread()
+    {
+        return projectileSpread;
+    }
+
     public GameObject GetProjectile()
     {
         return projectile;
@@ -59,6 +71,11 @@ public abstract class Weapon : MonoBehaviour
     public void Reset()
     {
         canShoot = true;
+    }
+
+    public float GetRandomSpread()
+    {
+        return Random.Range(-projectileSpread, projectileSpread);
     }
 
     public abstract IEnumerator Shoot();

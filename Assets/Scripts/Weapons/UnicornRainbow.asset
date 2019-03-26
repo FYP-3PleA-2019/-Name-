@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa4f97cb355032498de9ec036e89f9e, type: 3}
+  m_Name: UnicornRainbow
+  m_EditorClassIdentifier: 
+  pierce: 0
+  damage: 1
+  fireRange: 4
+  fireRate: 0
+  fireCost: 4
+  areaOfEffect: 0
+  cost: 1000
+  weaponName: Unicorn Rainbow
+  projectile: {fileID: 6565602555971429743, guid: f86cea9656a9b224ea23020ebfc25e7c,
+    type: 3}
+  sprite: {fileID: 21300000, guid: 78a1dd6f8967f8447beb41ce55f94a2a, type: 3}

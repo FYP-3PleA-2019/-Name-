@@ -8,7 +8,7 @@ public class PistolBullet : Projectile
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().ReceiveDamage(damage);
+            other.GetComponent<EnemyBase>().ReceiveDamage(damage);
 
             Destroy(gameObject);
         }

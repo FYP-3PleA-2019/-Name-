@@ -127,7 +127,7 @@ public class TheEntity : MonoBehaviour, IObserver
         }
         else if(collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().ReceiveDamage(1000);
+            collision.GetComponent<EnemyBase>().ReceiveDamage(1000);
         }
     }
 }

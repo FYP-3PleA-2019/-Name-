@@ -2,263 +2,182 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CurrentState
+public enum ENEMY_STATE
 {
-    Spawn,
-    Idle,
-    Move,
-    Attack,
-    Death,
+    IDLE,
+    MOVE,
+    ATTACK,
+    WANDER,
+    DEATH,
 }
+
 public class Enemy : MonoBehaviour
 {
     #region General Variables
     [Header("General Variables")]
-    public CurrentState _currentState;
-    private Animator _animator;
-    private Transform target;
-    private Transform currTarget;
+    private static List<Rigidbody2D> EnemyList;
+    #endregion
 
-    public float health;
+    #region Enemy Variables
+    [Header("Enemy Variables")]
     public float moveSpeed;
-    public float wanderRange;
+    public float repelRange;
+    public float repelMultiplier;
+    public float idleDuration;
 
-    public float minIdleTime;
-    public float maxIdleTime;
+    public int health;
+    public int coinsDrop;
 
-    [HideInInspector]
-    public List<GameObject> tempList;
-    protected bool canCreate;
+    public ENEMY_STATE _enemyState;
 
-    protected float idleDuration;
-    protected float idleTimer;
+    private bool facingLeft;
+
+    private Animator _animator;
+    private Rigidbody2D _rBody;
     #endregion
 
     #region Attack Variables
     [Header("Attack Variables")]
-    public LayerMask attackLayer;
-    public int attackDamage;
-    public float attackRange;
     public float attackSpeed;
+    public float attackRange;
 
-    protected float attackTimer;
+    public int damage;
+
+    public EnemyWeapon weapon;
     #endregion
 
-    //Temporary
-    public int myValue;
-    public GameObject arrowIndicator;
-    public Sprite indicatorSprite;
-
-    #region Unity Functions
-    // Start is called before the first frame update
-    public virtual void Start()
+    private void Awake()
     {
-        _currentState = CurrentState.Spawn; //Set initial state
-
-        attackTimer = 0;
-
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        
-        _animator = gameObject.GetComponent<Animator>();
-
-        attackTimer = attackSpeed;
-        currTarget = target; //Setting current target to default target [Player]
-        canCreate = true;
-
-        //Temporary [Instantiate arrow indicator for this obj]
-        InstantiateArrowIndicator();
+        _animator = GetComponent<Animator>();
+        _rBody = GetComponent<Rigidbody2D>();
+        weapon = GetComponent<EnemyWeapon>();
     }
 
-    // Update is called once per frame
-    public virtual void Update()
+    // Start is called before the first frame update
+    void Start()
     {
-        if (target == null)
-            return;
+        //_enemyState = ENEMY_STATE.IDLE;
+        _enemyState = ENEMY_STATE.MOVE;
 
-        switch (_currentState)
+        if (EnemyList == null)
         {
-            case CurrentState.Idle:
+            EnemyList = new List<Rigidbody2D>();
+        }
+
+        EnemyList.Add(_rBody);
+    }
+
+    private void OnDestroy()
+	{
+		EnemyList.Remove(_rBody);
+	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 playerPos = GameManager.Instance.player.transform.position;
+
+        if (playerPos.x < _rBody.position.x && !FacingLeft()) SetFacingLeft(true);
+        else if (playerPos.x > _rBody.position.x && FacingLeft()) SetFacingLeft(false);
+
+        switch (_enemyState)
+        {
+            case ENEMY_STATE.IDLE:
                 Idle();
                 break;
 
-            case CurrentState.Move:
-                Move();
+            case ENEMY_STATE.MOVE:
+                Move(playerPos);
                 break;
 
-            case CurrentState.Attack:
+            case ENEMY_STATE.ATTACK:
                 Attack();
                 break;
 
-            case CurrentState.Death:
-                Death();
+            case ENEMY_STATE.WANDER:
                 break;
 
-            default:
-                Spawn();
+            case ENEMY_STATE.DEATH:
                 break;
         }
     }
-    #endregion
 
-    #region Enemy Behaviour
-    public virtual void Spawn()
+    // -------------------------------- Setters --------------------------------
+
+    //Set player facing
+    void SetFacingLeft(bool facingLeft)
     {
-        //Spawn Particle Effects
-        //Instantiate();
-
-        //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("SpawnAnimationName")) //Check to see if animator is still playing spawn animation
-            _currentState = CurrentState.Idle; //Switch state to idle if spawning animation is finished playing
+        this.facingLeft = facingLeft;
+        _animator.SetBool("facingLeft", facingLeft);
     }
 
-    public virtual void Idle()
+    public void SetEnemyState(ENEMY_STATE enemyState)
+    {
+        _enemyState = enemyState;
+    }
+
+    // -------------------------------- Checkers --------------------------------
+    
+    public bool FacingLeft()
+    {
+        bool result = facingLeft;
+        return result;
+    }
+
+    // -------------------------------- Functions --------------------------------
+    
+    public virtual IEnumerator Idle()
     {
         //_animator.SetTrigger("Idle"); //Play Idle Animation
 
-        idleTimer += Time.deltaTime;
-
-        if(idleTimer >= idleDuration) //Short interval before moving
-        {
-            idleTimer = 0;
-            _currentState = CurrentState.Move;
-        }
-    }
-
-    public virtual void Move()
-    {
-        //_animator.SetTrigger("Move"); //Play Move Animation
-        //Instantiate() //Spawn Particle effects at feet
-
-        attackTimer += Time.deltaTime; //Increase attack timer
-
-        if (attackTimer >= attackSpeed) //If ready to attack player, set [Player] as [Current Target]
-        {
-            currTarget = target;
-
-            if (tempList.Count != 0)
-            {
-                Destroy(tempList[0]); //Destroy temporary [Game Object]
-                tempList.RemoveAt(0);
-                canCreate = true;
-            }
-        }
-
-        else //Else, set [Wander Target] as [Current Target]
-        {
-            if (canCreate)
-            {
-                canCreate = false; 
-
-                GameObject tempPos = new GameObject(); //Create new [GameObject] to hold temporary randomized position
-                tempList.Add(tempPos); //Add created [GameObject] to a list 
-                tempPos.transform.parent = gameObject.transform;
-
-                Vector2 randWanderPos = RandomPositionWithinRadius(wanderRange, target.position); // Randomize a position in close proximity to the [Player]
-
-                //check if randomized spot is tiled
-
-                tempPos.transform.position = randWanderPos; //Set created [GameObject's] position to randomly generated position
-
-                currTarget = tempPos.transform;
-            }
-        }
-
-        float distanceFromTarget = Vector2.Distance(transform.position, currTarget.position); //Calculate distance between Enemy and [Current Target]
-        transform.position = Vector2.MoveTowards(transform.position, currTarget.position, Time.deltaTime * moveSpeed); //Move towards [Current Target]
-
-        if (distanceFromTarget <= attackRange) //If [Current Target] is within [Attack Range], 
-        {
-            if(currTarget.tag == "Player") //If [Current Target] is [Player]
-            {
-                _currentState = CurrentState.Attack; //Set state to [Attack]
-            }
-
-            else //Else, reposition self
-            {
-                Destroy(tempList[0]); //Destroy temporary [Game Object]
-                tempList.RemoveAt(0);
-                canCreate = true; 
-
-                int randState = Random.Range(0, 2); // Gives Enemy a chance to Idle instead of constantly moving around
-
-                if(randState == 0)
-                {
-                    idleDuration = Random.Range(minIdleTime, maxIdleTime);
-                    _currentState = CurrentState.Idle;
-                }
-            }
-        }
+        yield return new WaitForSeconds(5.0f);
     }
 
     public virtual void Attack()
     {
-        attackTimer = 0; //Reset Attack Timer
 
-        //_animator.SetTrigger("Attack"); //Play Attack Animation
+    }
 
-        //Temporary attack logic
-        Collider2D[] gameObjectsToDamage = Physics2D.OverlapBoxAll(transform.position, new Vector2(attackRange * 2, attackRange * 2), 0, attackLayer); //Create an array of everything that is affected by this attack
-        for (int i = 0; i < gameObjectsToDamage.Length; i++)
+    private void Reset()
+    {
+        SetFacingLeft(false);
+    }
+
+    private void Move(Vector2 playerPos)
+    {
+        float distance = Vector2.Distance(playerPos, transform.position);
+
+        if (distance <= attackRange) return;
+
+        Vector2 repelForce = Vector2.zero;
+
+        for(int i = 0; i < EnemyList.Count; i++)
         {
-            if(gameObjectsToDamage[i].gameObject.tag == "Player")
-                gameObjectsToDamage[i].GetComponent<PlayerCoreController>().controller.GetDamage(attackDamage); //Damage all [Damage-able] gameobjects. NOTE! : Damage game objects by calling their Receive Damage function!
+            if (EnemyList[i] == _rBody) continue;
+
+            if(Vector2.Distance(EnemyList[i].position, _rBody.position) <= repelRange)
+            {
+                Vector2 repelDir = (_rBody.position - EnemyList[i].position).normalized;
+                repelForce += repelDir;
+            }
         }
-        //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("AttackAnimationName")) //Check to see if animator is still playing attack animation
-        idleDuration = Random.Range(minIdleTime, maxIdleTime); //Random idle duration
-        _currentState = CurrentState.Idle; //Switch state to idle if attack animation is finished playing
-    }
-
-    public virtual void Death()
-    {
-        //Play Death Animation 
-        //_animator.SetTrigger("Death");
-
-        //Spawn Particle Effects and spawn blood stains
-        //Instantiate();
-        //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("DeathAnimationName")) //Check to see if animator is still playing death animation
-        Destroy(gameObject);
-    }
-    #endregion
-
-    #region Tools Functions
-    public void ReceiveDamage(float damage)
-    {
-        if(health > 0)
-            health -= damage;
         
-        else if (health <= 0)
+        Vector2 moveDir = (playerPos - _rBody.position).normalized;
+        Vector2 newPos = _rBody.position + moveDir * Time.fixedDeltaTime * moveSpeed;
+        newPos += repelForce * Time.fixedDeltaTime * repelMultiplier;
+
+        _rBody.MovePosition(newPos);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
         {
-            health = 0;
-            _currentState = CurrentState.Death;
+            SetEnemyState(ENEMY_STATE.IDLE);
+        }
+        else if(collision.tag == "Player")
+        {
+            SetEnemyState(ENEMY_STATE.ATTACK);
         }
     }
-
-    public void FallOffPlatform()
-    {
-        _currentState = CurrentState.Death;
-    }
-
-    private Vector2 RandomPositionWithinRadius(float radius, Vector2 objectPos)
-    {
-        Vector2 rand = Random.insideUnitCircle * radius;
-        Vector2 randSpawnPoint = new Vector2(objectPos.x + rand.x, objectPos.y + rand.y);
-
-        return randSpawnPoint;
-    }
-
-    void InstantiateArrowIndicator()
-    {
-        GameObject indicator = Instantiate(arrowIndicator, transform.position, Quaternion.identity);
-        indicator.transform.SetParent(this.transform);
-        indicator.GetComponent<ArrowIndicator>().Target = this.transform;
-        indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
-    }
-    #endregion
-
-    #region Gizmos
-    public virtual void OnDrawGizmosSelected() //Draw a cube that serves as an attack range indicator in the [Scene View]
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(attackRange * 2, attackRange * 2, 0));
-    }
-    #endregion
 }
