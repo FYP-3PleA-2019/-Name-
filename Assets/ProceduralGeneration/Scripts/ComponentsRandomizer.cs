@@ -87,10 +87,10 @@ public class ComponentsRandomizer : MonoBehaviour
         {
             RoomManager.Instance.EnteredRoomChecker(this.gameObject);
 
-            for(int i = 0; i < enemyList.Count; i++)
-            {
-                enemyList[i].SetEnemyState(ENEMY_STATE.MOVE);
-            }
+            //for(int i = 0; i < enemyList.Count; i++)
+            //{
+            //    enemyList[i].SetEnemyState(ENEMY_STATE.MOVE);
+            //}
         }
     }
     #endregion

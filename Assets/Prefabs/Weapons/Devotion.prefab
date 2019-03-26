@@ -47,8 +47,8 @@ MonoBehaviour:
   damage: 1
   fireRange: 3
   fireRate: 0.5
-  projectileSpeed: 0
-  projectileSpread: 0
+  projectileSpeed: 25
+  projectileSpread: 10
   fireCost: 0
   areaOfEffect: 0
   cost: 0
