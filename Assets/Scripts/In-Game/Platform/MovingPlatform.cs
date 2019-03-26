@@ -22,6 +22,7 @@ public class MovingPlatform : MonoBehaviour
     //Private Variables
     private Vector3 moveTarget;
     private Vector3 init;
+    private Generator _generator;
 
     //Public Variables
     public GameObject generator;
@@ -49,6 +50,7 @@ public class MovingPlatform : MonoBehaviour
             GameObject GO = Instantiate(generator, generatorSpawnPoint.position, Quaternion.identity);
             GO.transform.parent = gameObject.transform;
             GO.GetComponent<Generator>().SetGeneratorType(0);
+            _generator = GO.GetComponent<Generator>();
         }
 
         else
@@ -76,18 +78,20 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "FeetCollider")
         {
             init = transform.position;
             isGrounded = true;
+            _generator.ActivateIndicator();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "FeetCollider")
         {
             isGrounded = false;
+            _generator.DisableIndicator();
         }
     }
     #endregion

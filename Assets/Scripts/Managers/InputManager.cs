@@ -76,17 +76,20 @@ public class InputManager : MonoBehaviour {
 
     // -------------------------------- Setters --------------------------------
     
-    void SeCanControl(bool canControl)
+    public void SetCanControl(bool canControl)
     {
         this.canControl = canControl;
+
+        if (!canControl)
+            Reset();
     }
     
-    void SetCanMove(bool canMove)
+    public void SetCanMove(bool canMove)
     {
         this.canMove = canMove;
     }
     
-    void SetCanShoot(bool canShoot)
+    public void SetCanShoot(bool canShoot)
     {
         this.canShoot = canShoot;
     }

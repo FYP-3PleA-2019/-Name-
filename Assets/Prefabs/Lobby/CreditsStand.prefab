@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: -1630905471
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2b6129f144863e748840ab8a0a8948dd, type: 3}
-  m_Color: {r: 0.7264151, g: 0.2706924, b: 0.62287945, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 34aef7ee312a96a42aabbd949936044e, type: 3}
+  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   indicatorText: CREDITS
   arrowIndicator: {fileID: 3283214891397892474, guid: 3ad70a70f02978a4eb2ea577895d2c6f,
     type: 3}
-  indicatorSprite: {fileID: 21300000, guid: 2b6129f144863e748840ab8a0a8948dd, type: 3}
+  indicatorSprite: {fileID: 21300000, guid: 34aef7ee312a96a42aabbd949936044e, type: 3}
 --- !u!61 &2812344713375076889
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.35, y: 1.35}
+    oldSize: {x: 2.5, y: 2.5}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

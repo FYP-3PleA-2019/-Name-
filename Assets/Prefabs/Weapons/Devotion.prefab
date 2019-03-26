@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3531303201554659695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1294962950351408472}
+  - component: {fileID: 2205824411343347611}
+  m_Layer: 0
+  m_Name: Devotion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1294962950351408472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531303201554659695}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2205824411343347611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531303201554659695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d613c80a0002384eab14957a6cee2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pierce: 0
+  damage: 1
+  fireRange: 3
+  fireRate: 0.5
+  projectileSpeed: 25
+  projectileSpread: 10
+  fireCost: 0
+  areaOfEffect: 0
+  cost: 0
+  weaponName: Devotion
+  projectile: {fileID: 7306767720644246113, guid: 3a6385f999fccf74b8d39c5f097fddcf,
+    type: 3}
+  sprite: {fileID: 21300014, guid: 6abb57d3e60a5214ea3b1f5be4619691, type: 3}
+  shotsToActivate: 6
+  maxFireRate: 0.1

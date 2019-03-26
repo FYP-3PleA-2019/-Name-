@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GeneratorType
 {
@@ -18,6 +19,7 @@ public class Generator : MonoBehaviour
     [Space(3)]
     [Header("Personal Components")]
     private Animator _animator;
+    public GameObject _canvas;
     #endregion 
 
     #region Generator Type Declaration
@@ -31,18 +33,11 @@ public class Generator : MonoBehaviour
     {
         _animator = GetComponent<Animator>(); // Setting Generator's Animator Component
 
+        DisableIndicator();
+
         if(_generatorType == GeneratorType.MovePlatform)
         {
             _movingPlatform = transform.parent.gameObject.GetComponent<MovingPlatform>();
-        }
-    }
-
-    //Temporary for  [D E B U G G I N G]
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            InitiateGeneratorFunction();
         }
     }
 
@@ -79,6 +74,16 @@ public class Generator : MonoBehaviour
 
         else if (_generatorType == GeneratorType.SpawnBridge)
             Debug.Log("Spawning Bridge!");
+    }
+
+    public void ActivateIndicator()
+    {
+        _canvas.SetActive(true);
+    }
+
+    public void DisableIndicator()
+    {
+        _canvas.SetActive(false);
     }
     #endregion 
 }

@@ -58,6 +58,7 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     //Calculate drag point from touch point
     public void OnDrag(PointerEventData eventData)
     {
+        InputManager.Instance.SetIsMoving(true);
         Vector3 dragPoint = eventData.position; //World point
         //Vector3 newTouchPos = Camera.main.ScreenToWorldPoint(eventData.position) //Screen point;
 

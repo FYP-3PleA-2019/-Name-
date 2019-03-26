@@ -15,47 +15,44 @@ public class ShopStand : MonoBehaviour, ISubject
     }
     #endregion
 
-    public int PurchaseCost
-    {
-        get { return _purchaseCost; }
-        set
-        {
-            _purchaseCost = value;
-        }
-    }
-    private int _purchaseCost;
+    //References
+    private Canvas _shopCanvas;
+    private Text shopText;
+    private Animator _animator;
+    private Animator _weaponAnimator;
+    private SpriteRenderer shopWeaponSprite;
 
-    public string WeaponName
-    {
-        get { return _weaponName; }
-        set
-        {
-            _weaponName = value;
-        }
-    }
-    private string _weaponName;
-    
+    //Variables
     private bool _isPurchased;
-
+    private bool showText;
+    
     public Weapon _weapon;
-
-    public Canvas _shopCanvas;
-    public Text shopText;
     public string purchaseString;
     public string equipString;
-    public string fundsString;
     public string weaponPurchasedString;
     public string weaponEquippedString;
+    public string fundsString;
 
     [Range(0f, 0.3f)] public float textSpeed;
 
-    private string currText = "";
-
     private void Start()
     {
+        //Set references
+        _shopCanvas = GetComponentsInChildren<Canvas>()[0];
+        shopText = GetComponentsInChildren<Text>()[0];
+        shopWeaponSprite = GetComponentsInChildren<SpriteRenderer>()[1];
+        _animator = GetComponent<Animator>();
+        _weaponAnimator = GetComponentsInChildren<Animator>()[1];
+
         UIManager.Instance.RegisterSubject(this);
+
+        shopWeaponSprite.sprite = _weapon.sprite;
         _isPurchased = false; // Temporary! Set to SaveManager's value in the future!
-        StartCoroutine(DisableShopUI(0.1f));
+        ShopAnimation();
+
+        showText = false;
+
+        StartCoroutine(DisableShopUI(0f));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -64,18 +61,27 @@ public class ShopStand : MonoBehaviour, ISubject
         {
             Notify(NOTIFY_TYPE.UI_INTERACT_BUTTON);
             EnableShopUI();
+            StartCoroutine(WaitForInteract());
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Player" && !showText)
+        {
+            showText = true;
 
             if (_isPurchased)
             {
-                StartCoroutine(DisplayText(equipString, textSpeed));
+                StartCoroutine(DisplayTextWithDelay(equipString, textSpeed));
+                //DisplayText(equipString);
             }
 
             else
             {
-                StartCoroutine(DisplayText(purchaseString, textSpeed));
+                StartCoroutine(DisplayTextWithDelay(purchaseString, textSpeed));
+                //DisplayText(purchaseString);
             }
-
-            StartCoroutine(WaitForInteract());
         }
     }
 
@@ -85,22 +91,24 @@ public class ShopStand : MonoBehaviour, ISubject
         {
             Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
             StartCoroutine(DisableShopUI(0.1f));
+            showText = false;
         }
     }
 
-    public void EnableShopUI()
+    void EnableShopUI()
     {
         _shopCanvas.enabled = true;
     }
 
-    public IEnumerator DisableShopUI(float duration)
+    IEnumerator DisableShopUI(float duration)
     {
         yield return new WaitForSeconds(duration);
         _shopCanvas.enabled = false;
     }
 
-    public IEnumerator DisplayText(string textToDisplay, float delay)
+    IEnumerator DisplayTextWithDelay(string textToDisplay, float delay)
     {
+        string currText = "";
         for(int i = 0; i < textToDisplay.Length + 1; i++)
         {
             currText = textToDisplay.Substring(0, i);
@@ -109,27 +117,63 @@ public class ShopStand : MonoBehaviour, ISubject
         }
     }
 
-    public void InsufficientFunds()
+    void ShopAnimation()
     {
-        SoundManager.instance.playSingle(SoundManager.instance.insufficientFunds);
-        StartCoroutine(DisplayText(fundsString, textSpeed));
+        if(_isPurchased)
+        {
+            _animator.SetTrigger("Purchased");
+            _weaponAnimator.SetTrigger("Purchased");
+        }
+
+        else
+        {
+            _animator.SetTrigger("NotPurchased");
+        }
     }
 
-    public void EquipWeapon()
+    void DisplayText(string textToDisplay)
+    {
+        shopText.text = textToDisplay;
+    }
+
+    void InsufficientFunds()
+    {
+        SoundManager.instance.playSingle(SoundManager.instance.insufficientFunds);
+        StartCoroutine(DisplayTextWithDelay(fundsString, textSpeed));
+        //DisplayText(fundsString);
+    }
+
+    void EquipWeapon()
     {
         SoundManager.instance.playSingle(SoundManager.instance.weaponEquipped);
         GameManager.Instance.player.weapon.SetCurrentWeapon(_weapon);
-        StartCoroutine(DisplayText(weaponEquippedString, textSpeed));
+        StartCoroutine(DisplayTextWithDelay(weaponEquippedString, textSpeed));
+        //DisplayText(weaponEquippedString);
     }
 
-    public void PurchaseWeapon()
+    IEnumerator PurchaseWeapon()
     {
-        SoundManager.instance.playSingle(SoundManager.instance.purchasedSfx);
-        //Check if player's money > weapon's cost
-        //If not InsufficientFunds();
-        //Else Weapon is Purchased;
-        _isPurchased = true;
-        StartCoroutine(DisplayText(weaponPurchasedString, textSpeed));
+        if(GameManager.Instance.Coins >= _weapon.cost)
+        {
+            _isPurchased = true;
+            ShopAnimation(); //Play shop animation
+            GameManager.Instance.ReduceMoney(_weapon.cost); //Deduct money spent from total amount
+            GameManager.Instance.SaveData(); //Save Data
+            UIManager.Instance.coinUI.UpdateCoinUI(); //Update coin UI
+
+            SoundManager.instance.playSingle(SoundManager.instance.purchasedSfx); //Play sound effect
+            StartCoroutine(DisplayTextWithDelay(weaponPurchasedString, textSpeed)); //Display Text
+            //DisplayText(weaponPurchasedString);
+            StartCoroutine(WaitForInteract());
+
+            yield return new WaitForSeconds(0.8f);
+            showText = false;
+        }
+
+        else
+        {
+            InsufficientFunds();
+        }
     }
 
     IEnumerator WaitForInteract()
@@ -145,6 +189,6 @@ public class ShopStand : MonoBehaviour, ISubject
             EquipWeapon();
 
         else if (!_isPurchased)
-            PurchaseWeapon();
+            StartCoroutine(PurchaseWeapon());
     }
 }

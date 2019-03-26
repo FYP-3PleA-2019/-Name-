@@ -12,6 +12,7 @@ public class ShopSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UIManager.Instance.controlUI.ShowCanvas();
         GameManager.Instance.player.transform.position = shopSpawnPoint.position;
         UIManager.Instance.transitionUI.PlayTransitionAnimation(1);
     }

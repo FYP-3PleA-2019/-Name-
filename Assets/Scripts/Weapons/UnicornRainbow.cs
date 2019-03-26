@@ -18,6 +18,8 @@ public class UnicornRainbow : Weapon
             laser = Instantiate(projectile, shootPoint.position, shootPoint.rotation).GetComponent<Projectile>();
             laser.SetDamage(GetDamage());
             laser.SetFireRange(GetFireRange());
+            laser.SetFireRate(GetFireRate());
+            laser.SetMoveSpeed(GetProjectileSpeed());
         }
 
         while (InputManager.Instance.IsShooting())

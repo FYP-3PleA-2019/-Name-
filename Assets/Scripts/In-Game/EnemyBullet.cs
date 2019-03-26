@@ -7,6 +7,9 @@ public class EnemyBullet : MonoBehaviour
     public float damage;
     public float moveSpeed;
 
+    public float knockBackForce;
+    public float knockBackDuration;
+
     protected Vector3 shootDir;
 
     public virtual void Update()
@@ -23,7 +26,10 @@ public class EnemyBullet : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerCoreController>().controller.GetDamage(damage);
+            Vector2 knockBackDir = new Vector2(other.transform.position.x, other.transform.position.y)
+                                 - new Vector2(transform.position.x, transform.position.y);
+
+            other.gameObject.GetComponent<PlayerCoreController>().controller.GetDamage(damage, knockBackDir, knockBackForce, knockBackDuration);
             Destroy(gameObject);
         }
     }

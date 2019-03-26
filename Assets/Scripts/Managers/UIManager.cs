@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public ControlUIController controlUI;
     [HideInInspector] public TransitionScript transitionUI;
     [HideInInspector] public BlurScript blurUI;
+    [HideInInspector] public CoinUIController coinUI;
    //StatUIController StatUI;
     #endregion
 
@@ -82,6 +83,7 @@ public class UIManager : MonoBehaviour
         controlUI = GetComponentInChildren<ControlUIController>();
         transitionUI = GetComponentInChildren<TransitionScript>();
         blurUI = GetComponentInChildren<BlurScript>();
+        coinUI = GetComponentInChildren<CoinUIController>();
     }
 
     // -------------------------------- Functions --------------------------------
@@ -91,5 +93,6 @@ public class UIManager : MonoBehaviour
         controlUI.Reset();
         transitionUI.Reset();
         blurUI.Reset();
+        coinUI.UpdateCoinUI();
     }
 }

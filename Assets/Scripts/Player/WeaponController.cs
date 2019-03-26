@@ -45,6 +45,9 @@ public class WeaponController : MonoBehaviour
     public void SetCurrentWeapon(Weapon weaponToSet)
     {
         currWeapon = weaponToSet;
+        currWeapon.Reset();
+
+        UpdateSprite();
     }
 
     // -------------------------------- Getters --------------------------------
@@ -93,6 +96,9 @@ public class WeaponController : MonoBehaviour
         Weapon temp = currWeapon;
         currWeapon = prevWeapon;
         prevWeapon = temp;
+
+        currWeapon.Reset();
+        prevWeapon.Reset();
 
         UpdateSprite();
     }

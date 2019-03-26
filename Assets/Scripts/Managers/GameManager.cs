@@ -60,6 +60,50 @@ public class GameManager : MonoBehaviour {
     public PlayerCoreController player;
 
     private bool isReady;
+
+    //Setter & Getters
+    public int HighScore
+    {
+        get { return _highScore; }
+        set
+        {
+            _highScore = value;
+        }
+    }
+    private int _highScore;
+
+    public int Score
+    {
+        get { return _score; }
+        set
+        {
+            _score = value;
+        }
+    }
+    private int _score;
+
+    public int Coins
+    {
+        get { return _coins; }
+        set
+        {
+            _coins = value;
+        }
+    }
+    private int _coins;
+
+    public int GameCoins
+    {
+        get { return _gameCoins; }
+        set
+        {
+            _gameCoins = value;
+        }
+    }
+    private int _gameCoins;
+
+    //Save
+    public string saveDataPath;
     #endregion
 
     void Awake()
@@ -74,6 +118,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
+        LoadSavedData();
         Reset();
     }
 
@@ -121,5 +166,30 @@ public class GameManager : MonoBehaviour {
         SetGameState(GAME_STATE.LOADING);
 
         isReady = true;
+    }
+
+    //Save System
+    void LoadSavedData()
+    {
+        GameData data = SaveSystem.LoadSavedData(saveDataPath); //Load Saved Data from [GameData]
+        _highScore = data.HighScore;
+        _coins = data.Coins;
+    }
+
+    public void SaveData()
+    {
+        string pathName = saveDataPath;
+        SaveSystem.SaveAllData(this, pathName);
+    }
+
+    //Score & Money
+    public void ReceiveMoney(int amount)
+    {
+        _coins += amount;
+    }
+
+    public void ReduceMoney(int amount)
+    {
+        _coins -= amount;
     }
 }

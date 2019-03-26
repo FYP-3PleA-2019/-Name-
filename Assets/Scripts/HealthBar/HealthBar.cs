@@ -29,7 +29,7 @@ public class HealthBar : MonoBehaviour
     {
         if(!ReturnApproximation(calcHealth, lerpVal, 0.001f) && canLerp) //Lerp bars
         {
-            LerpBar(calcHealth, ref lerpVal, healthBar_LerpHealth, lerpSpeed);
+            LerpBar(calcHealth, ref lerpVal, healthBar_LerpHealth, lerpSpeed / 2f);
         }
 
         if(!ReturnApproximation(calcHealth, healthLerpVal, 0.001f) && canLerp)
@@ -42,7 +42,7 @@ public class HealthBar : MonoBehaviour
     #region Public Functions
     public void UpdateHealthBar() //Call from player controller when player recieves damage
     {
-        currHealth = GameManager.Instance.player.controller.currHealth; //Set currHealth to player's current health
+        currHealth = GameManager.Instance.player.controller.CurrHealth; //Set currHealth to player's current health
         calcHealth = currHealth / totalHealth; //Calculate decimal value of health
 
         healthBar_CurrHealth.fillAmount = calcHealth; //Set fill amount to health
@@ -68,7 +68,7 @@ public class HealthBar : MonoBehaviour
         canLerp = false;
 
         //Set all health values
-        currHealth = GameManager.Instance.player.controller.currHealth;
+        currHealth = GameManager.Instance.player.controller.CurrHealth;
         totalHealth = currHealth;
 
         calcHealth = currHealth / totalHealth;

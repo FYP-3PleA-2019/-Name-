@@ -10,13 +10,15 @@ public class RainbowLaser : Projectile
 
     public LineRenderer lineRenderer;
 
+    public Color startColor;
+    
+    private float intervalCounter;
     #endregion
 
     public override void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-
-        UpdateLaser();
+        intervalCounter = fireRate;
     }
 
     public override void Update()
@@ -26,16 +28,44 @@ public class RainbowLaser : Projectile
 
     private void UpdateLaser()
     {
+        intervalCounter += Time.deltaTime;
         Transform shootPoint = GameManager.Instance.player.weapon.GetShootPoint();
         
         shootDir = InputManager.Instance.GetShootDir();
 
         RaycastHit2D hit = Physics2D.Raycast(shootPoint.position, shootDir, fireRange, destroyableLayer);
-        
+
+        Vector3 startColorChange = new Vector3(Mathf.Clamp(Mathf.Sin(startColor.r * intervalCounter * 5), 0.6f, 0.9f),
+             Mathf.Clamp(Mathf.Sin(startColor.g * intervalCounter * 5), 0.3f, 0.7f),
+             Mathf.Clamp(Mathf.Sin(startColor.b * intervalCounter * 5), 0.2f, 0.8f));
+
+        Vector3 endColorChange = new Vector3(Mathf.Clamp(Mathf.Cos(startColor.r * intervalCounter * 5), 0.6f, 0.9f),
+            Mathf.Clamp(Mathf.Cos(startColor.g * intervalCounter * 5), 0.3f, 0.7f),
+            Mathf.Clamp(Mathf.Cos(startColor.b * intervalCounter * 5), 0.2f, 0.8f));
+
+        Color tempStartColor = new Color(startColorChange.x, startColorChange.y, startColorChange.z);
+        Color tempEndColor = new Color(endColorChange.x, endColorChange.y, endColorChange.z);
+        lineRenderer.startColor = tempStartColor;
+        lineRenderer.endColor = tempEndColor;
+
         if (hit.collider != null)
         {
             lineRenderer.SetPosition(0, shootPoint.position);
             lineRenderer.SetPosition(1, hit.collider.transform.position);
+
+            if (intervalCounter >= fireRate)
+            {
+                intervalCounter = 0;
+                if (hit.collider.tag == "Enemy")
+                {
+                    hit.collider.GetComponent<EnemyBase>().ReceiveDamage(damage);
+                }
+
+                else if (hit.collider.tag == "Generator")
+                {
+                    hit.collider.GetComponent<Generator>().InitiateGeneratorFunction();
+                }
+            }
         }
         else
         {

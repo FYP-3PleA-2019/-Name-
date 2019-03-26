@@ -176,8 +176,128 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &513865888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1899541371222148077, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_Name
+      value: Devotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: purchaseString
+      value: PURCHASE [DEVOTION]?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: equipString
+      value: EQUIP [DEVOTION]?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponPurchasedString
+      value: PURCHASED [DEVOTION]!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponEquippedString
+      value: EQUIPPED [DEVOTION]!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: fundsString
+      value: INSUFFICIENT FUNDS!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: _weapon
+      value: 
+      objectReference: {fileID: 2205824411343347611, guid: bde1e57fd22a5e84eb5442e27ec61fa2,
+        type: 3}
+    - target: {fileID: 5633607207071923496, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633607207071923496, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760365870728463561, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760365870728463561, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57a69265d5cc31241b5cd1965ff84120, type: 3}
 --- !u!4 &1136505040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5177182339908084423, guid: 04ee6fa8172b3b944ac16084773fa109,
@@ -253,6 +373,121 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51298cabf62f2264aba8c2e82802ce8d, type: 3}
+--- !u!1001 &1540284638
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1899541371222148077, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_Name
+      value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: purchaseString
+      value: PURCHASE [PISTOL]?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: equipString
+      value: EQUIP [PISTOL]?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponPurchasedString
+      value: PURCHASED [PISTOL]!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponEquippedString
+      value: EQUIPPED [PISTOL]!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: fundsString
+      value: INSUFFICIENT FUNDS!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: _weapon
+      value: 
+      objectReference: {fileID: 8919954970903586261, guid: f93dc17bba84db44eb9de740faedea57,
+        type: 3}
+    - target: {fileID: 5633607207071923496, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633607207071923496, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760365870728463561, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57a69265d5cc31241b5cd1965ff84120, type: 3}
 --- !u!1001 &1823717960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -472,7 +707,7 @@ PrefabInstance:
     - target: {fileID: 1694021097493457693, guid: 5fd45667dbabb894b8ba9968aa0d4767,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1694021097493457693, guid: 5fd45667dbabb894b8ba9968aa0d4767,
         type: 3}
@@ -506,7 +741,7 @@ PrefabInstance:
     - target: {fileID: 1899541371222148077, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
       propertyPath: m_Name
-      value: Shop Stand
+      value: Rainbow Unicorn
       objectReference: {fileID: 0}
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
@@ -526,17 +761,17 @@ PrefabInstance:
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
@@ -546,7 +781,7 @@ PrefabInstance:
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1899541371222148074, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
@@ -562,6 +797,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: purchaseString
+      value: PURCHASE [RAINBOW UNICORN]?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: equipString
+      value: EQUIP [RAINBOW UNICORN]?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponPurchasedString
+      value: PURCHASED [RAINBOW UNICORN]!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponEquippedString
+      value: EQUIPPED [RAINBOW UNICORN]!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: fundsString
+      value: INSUFFICIENT FUNDS!
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633607207071923496, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633607207071923496, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622002690039840080, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136845172118580477, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a69265d5cc31241b5cd1965ff84120, type: 3}
