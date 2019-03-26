@@ -105,4 +105,6 @@ public enum NOTIFY_TYPE
 
     ENTITY_IDLE,
     ENTITY_MOVE,
+
+    GAME_OVER,
 };

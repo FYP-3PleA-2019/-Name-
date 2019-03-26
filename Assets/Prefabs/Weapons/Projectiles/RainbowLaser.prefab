@@ -144,3 +144,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   lineRenderer: {fileID: 0}
+  startColor: {r: 1, g: 0.95339996, b: 0.1462264, a: 1}

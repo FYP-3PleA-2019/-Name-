@@ -200,7 +200,8 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < gameObjectsToDamage.Length; i++)
         {
             if(gameObjectsToDamage[i].gameObject.tag == "Player")
-                gameObjectsToDamage[i].GetComponent<PlayerCoreController>().controller.GetDamage(attackDamage); //Damage all [Damage-able] gameobjects. NOTE! : Damage game objects by calling their Receive Damage function!
+            { }
+                //gameObjectsToDamage[i].GetComponent<PlayerCoreController>().controller.GetDamage(attackDamage); //Damage all [Damage-able] gameobjects. NOTE! : Damage game objects by calling their Receive Damage function!
         }
         //if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("AttackAnimationName")) //Check to see if animator is still playing attack animation
         idleDuration = Random.Range(minIdleTime, maxIdleTime); //Random idle duration

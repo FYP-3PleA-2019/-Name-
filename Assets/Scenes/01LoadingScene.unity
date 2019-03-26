@@ -179,6 +179,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
+      propertyPath: roomLimit
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52c4eab269555f4b87544d045e2ddad, type: 3}
 --- !u!1 &146921023
@@ -383,6 +388,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3882823671205822698, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: currWeapon
+      value: 
+      objectReference: {fileID: 5747803820682576648, guid: 1e03845a06f1353499dd80185b1de4f5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2c384e52ea1d4a4682f7e1bdea802f2, type: 3}
 --- !u!1001 &333607603
@@ -451,6 +462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257128812865364, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: saveDataPath
+      value: /[Game Name].data
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac5d43ed7231c0e489652525762d8a12, type: 3}
@@ -934,6 +950,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6981643284184252431, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696283311164627898, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142852678572178593, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668407d32525124488e17c9f718a1979, type: 3}

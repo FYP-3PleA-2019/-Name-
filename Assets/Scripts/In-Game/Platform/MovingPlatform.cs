@@ -22,6 +22,7 @@ public class MovingPlatform : MonoBehaviour
     //Private Variables
     private Vector3 moveTarget;
     private Vector3 init;
+    private Generator _generator;
 
     //Public Variables
     public GameObject generator;
@@ -49,6 +50,7 @@ public class MovingPlatform : MonoBehaviour
             GameObject GO = Instantiate(generator, generatorSpawnPoint.position, Quaternion.identity);
             GO.transform.parent = gameObject.transform;
             GO.GetComponent<Generator>().SetGeneratorType(0);
+            _generator = GO.GetComponent<Generator>();
         }
 
         else
@@ -80,6 +82,7 @@ public class MovingPlatform : MonoBehaviour
         {
             init = transform.position;
             isGrounded = true;
+            _generator.ActivateIndicator();
         }
     }
 
@@ -88,6 +91,7 @@ public class MovingPlatform : MonoBehaviour
         if (other.tag == "Player")
         {
             isGrounded = false;
+            _generator.DisableIndicator();
         }
     }
     #endregion

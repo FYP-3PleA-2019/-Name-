@@ -39,9 +39,12 @@ public class LaserCannon : MonoBehaviour
 
     [Space(3)]
     [Header("Attacking Variables")]
+    public float damage;
     public LayerMask attackLayer;
     public Transform attackPoint;
     public float attackRange;
+    public float knockBackForce;
+    public float knockBackDuration;
     
     public float rotationSpeed;
 
@@ -49,6 +52,8 @@ public class LaserCannon : MonoBehaviour
 
     public LaserCannonState state;
     public ShootDirection _shootDirection;
+
+    private bool canDamage;
     #endregion
 
     #region Unity Functions
@@ -58,17 +63,22 @@ public class LaserCannon : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>(); //Assigning animator
 
         state = LaserCannonState.Idle; //Set beginning state to Idle
-
-        ResetTimers();
         ResetChildComponents();
+        
+        //Set Timers
+        cooldownTimer = 0f;
+        chargingTimer = chargingDuration;
+        shootTimer = shootDuration;
+
+        canDamage = true;
     }
     
     void Update()
     {
         if (target == null)
             return;
-        
-        switch(state)
+
+        switch (state)
         {
             case LaserCannonState.Active:
                 Active();
@@ -95,24 +105,25 @@ public class LaserCannon : MonoBehaviour
         ResetAllAnimationTriggers();
         float distanceToTarget = Vector2.Distance(gameObject.transform.position, target.transform.position); //Calculate distance to target
 
+        cooldownTimer -= Time.deltaTime;
+        if (cooldownTimer > 0.0f)
+            return;
+
         if (distanceToTarget <= activeRange) //If target is within range, state = active
-            state = LaserCannonState.Active;
+        state = LaserCannonState.Active;
     }
 
     void Active()
     {
          _animator.SetTrigger("Activate"); //Play Activate animation
-
-        FaceTarget();
-
-        cooldownTimer -= Time.deltaTime;
-        if (cooldownTimer <= 0.0f)
-            state = LaserCannonState.Charging;
+         state = LaserCannonState.Charging;
     }
 
     void Charging()
     {
         _animator.SetTrigger("Charge"); //Play Charging animation
+
+        FaceTarget();
 
         chargingTimer -= Time.deltaTime;
         if (chargingTimer <= 0.0f)
@@ -135,13 +146,14 @@ public class LaserCannon : MonoBehaviour
 
         if (hitInfo.collider != null)
         {
-            if (hitInfo.collider.CompareTag("Player")) //Destroy player if player is detected (Just for testing)
+            if (hitInfo.collider.CompareTag("Player") && canDamage)
             {
-                //TEMPORARY
-                GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
-                UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
+                canDamage = false;
 
-                CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
+                Vector2 knockBackDir = new Vector2(hitInfo.collider.transform.position.x, hitInfo.collider.transform.position.y)
+                                     - new Vector2(transform.position.x, transform.position.y);
+
+                GameManager.Instance.player.controller.GetDamage(damage, knockBackDir, knockBackForce, knockBackDuration);
             }
         }
 
@@ -151,6 +163,7 @@ public class LaserCannon : MonoBehaviour
             ResetTimers();
             ResetChildComponents();
             state = LaserCannonState.Idle;
+            canDamage = true;   
         }
     }
     #endregion

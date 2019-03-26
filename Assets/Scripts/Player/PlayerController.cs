@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, ISubject
+public class PlayerController : Effectors, ISubject
 {
     #region Observer
     public List<IObserver> registeredObserver = new List<IObserver>();
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour, ISubject
 
     public void Notify(NOTIFY_TYPE type)
     {
-        for (int i = 0; i < UIManager.Instance.registeredObserver.Count; i++)
+        for (int i = 0; i < registeredObserver.Count; i++)
         {
             registeredObserver[i].OnNotify(type);
         }
@@ -38,12 +38,24 @@ public class PlayerController : MonoBehaviour, ISubject
     [Header("Player")]
     public float defaultHealth;
     public float moveSpeed;
-    /*[HideInInspector]*/ public float currHealth;
+    public float CurrHealth
+    {
+        get { return _currHealth; }
+        set
+        {
+            _currHealth = value;
+        }
+    }
+    private float _currHealth;
 
     [HideInInspector] public Animator playerAnimator;
 
     private Rigidbody2D _rBody;
     private bool facingLeft;
+
+    //Health Bar & Score Bar
+    public GameObject healthBar;
+    public GameObject scoreBar;
     #endregion
 
     private void Awake()
@@ -55,11 +67,14 @@ public class PlayerController : MonoBehaviour, ISubject
     private void Start()
     {
         RegisterSubject(this);
+        
+        StartCoroutine(DisableScoreBar(Time.deltaTime));
     }
 
     private void Update()
     {
-        if (InputManager.Instance.IsMoving()) Move();
+        if (InputManager.Instance.CanControl() && InputManager.Instance.CanMove() && InputManager.Instance.IsMoving())
+            Move();
         else
         {
             if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
@@ -96,7 +111,9 @@ public class PlayerController : MonoBehaviour, ISubject
         registeredSubject.Clear();
 
         SetFacingLeft(false);
-        //currHealth = defaultHealth; //move this to reset game in game manager
+        _currHealth = defaultHealth;
+
+        canKnockBack = true;
     }
 
     public void Move()
@@ -124,21 +141,32 @@ public class PlayerController : MonoBehaviour, ISubject
                                         transform.position.y + moveDir.y * moveSpeed * Time.deltaTime));
     }
     
-    public void GetDamage(float damage)
+    public void GetDamage(float damage, Vector2 knockBackDir, float knockBackForce, float knockBackDuration)
     {
-        currHealth -= damage;
+        if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
+            return;
 
-        if (currHealth <= 0)
+        _currHealth -= damage;
+        StartCoroutine(TemporarySpriteColorEffect(Color.red, .25f));
+        KnockBack(knockBackDir, knockBackForce, knockBackDuration);
+        healthBar.GetComponent<HealthBar>().UpdateHealthBar();
+
+        if (_currHealth <= 0)
         {
-            //CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 0.5f);
+            //Close health bar and disable it
+            healthBar.GetComponent<HealthBar>().DeactivateHealthBar();
+            StartCoroutine(DisableHealthBar(0.5f));
+
+            //Notify Game Over
+            Notify(NOTIFY_TYPE.GAME_OVER);
         }
     }
 
     public void MoveWithPlatform(Vector3 target)
     {
-        Vector3 g = new Vector3(transform.position.x + target.x, transform.position.y + target.y, 0);
+        Vector3 tempPos = new Vector3(transform.position.x + target.x, transform.position.y + target.y, 0);
 
-        transform.position = g;
+        transform.position = tempPos;
     }
 
     //Temporary (For Room Manager)
@@ -148,5 +176,29 @@ public class PlayerController : MonoBehaviour, ISubject
         {
             RoomManager.Instance.EnteredRoomChecker(other.gameObject);
         }
+    }
+
+    //Health Bar
+    public void EnableHealthBar()
+    {
+        healthBar.SetActive(true);
+    }
+
+    public IEnumerator DisableHealthBar(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        healthBar.SetActive(false);
+    }
+
+    //Score Bar
+    public void EnableScoreBar()
+    {
+        scoreBar.SetActive(true);
+    }
+
+    public IEnumerator DisableScoreBar(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        scoreBar.SetActive(false);
     }
 }

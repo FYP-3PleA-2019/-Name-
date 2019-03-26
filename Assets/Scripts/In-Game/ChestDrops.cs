@@ -93,6 +93,7 @@ public class ChestDrops : MonoBehaviour, ISubject {
         _animator.SetTrigger("Interact");
 
         StartCoroutine(WaitToSpawn());
+        Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
     }
 
     void SpawnObject()

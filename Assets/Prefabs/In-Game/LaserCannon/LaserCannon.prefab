@@ -126,10 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserRenderer: {fileID: 6642459895301354021}
-  activeRange: 10
+  activeRange: 30
   cannonCooldown: 3
-  chargingDuration: 1
-  shootDuration: 5
+  chargingDuration: 0.5
+  shootDuration: 3
   attackLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -168,26 +168,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LaserRenderer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2769818512915812977, guid: 5a9d5123a87fba64a9227d42f6fa7881,
         type: 3}
@@ -242,6 +222,26 @@ PrefabInstance:
     - target: {fileID: 2769818512915812977, guid: 5a9d5123a87fba64a9227d42f6fa7881,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

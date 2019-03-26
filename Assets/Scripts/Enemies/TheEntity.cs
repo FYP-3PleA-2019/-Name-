@@ -6,6 +6,7 @@ public enum ENTITY_STATE
 {
     IDLE,
     MOVE,
+    STOP,
 }
 
 public class TheEntity : MonoBehaviour, IObserver
@@ -20,6 +21,13 @@ public class TheEntity : MonoBehaviour, IObserver
 
     public ENTITY_STATE currEntityState;
     private ENTITY_STATE prevEntityState;
+
+    //Knockback
+    public float knockBackForce;
+    public float knockBackDuration;
+
+    public float swallowDuration;
+    private float swallowTimer;
     #endregion
 
     private void Awake()
@@ -33,12 +41,14 @@ public class TheEntity : MonoBehaviour, IObserver
         GameManager.Instance.player.controller.RegisterObserver(this);
 
         constantDistWithPlayer = GameManager.Instance.player.transform.position.y - transform.position.y;
+
+        swallowTimer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(currEntityState)
+        switch (currEntityState)
         {
             case ENTITY_STATE.IDLE:
                 SetChildSprRenderer(false);
@@ -48,6 +58,12 @@ public class TheEntity : MonoBehaviour, IObserver
             case ENTITY_STATE.MOVE:
                 SetChildSprRenderer(true);
                 Move();
+                break;
+
+            case ENTITY_STATE.STOP:
+                swallowTimer += Time.deltaTime;
+                if (swallowTimer < swallowDuration)
+                    Move();
                 break;
 
             default:
@@ -74,6 +90,11 @@ public class TheEntity : MonoBehaviour, IObserver
         else if (type == NOTIFY_TYPE.ENTITY_MOVE)
         {
             SetEntityState(ENTITY_STATE.MOVE);
+        }
+
+        else if(type == NOTIFY_TYPE.GAME_OVER)
+        {
+            SetEntityState(ENTITY_STATE.STOP);
         }
     }
 
@@ -121,9 +142,13 @@ public class TheEntity : MonoBehaviour, IObserver
     {
         if (collision.tag == "Player")
         {
-            UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
-            GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
-            CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
+            float damage = GameManager.Instance.player.controller.CurrHealth;
+
+            Vector2 knockBackDir = new Vector2(collision.transform.position.x, collision.transform.position.y)
+                                 - new Vector2(transform.position.x, transform.position.y);
+
+            GameManager.Instance.player.controller.GetDamage(damage, knockBackDir, knockBackForce, knockBackDuration);
+            GameManager.Instance.SetGameState(GAME_STATE.PAUSED);
         }
         else if(collision.tag == "Enemy")
         {

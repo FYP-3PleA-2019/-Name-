@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameSceneController : MonoBehaviour
-{
+{ 
     #region General
     [Header("General")]
     public Transform mainSpawnPoint;

@@ -25,6 +25,8 @@ public class LobbySceneController : MonoBehaviour
 
             StartCoroutine("WaitForState");
         }
+
+        UIManager.Instance.coinUI.EnableCanvas();
     }
 
     void Initialize()

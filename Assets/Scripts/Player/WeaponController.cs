@@ -45,6 +45,8 @@ public class WeaponController : MonoBehaviour
     public void SetCurrentWeapon(Weapon weaponToSet)
     {
         currWeapon = weaponToSet;
+
+        UpdateSprite();
     }
 
     // -------------------------------- Getters --------------------------------

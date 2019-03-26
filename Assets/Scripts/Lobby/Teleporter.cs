@@ -74,6 +74,8 @@ public class Teleporter : MonoBehaviour, ISubject
 
         _animator.SetTrigger("Interacted");
         StartCoroutine(DisableUI());
+        InputManager.Instance.SetCanControl(false);
+        UIManager.Instance.controlUI.HideCanvas();
 
         if (gatewayTo == GAME_SCENE.SHOP_SCENE) GameManager.Instance.SetGameState(GAME_STATE.SHOP);
         else if (gatewayTo == GAME_SCENE.GAME_SCENE) GameManager.Instance.SetGameState(GAME_STATE.PAUSED);
@@ -83,6 +85,9 @@ public class Teleporter : MonoBehaviour, ISubject
 
         CustomSceneManager.Instance.LoadSceneWait(gatewayTo, 1.5f);
         SoundManager.instance.playSingle(SoundManager.instance.playerTeleport);
+
+        //Save progress
+        GameManager.Instance.SaveData();
     }
 
     void EnableUI()
