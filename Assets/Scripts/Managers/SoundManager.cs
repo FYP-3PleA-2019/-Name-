@@ -22,6 +22,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip purchasedSfx;
     public AudioClip insufficientFunds;
     public AudioClip weaponEquipped;
+    public AudioClip weaponSwitch;
+    public AudioClip inputFeedback;
+    public AudioClip popupAlert;
 
     // Use this for initialization
     void Awake()
@@ -90,6 +93,21 @@ public class SoundManager : MonoBehaviour
     public void _weaponEquipped()
     {
         sfxSource.PlayOneShot(weaponEquipped);
+    }
+
+    public void _weaponSwitch()
+    {
+        sfxSource.PlayOneShot(weaponSwitch);
+    }
+    
+    public void _inputFeedback()
+    {
+        sfxSource.PlayOneShot(inputFeedback);
+    }
+
+    public void _popupAlert()
+    {
+        sfxSource.PlayOneShot(popupAlert);
     }
     //! Enemies's SFX Functions
 }

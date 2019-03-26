@@ -88,7 +88,7 @@ public class ChestDrops : MonoBehaviour, ISubject {
             return;
         }
 
-        //SoundManager.instance.playSingle(SoundManager.instance.chestOpen);
+        SoundManager.instance.playSingle(SoundManager.instance.chestOpen);
         chestOpened = true;
         _animator.SetTrigger("Interact");
 

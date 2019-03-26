@@ -56,6 +56,7 @@ public class MainMenuController : MonoBehaviour
         {
             yield return null;
         }
+        SoundManager.instance.playSingle(SoundManager.instance.inputFeedback);
 
         StartCoroutine("StartGame");
     }

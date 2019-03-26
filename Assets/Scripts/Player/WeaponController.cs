@@ -89,6 +89,7 @@ public class WeaponController : MonoBehaviour
 
     public void SwitchWeapon()
     {
+        SoundManager.instance.playSingle(SoundManager.instance.weaponSwitch);
         Weapon temp = currWeapon;
         currWeapon = prevWeapon;
         prevWeapon = temp;

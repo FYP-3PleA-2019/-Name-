@@ -10,6 +10,7 @@ public class UnicornRainbow : Weapon
     {
         if(canShoot)
         {
+            SoundManager.instance.playSingle(SoundManager.instance.playerShoot);
             canShoot = false;
 
             Transform shootPoint = GameManager.Instance.player.weapon.GetShootPoint();

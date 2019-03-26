@@ -8,6 +8,8 @@ public class Pistol : Weapon
     {
         while (canShoot && InputManager.Instance.IsShooting())
         {
+            SoundManager.instance.playSingle(SoundManager.instance.playerShoot);
+
             canShoot = false;
 
             Transform shootPoint = GameManager.Instance.player.weapon.GetShootPoint();
