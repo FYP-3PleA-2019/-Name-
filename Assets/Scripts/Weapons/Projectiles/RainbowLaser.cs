@@ -58,7 +58,7 @@ public class RainbowLaser : Projectile
                 intervalCounter = 0;
                 if (hit.collider.tag == "Enemy")
                 {
-                    hit.collider.GetComponent<Enemy>().ReceiveDamage(damage);
+                    hit.collider.GetComponent<EnemyBase>().ReceiveDamage(damage);
                 }
 
                 else if (hit.collider.tag == "Generator")
@@ -70,7 +70,7 @@ public class RainbowLaser : Projectile
         else
         {
             lineRenderer.SetPosition(0, shootPoint.position);
-            lineRenderer.SetPosition(1, shootPoint.position + (shootDir * range));
+            lineRenderer.SetPosition(1, shootPoint.position + (shootDir * fireRange));
         }
 
         lineRenderer.enabled = true;

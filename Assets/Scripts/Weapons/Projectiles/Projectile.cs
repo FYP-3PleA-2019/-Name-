@@ -10,7 +10,6 @@ public class Projectile : MonoBehaviour
     protected float damage;
     protected float fireRange;
     protected float fireRate;
-    protected float range;
 
     protected Vector3 shootDir;
     #endregion
@@ -42,9 +41,9 @@ public class Projectile : MonoBehaviour
         this.damage = damage;
     }
 
-    public void SetFireRange(float range)
+    public void SetFireRange(float fireRange)
     {
-        this.range = range;
+        this.fireRange = fireRange;
     }
 
     public void SetFireRate(float fireRate)
