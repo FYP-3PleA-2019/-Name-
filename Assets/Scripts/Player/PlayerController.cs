@@ -146,6 +146,9 @@ public class PlayerController : Effectors, ISubject
         if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
             return;
 
+        if (_currHealth <= 0)
+            return;
+
         _currHealth -= damage;
         StartCoroutine(TemporarySpriteColorEffect(Color.red, .25f));
         KnockBack(knockBackDir, knockBackForce, knockBackDuration);

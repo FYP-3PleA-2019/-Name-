@@ -78,7 +78,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "FeetCollider")
         {
             init = transform.position;
             isGrounded = true;
@@ -88,7 +88,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "FeetCollider")
         {
             isGrounded = false;
             _generator.DisableIndicator();
