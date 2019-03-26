@@ -24,6 +24,7 @@ public class MainButton : MonoBehaviour, IObserver
     private Image mainButton_frame;
     private Image mainButton_icon;
     private Image switchButton_frame;
+    private Image switchButton_icon;
 
     private Sprite mainButton_frame_default;
     private Sprite switchButton_frame_default;
@@ -34,6 +35,7 @@ public class MainButton : MonoBehaviour, IObserver
         mainButton_frame = GetComponentsInChildren<Image>()[0];
         mainButton_icon = GetComponentsInChildren<Image>()[1];
         switchButton_frame = GetComponentsInChildren<Image>()[2];
+        switchButton_icon = GetComponentsInChildren<Image>()[3];
     }
 
     // Use this for initialization
@@ -45,6 +47,12 @@ public class MainButton : MonoBehaviour, IObserver
 
         mainButton_frame_default = mainButton_frame.sprite;
         switchButton_frame_default = switchButton_frame.sprite;
+        
+        if (GameManager.Instance.player.weapon.prevWeapon != null)
+        {
+            Sprite currWeaponSpr = GameManager.Instance.player.weapon.prevWeapon.GetSprite();
+            switchButton_icon.sprite = currWeaponSpr;
+        }
     }
 
     // -------------------------------- Pointers --------------------------------
@@ -76,6 +84,12 @@ public class MainButton : MonoBehaviour, IObserver
         switchButton_frame.sprite = switchButton_frame_onHold;
 
         GameManager.Instance.player.weapon.SwitchWeapon();
+
+        if(GameManager.Instance.player.weapon.prevWeapon != null)
+        {
+            Sprite currWeaponSpr = GameManager.Instance.player.weapon.prevWeapon.GetSprite();
+            switchButton_icon.sprite = currWeaponSpr;
+        }
     }
 
     public void OnSwitchButtonUp()

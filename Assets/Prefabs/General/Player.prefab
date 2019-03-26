@@ -489,8 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currWeapon: {fileID: 8919954970903586261, guid: f93dc17bba84db44eb9de740faedea57,
     type: 3}
-  prevWeapon: {fileID: 2205824411343347611, guid: bde1e57fd22a5e84eb5442e27ec61fa2,
-    type: 3}
+  prevWeapon: {fileID: 0}
 --- !u!1001 &381550018882552340
 PrefabInstance:
   m_ObjectHideFlags: 0

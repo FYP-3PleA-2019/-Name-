@@ -44,7 +44,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.9386792, g: 0.9625262, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.9103774, g: 0.91519004, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f76e9a16bb339048923291387f7d8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeAmount: 0.01
+  shakeFactor: 1.2
+  targetColor: {r: 1, g: 0.4292453, b: 0.4292453, a: 0}
 --- !u!95 &7751876909795708668
 Animator:
   serializedVersion: 3

@@ -1016,6 +1016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
   constantDistWithPlayer: 0
+  minDistToShakeCamera: 8
   childList: []
   currEntityState: 0
   knockBackForce: 0
