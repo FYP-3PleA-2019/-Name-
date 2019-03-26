@@ -70,7 +70,7 @@ public class RainbowLaser : Projectile
         else
         {
             lineRenderer.SetPosition(0, shootPoint.position);
-            lineRenderer.SetPosition(1, shootPoint.position + (shootDir * fireRange));
+            lineRenderer.SetPosition(1, shootPoint.position + (shootDir * range));
         }
 
         lineRenderer.enabled = true;

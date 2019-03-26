@@ -169,12 +169,11 @@ public class PlayerController : Effectors, ISubject
         transform.position = tempPos;
     }
 
-    //Temporary (For Room Manager)
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.tag == "Room")
+        if(collision.tag == "Enemy")
         {
-            RoomManager.Instance.EnteredRoomChecker(other.gameObject);
+            InputManager.Instance.SetIsMoving(false);
         }
     }
 

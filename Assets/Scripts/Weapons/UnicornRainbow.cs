@@ -18,6 +18,7 @@ public class UnicornRainbow : Weapon
             laser.SetDamage(GetDamage());
             laser.SetFireRange(GetFireRange());
             laser.SetFireRate(GetFireRate());
+            laser.SetMoveSpeed(GetProjectileSpeed());
         }
 
         while (InputManager.Instance.IsShooting())

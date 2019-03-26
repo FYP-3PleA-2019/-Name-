@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Necromancer : Enemy
+public class Necromancer : EnemyBase
 {
     #region Variables
     [Header("Spawning Variables")]

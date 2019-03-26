@@ -6,10 +6,11 @@ public class Projectile : MonoBehaviour
 {
     #region General Variables
     [Header("General")]
-    public float moveSpeed;
+    protected float moveSpeed;
     protected float damage;
     protected float fireRange;
     protected float fireRate;
+    protected float range;
 
     protected Vector3 shootDir;
     #endregion
@@ -17,13 +18,13 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        shootDir = InputManager.Instance.GetShootDir();
+
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        transform.Translate(new Vector3(shootDir.x, shootDir.y) * Time.deltaTime * moveSpeed, Space.World);
+        transform.Translate(Vector2.right * Time.deltaTime * moveSpeed);
     }
 
     private void OnBecameInvisible()
@@ -31,14 +32,19 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void SetMoveSpeed(float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+    }
+
     public void SetDamage(float damage)
     {
         this.damage = damage;
     }
 
-    public void SetFireRange(float fireRange)
+    public void SetFireRange(float range)
     {
-        this.fireRange = fireRange;
+        this.range = range;
     }
 
     public void SetFireRate(float fireRate)
