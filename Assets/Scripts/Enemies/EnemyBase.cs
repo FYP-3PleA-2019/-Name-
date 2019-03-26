@@ -66,7 +66,7 @@ public class EnemyBase : MonoBehaviour
         canCreate = true;
 
         //Temporary [Instantiate arrow indicator for this obj]
-        InstantiateArrowIndicator();
+        //InstantiateArrowIndicator();
     }
 
     // Update is called once per frame

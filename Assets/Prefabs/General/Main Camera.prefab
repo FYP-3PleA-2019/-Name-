@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeAmount: 0.01
   shakeFactor: 1.2
-  targetColor: {r: 1, g: 0.4292453, b: 0.4292453, a: 0}
+  targetColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 0}
 --- !u!95 &7751876909795708668
 Animator:
   serializedVersion: 3
