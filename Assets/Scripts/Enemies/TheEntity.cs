@@ -16,6 +16,7 @@ public class TheEntity : MonoBehaviour, IObserver
     public float moveSpeed;
 
     public float constantDistWithPlayer;
+    public float minDistToShakeCamera;
     
     public Transform[] childList;
 
@@ -38,7 +39,7 @@ public class TheEntity : MonoBehaviour, IObserver
     void Start()
     {
         GameManager.Instance.player.controller.RegisterObserver(this);
-
+        
         constantDistWithPlayer = GameManager.Instance.player.transform.position.y - transform.position.y;
     }
 
@@ -133,6 +134,20 @@ public class TheEntity : MonoBehaviour, IObserver
             Vector3 dir = GameManager.Instance.player.transform.position - childList[i].position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             childList[i].rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        CalculateCameraShake();
+    }
+
+    private void CalculateCameraShake()
+    {
+        float distance = Vector2.Distance(GameManager.Instance.player.transform.position, transform.position);
+
+        if(distance <= minDistToShakeCamera)
+        {
+            float index = constantDistWithPlayer - distance;
+
+            Camera.main.GetComponent<MainCamera>().CameraShake(index, distance, minDistToShakeCamera);
         }
     }
 

@@ -42,10 +42,15 @@ public class WeaponController : MonoBehaviour
         Flip(facingLeft);
     }
 
-    public void SetCurrentWeapon(Weapon weaponToSet)
+    public void SetCurrentWeapon(Weapon newWeapon)
     {
-        currWeapon = weaponToSet;
+        if (prevWeapon == null)
+            prevWeapon = currWeapon;
+
+        currWeapon = newWeapon;
+
         currWeapon.Reset();
+        if(prevWeapon != null) prevWeapon.Reset();
 
         UpdateSprite();
     }
@@ -76,13 +81,14 @@ public class WeaponController : MonoBehaviour
 
         UpdateSprite();
 
-        currWeapon.Reset();
-        prevWeapon.Reset();
+        if(currWeapon != null) currWeapon.Reset();
+        if(prevWeapon != null) prevWeapon.Reset();
     }
 
     public void OnShootBegin()
     {
-        StartCoroutine(currWeapon.Shoot());
+        if(currWeapon != null)
+            StartCoroutine(currWeapon.Shoot());
     }
 
     public void OnShootEnd()
@@ -92,6 +98,9 @@ public class WeaponController : MonoBehaviour
 
     public void SwitchWeapon()
     {
+        if (prevWeapon == null)
+            return;
+
         SoundManager.instance.playSingle(SoundManager.instance.weaponSwitch);
         Weapon temp = currWeapon;
         currWeapon = prevWeapon;
@@ -136,6 +145,7 @@ public class WeaponController : MonoBehaviour
 
     private void UpdateSprite()
     {
-        weaponSprRdr.sprite = currWeapon.GetSprite();
+        if(GameManager.Instance.player.weapon.currWeapon != null)
+            weaponSprRdr.sprite = currWeapon.GetSprite();
     }
 }
