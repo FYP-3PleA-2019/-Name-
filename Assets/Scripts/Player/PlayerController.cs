@@ -156,6 +156,12 @@ public class PlayerController : Effectors, ISubject
 
         if (_currHealth <= 0)
         {
+            GameManager.Instance.SetGameState(GAME_STATE.PAUSED);
+
+            //Disable Inputs
+            InputManager.Instance.SetCanControl(false);
+            UIManager.Instance.controlUI.HideCanvas();
+
             //Close health bar and disable it
             healthBar.GetComponent<HealthBar>().DeactivateHealthBar();
             StartCoroutine(DisableHealthBar(0.5f));

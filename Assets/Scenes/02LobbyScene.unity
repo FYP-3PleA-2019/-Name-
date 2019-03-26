@@ -297,12 +297,12 @@ PrefabInstance:
     - target: {fileID: 7484191677963423401, guid: d807166da0fde8b40a8552ed35e3c724,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.46
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7484191677963423401, guid: d807166da0fde8b40a8552ed35e3c724,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.73
+      value: 7.6
       objectReference: {fileID: 0}
     - target: {fileID: 7484191677963423401, guid: d807166da0fde8b40a8552ed35e3c724,
         type: 3}
@@ -351,6 +351,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1641319261, guid: d807166da0fde8b40a8552ed35e3c724, type: 3}
       propertyPath: itemList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641319261, guid: d807166da0fde8b40a8552ed35e3c724, type: 3}
+      propertyPath: itemList.Array.data[0].dropItems
+      value: 
+      objectReference: {fileID: 803976204219017881, guid: e9c444a11d6c07d4d8f7d7a681d569f9,
+        type: 3}
+    - target: {fileID: 1641319261, guid: d807166da0fde8b40a8552ed35e3c724, type: 3}
+      propertyPath: itemList.Array.data[0].itemRarity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -414,12 +423,12 @@ PrefabInstance:
     - target: {fileID: 7484191677963423401, guid: d807166da0fde8b40a8552ed35e3c724,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.51
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7484191677963423401, guid: d807166da0fde8b40a8552ed35e3c724,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.71
+      value: 7.6
       objectReference: {fileID: 0}
     - target: {fileID: 7484191677963423401, guid: d807166da0fde8b40a8552ed35e3c724,
         type: 3}
@@ -2616,6 +2625,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8482222902154678662, guid: 94812a62352b2db43b26decdf858a996,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: c4f8ab76437fdb544be51f74810ea381,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94812a62352b2db43b26decdf858a996, type: 3}
 --- !u!224 &8482222902294216629 stripped

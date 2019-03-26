@@ -1020,7 +1020,7 @@ MonoBehaviour:
   currEntityState: 0
   knockBackForce: 0
   knockBackDuration: 0
-  swallowDuration: 2.5
+  bufferSize: -2
 --- !u!50 &6135998214866665157
 Rigidbody2D:
   serializedVersion: 4

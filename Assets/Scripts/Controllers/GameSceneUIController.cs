@@ -27,7 +27,7 @@ public class GameSceneUIController : MonoBehaviour, IObserver
     [Space(5)]
     [Header("Results")]
     private GameObject results;
-    //private Image resultsBoardImage;
+
     [Range(0, 5)] public float blurSize;
     [Range(0, 2)] public float blurDuration;
 
@@ -59,9 +59,6 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         scoreBoardText[0] = GameManager.Instance.player.GetComponentsInChildren<Text>()[0];
         scoreBoardText[1] = GetComponentsInChildren<Text>()[0];
         scoreBoardText[2] = GetComponentsInChildren<Text>()[1];
-
-        //Results Board Image references
-        //resultsBoardImage = GetComponentsInChildren<Image>()[2];
         
         //Disable results canvas
         results.SetActive(false);
@@ -93,21 +90,19 @@ public class GameSceneUIController : MonoBehaviour, IObserver
     #region Score/Result Function
     public IEnumerator ShowResults() //Call this after player died
     {
-        //Check High Score
-        CheckHighScore();
-
-        //Disable Input and controls
-        InputManager.Instance.SetCanControl(false);
-        UIManager.Instance.controlUI.HideCanvas();
+        //Blur Screen
         UIManager.Instance.blurUI.EnableCanvas();
         StartCoroutine(UIManager.Instance.blurUI.StartBlur());
 
         //Wait for screen to fully blur
         yield return new WaitForSeconds(blurDuration);
         StartCoroutine(CloseScoreBoard());
+
+        //Update GameManager properties
+        GameManager.Instance.Score = _score;
+
         EnableResults();
 
-        //TO-DO : Show Results Text
         int moneyEarned = GameManager.Instance.GameCoins;
         GameManager.Instance.ReceiveMoney(moneyEarned); //Add earned coins to total amount of coins.
         GameManager.Instance.GameCoins = 0; //Reset game coins value to 0;
@@ -123,6 +118,9 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         {
             yield return null;
         }
+
+        //Check High Score
+        CheckHighScore();
 
         //Save score and coins earned
         GameManager.Instance.SaveData();
@@ -148,14 +146,14 @@ public class GameSceneUIController : MonoBehaviour, IObserver
     void InitializeScores() //Only called at Start
     {
         _highScore = GameManager.Instance.HighScore;
-        _score = GameManager.Instance.Score;
+        _score = 0;
         _coins = GameManager.Instance.GameCoins; 
     }
 
     void CalculateScore()
     {
         float distance = Vector2.Distance(startPos, player.position);
-        if (distance > furthestDist)
+        if (distance > furthestDist && player.position.y >= startPos.y)
         {
             furthestDist = distance;
 

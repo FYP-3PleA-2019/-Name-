@@ -26,8 +26,7 @@ public class TheEntity : MonoBehaviour, IObserver
     public float knockBackForce;
     public float knockBackDuration;
 
-    public float swallowDuration;
-    private float swallowTimer;
+    public float bufferSize;
     #endregion
 
     private void Awake()
@@ -41,8 +40,6 @@ public class TheEntity : MonoBehaviour, IObserver
         GameManager.Instance.player.controller.RegisterObserver(this);
 
         constantDistWithPlayer = GameManager.Instance.player.transform.position.y - transform.position.y;
-
-        swallowTimer = 0f;
     }
 
     // Update is called once per frame
@@ -61,8 +58,9 @@ public class TheEntity : MonoBehaviour, IObserver
                 break;
 
             case ENTITY_STATE.STOP:
-                swallowTimer += Time.deltaTime;
-                if (swallowTimer < swallowDuration)
+                float entityYPos = transform.position.y;
+                float playerYPos = GameManager.Instance.player.transform.position.y;
+                if(entityYPos < playerYPos + bufferSize)
                     Move();
                 break;
 
@@ -148,7 +146,6 @@ public class TheEntity : MonoBehaviour, IObserver
                                  - new Vector2(transform.position.x, transform.position.y);
 
             GameManager.Instance.player.controller.GetDamage(damage, knockBackDir, knockBackForce, knockBackDuration);
-            GameManager.Instance.SetGameState(GAME_STATE.PAUSED);
         }
         else if(collision.tag == "Enemy")
         {

@@ -79,9 +79,6 @@ public class InputManager : MonoBehaviour {
     public void SetCanControl(bool canControl)
     {
         this.canControl = canControl;
-
-        if (!canControl)
-            Reset();
     }
     
     public void SetCanMove(bool canMove)
