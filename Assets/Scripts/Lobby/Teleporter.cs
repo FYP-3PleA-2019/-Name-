@@ -64,11 +64,15 @@ public class Teleporter : MonoBehaviour, ISubject
 
     void TeleportPlayer()
     {
-        GameManager.Instance.player.transform.position = connectedTeleporter.transform.position;
+        GameManager.Instance.player.transform.position = new Vector2(connectedTeleporter.transform.position.x,
+                                                                        connectedTeleporter.transform.position.y + 10f);
     }
 
     void Interacted()
     {
+        GameManager.Instance.player.controller.playerAnimator.SetTrigger("StartTeleport");
+        GameManager.Instance.player.controller.weaponHolder.SetActive(false);
+
         Notify(NOTIFY_TYPE.UI_SHOOT_BUTTON);
         StopCoroutine("WaitForInteract");
 

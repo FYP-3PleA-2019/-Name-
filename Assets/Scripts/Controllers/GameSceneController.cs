@@ -14,6 +14,8 @@ public class GameSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.player.controller.PlayTeleportAnimation();
+
         if (GameManager.Instance.GetCurrGameState() == GAME_STATE.PAUSED)
         {
             UIManager.Instance.transitionUI.PlayTransitionAnimation(1);
@@ -29,7 +31,7 @@ public class GameSceneController : MonoBehaviour
     {
         UIManager.Instance.controlUI.ShowCanvas();
 
-        GameManager.Instance.player.transform.position = mainSpawnPoint.position;
+        GameManager.Instance.player.transform.position = new Vector2(mainSpawnPoint.position.x, mainSpawnPoint.position.y + 0.35f);
 
 
         RoomManager.Instance.Initialize();

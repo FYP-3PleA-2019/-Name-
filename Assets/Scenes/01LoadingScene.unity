@@ -187,7 +187,7 @@ PrefabInstance:
     - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
         type: 3}
       propertyPath: amountToSpawn
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52c4eab269555f4b87544d045e2ddad, type: 3}
@@ -403,8 +403,61 @@ PrefabInstance:
         type: 3}
       propertyPath: prevWeapon
       value: 
-      objectReference: {fileID: 2205824411343347611, guid: bde1e57fd22a5e84eb5442e27ec61fa2,
+      objectReference: {fileID: 0}
+    - target: {fileID: 2831838782643615540, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
         type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 761241715, guid: b2c384e52ea1d4a4682f7e1bdea802f2, type: 3}
+      propertyPath: weaponHolder
+      value: 
+      objectReference: {fileID: 1051822129}
+    - target: {fileID: 62352201951501220, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2065487351
+      objectReference: {fileID: 0}
+    - target: {fileID: 62352201951501220, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192211897225092853, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2065487351
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192211897225092853, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 62352201776046165, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502648942039994462, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436821721616643874, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330511102949534639, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746229006007413349, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2c384e52ea1d4a4682f7e1bdea802f2, type: 3}
 --- !u!1001 &333607603
@@ -550,6 +603,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d8e5ce7b060eb74f86eccba9fda4480, type: 3}
+--- !u!1 &1051822129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3071254349165439904, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 291073934}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1820201524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -986,6 +1045,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3920657998832700972, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164850571897780460, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051781876726238207, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668407d32525124488e17c9f718a1979, type: 3}

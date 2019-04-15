@@ -188,6 +188,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 3949169778022612688, guid: 27e40b910a0dc494eb2ab159060eb02e,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27e40b910a0dc494eb2ab159060eb02e, type: 3}
 --- !u!224 &8051618748653842816 stripped
@@ -536,6 +541,31 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 8234021471610630901, guid: c0eca1ee8834ecc45b352555c49e3ac1,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234021472031800983, guid: c0eca1ee8834ecc45b352555c49e3ac1,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234021471857372023, guid: c0eca1ee8834ecc45b352555c49e3ac1,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234021473220370287, guid: c0eca1ee8834ecc45b352555c49e3ac1,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234021473023817276, guid: c0eca1ee8834ecc45b352555c49e3ac1,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0eca1ee8834ecc45b352555c49e3ac1, type: 3}
 --- !u!1 &4903147863453612112 stripped
@@ -665,6 +695,11 @@ PrefabInstance:
     - target: {fileID: 536569057102976418, guid: f5e0633da2305c349948dc16e898e873,
         type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296674345012177027, guid: f5e0633da2305c349948dc16e898e873,
+        type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

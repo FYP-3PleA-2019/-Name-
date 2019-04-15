@@ -56,6 +56,8 @@ public class PlayerController : Effectors, ISubject
     //Health Bar & Score Bar
     public GameObject healthBar;
     public GameObject scoreBar;
+
+    public GameObject weaponHolder;
     #endregion
 
     private void Awake()
@@ -80,6 +82,8 @@ public class PlayerController : Effectors, ISubject
         }
         else if(!InputManager.Instance.IsMoving())
         {
+            playerAnimator.SetBool("Running", false);
+
             if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
                 Notify(NOTIFY_TYPE.ENTITY_MOVE);
         }
@@ -121,6 +125,10 @@ public class PlayerController : Effectors, ISubject
 
     public void Move()
     {
+        playerAnimator.SetBool("Running", true);
+
+        if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME) Notify(NOTIFY_TYPE.ENTITY_IDLE);
+
         Vector3 moveDir = InputManager.Instance.GetMoveDir();
         Vector3 shootDir = InputManager.Instance.GetShootDir();
 
@@ -147,7 +155,7 @@ public class PlayerController : Effectors, ISubject
         _rBody.MovePosition(new Vector2(transform.position.x + moveDir.x * moveSpeed * Time.deltaTime,
                                         transform.position.y + moveDir.y * moveSpeed * Time.deltaTime));
     }
-    
+
     public void GetDamage(float damage, Vector2 knockBackDir, float knockBackForce, float knockBackDuration)
     {
         //if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
@@ -172,6 +180,9 @@ public class PlayerController : Effectors, ISubject
             //Close health bar and disable it
             healthBar.GetComponent<HealthBar>().DeactivateHealthBar();
             StartCoroutine(DisableHealthBar(0.5f));
+
+            playerAnimator.SetTrigger("StartTeleport");
+            weaponHolder.SetActive(false);
 
             //Notify Game Over
             Notify(NOTIFY_TYPE.GAME_OVER);
@@ -215,5 +226,19 @@ public class PlayerController : Effectors, ISubject
     {
         yield return new WaitForSeconds(delay);
         scoreBar.SetActive(false);
+    }
+
+    IEnumerator TeleportedAnimation()
+    {
+        yield return new WaitForSeconds(.5f);
+        playerAnimator.SetTrigger("Teleported");
+
+        yield return new WaitForSeconds(0.35f);
+        weaponHolder.SetActive(true);
+    }
+
+    public void PlayTeleportAnimation()
+    {
+        StartCoroutine(TeleportedAnimation());
     }
 }

@@ -13,6 +13,11 @@ public class LobbySceneController : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.Instance.currGameState != GAME_STATE.MAIN_MENU)
+        {
+            GameManager.Instance.player.controller.PlayTeleportAnimation();
+        }
+
         if (GameManager.Instance.GetCurrGameState() == GAME_STATE.LOBBY)
         {
             Initialize();
@@ -34,7 +39,7 @@ public class LobbySceneController : MonoBehaviour
         creditsCanvas.SetActive(true);
 
         if (GameManager.Instance.GetPrevGameState() == GAME_STATE.SHOP)
-            GameManager.Instance.player.transform.position = shopSpawnPoint.position;
+            GameManager.Instance.player.transform.position = new Vector2(shopSpawnPoint.position.x + .1f, shopSpawnPoint.position.y + 0.35f);
 
         else
             GameManager.Instance.player.transform.position = mainSpawnPoint.position;
