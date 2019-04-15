@@ -25,13 +25,11 @@ public class LobbySceneController : MonoBehaviour
 
             StartCoroutine("WaitForState");
         }
-
-        UIManager.Instance.coinUI.EnableCanvas();
     }
 
     void Initialize()
     {
-        UIManager.Instance.controlUI.ShowCanvas();
+        StartCoroutine(EnableCanvases());
         creditsCanvas.SetActive(true);
 
         if(GameManager.Instance.GetPrevGameState() == GAME_STATE.SHOP)
@@ -49,5 +47,12 @@ public class LobbySceneController : MonoBehaviour
         }
 
         Initialize();
+    }
+
+    IEnumerator EnableCanvases()
+    {
+        yield return new WaitForSeconds(.75f);
+        UIManager.Instance.controlUI.ShowCanvas();
+        UIManager.Instance.coinUI.EnableCanvas();
     }
 }

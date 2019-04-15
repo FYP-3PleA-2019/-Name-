@@ -64,6 +64,7 @@ public class RoomManager : MonoBehaviour
     [Header("Room Related")]
     public int roomLimit;
     public int startingNumberOfRooms;
+    public int amountToSpawn;
     
     //Privates
     public List<GameObject> spawnedRooms;
@@ -135,7 +136,8 @@ public class RoomManager : MonoBehaviour
     {
         if(other == spawnedRooms[spawnedRooms.Count - 1])
         {
-            SpawnRoom();
+            for(int i = 0; i < amountToSpawn; i++)
+                SpawnRoom();
 
             if (spawnedRooms.Count > roomLimit)
                 DespawnRoom();

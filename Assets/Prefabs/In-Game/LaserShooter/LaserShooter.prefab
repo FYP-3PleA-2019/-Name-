@@ -126,7 +126,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackPoint: {fileID: 7037856574411521416}
-  attackRange: 7
+  attackRange: 12
   originalColor: {r: 1, g: 1, b: 0.4862745, a: 0.3137255}
   state: 0
 --- !u!1 &7037856574411521423
@@ -170,26 +170,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LaserRenderer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2769818512915812977, guid: 5a9d5123a87fba64a9227d42f6fa7881,
         type: 3}
@@ -250,6 +230,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533459913675872038, guid: 5a9d5123a87fba64a9227d42f6fa7881,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a9d5123a87fba64a9227d42f6fa7881, type: 3}

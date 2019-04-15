@@ -33,9 +33,12 @@ public class ShopStand : MonoBehaviour, ISubject
     public string weaponEquippedString;
     public string fundsString;
 
+    [Space(5)]
+    public int weaponNo;
+
     [Range(0f, 0.3f)] public float textSpeed;
 
-    private void Start()
+    void Awake()
     {
         //Set references
         _shopCanvas = GetComponentsInChildren<Canvas>()[0];
@@ -43,11 +46,14 @@ public class ShopStand : MonoBehaviour, ISubject
         shopWeaponSprite = GetComponentsInChildren<SpriteRenderer>()[1];
         _animator = GetComponent<Animator>();
         _weaponAnimator = GetComponentsInChildren<Animator>()[1];
+    }
 
+    private void Start()
+    {
         UIManager.Instance.RegisterSubject(this);
 
         shopWeaponSprite.sprite = _weapon.sprite;
-        _isPurchased = false; // Temporary! Set to SaveManager's value in the future!
+        _isPurchased = GameManager.Instance.WeaponState[weaponNo]; // Temporary! Set to SaveManager's value in the future!
         ShopAnimation();
 
         showText = false;
@@ -74,13 +80,11 @@ public class ShopStand : MonoBehaviour, ISubject
             if (_isPurchased)
             {
                 StartCoroutine(DisplayTextWithDelay(equipString, textSpeed));
-                //DisplayText(equipString);
             }
 
             else
             {
                 StartCoroutine(DisplayTextWithDelay(purchaseString, textSpeed));
-                //DisplayText(purchaseString);
             }
         }
     }
@@ -140,7 +144,6 @@ public class ShopStand : MonoBehaviour, ISubject
     {
         SoundManager.instance.playSingle(SoundManager.instance.insufficientFunds);
         StartCoroutine(DisplayTextWithDelay(fundsString, textSpeed));
-        //DisplayText(fundsString);
     }
 
     void EquipWeapon()
@@ -148,7 +151,6 @@ public class ShopStand : MonoBehaviour, ISubject
         SoundManager.instance.playSingle(SoundManager.instance.weaponEquipped);
         GameManager.Instance.player.weapon.SetCurrentWeapon(_weapon);
         StartCoroutine(DisplayTextWithDelay(weaponEquippedString, textSpeed));
-        //DisplayText(weaponEquippedString);
     }
 
     IEnumerator PurchaseWeapon()
@@ -158,12 +160,12 @@ public class ShopStand : MonoBehaviour, ISubject
             _isPurchased = true;
             ShopAnimation(); //Play shop animation
             GameManager.Instance.ReduceMoney(_weapon.cost); //Deduct money spent from total amount
+            GameManager.Instance.UnlockedWeapon(weaponNo); //Set weapon to purchased
             GameManager.Instance.SaveData(); //Save Data
             UIManager.Instance.coinUI.UpdateCoinUI(); //Update coin UI
 
             SoundManager.instance.playSingle(SoundManager.instance.purchasedSfx); //Play sound effect
             StartCoroutine(DisplayTextWithDelay(weaponPurchasedString, textSpeed)); //Display Text
-            //DisplayText(weaponPurchasedString);
             StartCoroutine(WaitForInteract());
 
             yield return new WaitForSeconds(0.8f);

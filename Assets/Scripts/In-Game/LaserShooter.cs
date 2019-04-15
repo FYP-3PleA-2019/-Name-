@@ -70,6 +70,9 @@ public class LaserShooter : MonoBehaviour
         if (target == null)
             return;
 
+        if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
+            return;
+
         switch (state)
         {
             case LaserShooterState.Active:

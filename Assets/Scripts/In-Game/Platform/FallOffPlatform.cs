@@ -28,5 +28,6 @@ public class FallOffPlatform : MonoBehaviour
         canLoad = false;
         float damage = GameManager.Instance.player.controller.CurrHealth;
         GameManager.Instance.player.controller.GetDamage(damage, transform.position, 0f, 0f);
+        Debug.Log("WTF");
     }
 }

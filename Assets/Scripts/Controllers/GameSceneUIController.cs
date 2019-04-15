@@ -108,10 +108,7 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         GameManager.Instance.GameCoins = 0; //Reset game coins value to 0;
 
         //Wait for results to fully load in
-        while (!_resultBoardAnimator.GetCurrentAnimatorStateInfo(0).IsName("Results_Idle"))
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(1.75f);
 
         //If input is detected, 
         while (!Input.GetMouseButtonDown(0))

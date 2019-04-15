@@ -102,8 +102,24 @@ public class GameManager : MonoBehaviour {
     }
     private int _gameCoins;
 
+    public List<bool> WeaponState
+    {
+        get { return _weaponState; }
+        set
+        {
+            _weaponState = value;
+        }
+    }
+    private List<bool> _weaponState = new List<bool>(new bool [3]);
+
     //Save
     public string saveDataPath;
+    public bool NewGame
+    {
+        get { return _newGame; }
+        set { _newGame = value; }
+    }
+    private bool _newGame;
     #endregion
 
     void Awake()
@@ -172,8 +188,30 @@ public class GameManager : MonoBehaviour {
     void LoadSavedData()
     {
         GameData data = SaveSystem.LoadSavedData(saveDataPath); //Load Saved Data from [GameData]
-        _highScore = data.HighScore;
-        _coins = data.Coins;
+        
+        if(_newGame)
+        {
+            _highScore = 0;
+            _coins = 0;
+
+            _weaponState[0] = true;
+
+            for (int i = 1; i < _weaponState.Count; i++)
+            {
+                _weaponState[i] = false;
+            }
+        }
+
+        else
+        {
+            _highScore = data.HighScore;
+            _coins = data.Coins;
+
+            for (int i = 0; i < _weaponState.Count; i++)
+            {
+                _weaponState[i] = data.WeaponState[i];
+            }
+        }
     }
 
     public void SaveData()
@@ -191,5 +229,11 @@ public class GameManager : MonoBehaviour {
     public void ReduceMoney(int amount)
     {
         _coins -= amount;
+    }
+
+    //Weapon Stand
+    public void UnlockedWeapon(int weaponNo)
+    {
+        _weaponState[weaponNo] = true;
     }
 }

@@ -5,9 +5,17 @@ using UnityEngine;
 public class ComponentsRandomizer : MonoBehaviour
 {
     #region Variables
+    public bool dontSpawnEnemies;
+
     public List<GameObject> objects;
-    public List<GameObject> spawnPoints;
-    public List<Enemy> enemyList;
+    public List<Transform> spawnPoints;
+    public List<EnemyBase> enemyList;
+    private List<EnemyBase> spawnedList;
+    private List<EnemySpawner> spawnerList;
+
+    public GameObject enemySpawner;
+    private Door door;
+    public bool haveDoor;
 
     [Space(5)]
     [Header("Next Room Variables")]
@@ -18,13 +26,38 @@ public class ComponentsRandomizer : MonoBehaviour
     #endregion
 
     //Temporary
+    [Space(5)]
+    [Header("Spawning Related")]
+    public float spawnInterval;
     public int enemyValue;
     public int minimumValue;
+    public int noOfSpawners;
+    public int noOfObjects;
+
+    public int ExistingEnemies
+    {
+        get { return _existingEnemies; }
+        set
+        {
+            _existingEnemies = value;
+        }
+    }
+    private int _existingEnemies;
+
+    private bool _finishedSpawning;
 
     #region Unity Functions
     // Start is called before the first frame update
     private void Awake()
     {
+        spawnedList = new List<EnemyBase>();
+        spawnerList = new List<EnemySpawner>();
+
+        if (haveDoor) // Meaning there will be enemies
+        {
+            door = GetComponentInChildren<Door>();
+        }
+
         //Setting next room's spawn point
         float roomSize = gameObject.GetComponent<BoxCollider2D>().size.x;
 
@@ -41,44 +74,123 @@ public class ComponentsRandomizer : MonoBehaviour
             nextRoomSpawnPoint.position = new Vector3(transform.position.x + roomSize, transform.position.y, 0.0f);
     }
 
-    void Start()
+    private void Start()
     {
         FillRoom();
+        CheckRoomClear();
     }
     #endregion
 
     #region Custom Functions
     void FillRoom()
     {
-        if (enemyValue == 0)
-            return;
+        SpawnChecker();
 
-        while(enemyValue - minimumValue >= 0)
+        if (noOfSpawners > 0) //Check if room is intended to spawn enemies
+            InstantiateEnemySpawner();
+
+        if (objects.Count > 0) //Check if room is intended to spawn objects
         {
-            int randObj = Random.Range(0, objects.Count);
-            int randPoint = Random.Range(0, spawnPoints.Count);
+            if (noOfObjects > spawnPoints.Count)
+                noOfObjects = spawnPoints.Count;
 
-            GameObject GO = Instantiate(objects[randObj], spawnPoints[randPoint].transform.position, Quaternion.identity);
-            GO.transform.parent = gameObject.transform; //Set spawned objects as children of the room.
-
-            //Add enemy into enemy list
-            enemyList.Add(GO.GetComponent<Enemy>());
-
-            int enemyVal = GO.GetComponent<EnemyBase>().myValue;
-
-            if (enemyValue - enemyVal < 0)
-                Destroy(GO);
-
-            else
-                enemyValue -= GO.GetComponent<EnemyBase>().myValue;
-
-            //Remove position that was randomed to avoid spawning next object at the same position
-            spawnPoints.Remove(spawnPoints[randPoint]);
+            if (noOfObjects > 0)
+            {
+                for (int i = 0; i < noOfObjects; i++)
+                    SpawnItems();
+            }
         }
 
         //Clear lists to free up memory
         spawnPoints.Clear();
         objects.Clear();
+    }
+
+    void InstantiateEnemySpawner()
+    {
+        if (enemySpawner == null)
+        {
+            Debug.Log("EnemySpawner prefab is not assigned!");
+            return;
+        }
+
+        for (int i = 0; i < noOfSpawners; i++)
+        {
+            int randPoint = Random.Range(0, spawnPoints.Count);
+            Transform tempPos = spawnPoints[randPoint];
+            GameObject spawner = Instantiate(enemySpawner, tempPos.position, Quaternion.identity);
+            spawner.transform.parent = this.transform;
+
+            spawnerList.Add(spawner.GetComponent<EnemySpawner>());
+
+            spawnPoints.Remove(spawnPoints[randPoint]);
+        }
+    }
+
+    private IEnumerator SpawnEnemies()
+    {
+        if(enemyList.Count < 1)
+        {
+            Debug.Log("No enemy is assigned!");
+            yield break;
+        }
+        
+        while (enemyValue - minimumValue >= 0)
+        {
+            int randEnemy = Random.Range(0, enemyList.Count);
+            int randSpawner = Random.Range(0, spawnerList.Count);
+
+            EnemyBase tempEnemy = enemyList[randEnemy];
+            int enemyVal = enemyList[randEnemy].myValue;
+
+            if(enemyValue - enemyVal > 0)
+            {
+                randSpawner = Random.Range(0, spawnerList.Count);
+                spawnerList[randSpawner].SpawnEnemy(tempEnemy);
+                enemyValue -= enemyVal;
+                yield return new WaitForSeconds(spawnInterval);
+            }
+        }
+
+        _finishedSpawning = true;
+    }
+    
+    private void SpawnItems()
+    {
+        if(spawnPoints.Count < 1)
+        {
+            Debug.Log("No SpawnPoints to spawn object");
+            return;
+        }
+
+        int randObject = Random.Range(0, objects.Count);
+        int randPoint = Random.Range(0, spawnPoints.Count);
+
+        GameObject tempObject = objects[randObject];
+        Vector3 tempPos = spawnPoints[randPoint].position;
+
+        GameObject GO = Instantiate(tempObject, tempPos, Quaternion.identity);
+
+        spawnPoints.Remove(spawnPoints[randPoint]);
+
+        GO.transform.parent = this.transform;
+    }
+
+    void SpawnChecker()
+    {
+        if (noOfSpawners > 0)
+            _finishedSpawning = false;
+
+        else
+            _finishedSpawning = true;
+    }
+
+    public void CheckRoomClear()
+    {
+        if(_existingEnemies <= 0 && _finishedSpawning && haveDoor)
+        {
+            door.OpenDoor();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -87,6 +199,12 @@ public class ComponentsRandomizer : MonoBehaviour
         {
             RoomManager.Instance.EnteredRoomChecker(this.gameObject);
 
+            if (!dontSpawnEnemies)
+            {
+                if (noOfSpawners > 0) //Only start spawning enemies when player enters the platform
+                    StartCoroutine(SpawnEnemies());
+            }
+
             //for(int i = 0; i < enemyList.Count; i++)
             //{
             //    enemyList[i].SetEnemyState(ENEMY_STATE.MOVE);
@@ -94,7 +212,7 @@ public class ComponentsRandomizer : MonoBehaviour
         }
     }
     #endregion
-
+     
     #region Gizmos
     public virtual void OnDrawGizmosSelected() //Draw a cube that serves as an attack range indicator in the [Scene View]
     {

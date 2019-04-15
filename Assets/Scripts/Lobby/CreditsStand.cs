@@ -28,6 +28,8 @@ public class CreditsStand : MonoBehaviour, ISubject
     public GameObject indicator;
     public string indicatorText;
 
+    public Animator blinkTextAnimator;
+
     [Space(5)]
     [Header("Arrow Indicator")]
     public GameObject arrowIndicator;
@@ -71,7 +73,7 @@ public class CreditsStand : MonoBehaviour, ISubject
             if (InputManager.Instance.HasInteracted())
             {
                 InputManager.Instance.SetHasInteracted(false);
-                OpenCredits();
+                StartCoroutine(OpenCredits());
             }
         }
     }
@@ -95,21 +97,33 @@ public class CreditsStand : MonoBehaviour, ISubject
         indicator.GetComponent<ArrowIndicator>().SpriteToDisplay = indicatorSprite;
     }
 
-    void OpenCredits()
+    IEnumerator OpenCredits()
     {
         AnimationController.Instance.OpenPopUpOneShot(openCreditAnimators, openCreditStrings, ref isOpen);
         StartCoroutine(UIManager.Instance.blurUI.StartBlur());
 
         UIManager.Instance.controlUI.HideCanvas();
         UIManager.Instance.blurUI.EnableCanvas();
+
+        yield return new WaitForSeconds(.7f);
+        blinkTextAnimator.SetTrigger("Blink");
+
+        while(!Input.GetMouseButtonDown(0))
+        {
+            yield return null;
+        }
+
+        StartCoroutine(CloseCredits());
     }
 
-    public void CloseCredits()
+    IEnumerator CloseCredits()
     {
         AnimationController.Instance.ClosePopUpOneShot(closeCreditAnimators, closeCreditStrings, ref isOpen);
         StartCoroutine(UIManager.Instance.blurUI.EndBlur());
 
+        yield return new WaitForSeconds(0.75f);
         UIManager.Instance.controlUI.ShowCanvas();
+        blinkTextAnimator.SetTrigger("StopBlink");
     }
 
     void EnableUI()

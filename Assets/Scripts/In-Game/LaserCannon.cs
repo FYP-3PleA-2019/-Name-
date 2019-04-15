@@ -21,7 +21,7 @@ public enum ShootDirection
 public class LaserCannon : MonoBehaviour
 {
     #region GameObject References
-    public LineRenderer laserRenderer;
+    protected LineRenderer laserRenderer;
     protected Transform target;
     protected Animator _animator;
     #endregion 
@@ -41,7 +41,7 @@ public class LaserCannon : MonoBehaviour
     [Header("Attacking Variables")]
     public float damage;
     public LayerMask attackLayer;
-    public Transform attackPoint;
+    private Transform attackPoint;
     public float attackRange;
     public float knockBackForce;
     public float knockBackDuration;
@@ -62,6 +62,9 @@ public class LaserCannon : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>(); //Setting player as target
         _animator = gameObject.GetComponent<Animator>(); //Assigning animator
 
+        laserRenderer = GetComponentsInChildren<LineRenderer>()[0];
+        attackPoint = GetComponentsInChildren<Transform>()[1];
+
         state = LaserCannonState.Idle; //Set beginning state to Idle
         ResetChildComponents();
         
@@ -76,6 +79,9 @@ public class LaserCannon : MonoBehaviour
     void Update()
     {
         if (target == null)
+            return;
+
+        if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
             return;
 
         switch (state)

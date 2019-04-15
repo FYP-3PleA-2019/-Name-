@@ -61,6 +61,9 @@ public class MovingPlatform : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
+            return;
+
         if (transform.position != moveTarget)
         {
             init = transform.position;
