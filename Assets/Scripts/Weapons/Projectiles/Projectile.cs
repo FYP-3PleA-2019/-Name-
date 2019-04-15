@@ -14,12 +14,6 @@ public class Projectile : MonoBehaviour
     protected Vector3 shootDir;
     #endregion
 
-    // Start is called before the first frame update
-    public virtual void Start()
-    {
-
-    }
-
     // Update is called once per frame
     public virtual void Update()
     {
@@ -28,7 +22,7 @@ public class Projectile : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        Die();
     }
 
     public void SetMoveSpeed(float moveSpeed)
@@ -49,5 +43,10 @@ public class Projectile : MonoBehaviour
     public void SetFireRate(float fireRate)
     {
         this.fireRate = fireRate;
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

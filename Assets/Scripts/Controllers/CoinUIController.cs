@@ -8,7 +8,7 @@ public class CoinUIController : MonoBehaviour
     private Canvas coinCanvas;
     private Text coinText;
 
-    private void Start()
+    private void Awake()
     {
         coinCanvas = GetComponent<Canvas>();
         coinText = GetComponentsInChildren<Text>()[0];

@@ -278,6 +278,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2c384e52ea1d4a4682f7e1bdea802f2, type: 3}
+--- !u!1001 &1059820972
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1869394531778064407, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564898331103418104, guid: ac5d43ed7231c0e489652525762d8a12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac5d43ed7231c0e489652525762d8a12, type: 3}
 --- !u!1001 &1317022812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -490,6 +559,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.9499512
       objectReference: {fileID: 0}
+    - target: {fileID: 3079249126533170167, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041035910598886564, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668407d32525124488e17c9f718a1979, type: 3}
 --- !u!1001 &5860367055132107104
@@ -557,6 +636,16 @@ PrefabInstance:
     - target: {fileID: 5860367053736595700, guid: 5baf39b9674b3f2479c5b1d8f6130c5d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860367053736595698, guid: 5baf39b9674b3f2479c5b1d8f6130c5d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860367053736595701, guid: 5baf39b9674b3f2479c5b1d8f6130c5d,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

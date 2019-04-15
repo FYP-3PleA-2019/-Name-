@@ -28,10 +28,14 @@ public class BlurScript : MonoBehaviour
     }
     private float _blurSize;
 
-    private void Start()
+    private void Awake()
     {
         blurCanvas = GetComponent<Canvas>();
         blurImage = GetComponentInChildren<Image>();
+    }
+
+    private void Start()
+    {
         _blurDuration = 0;
         _blurSize = 0;
     }

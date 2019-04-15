@@ -15,5 +15,7 @@ public class LoadingSceneController : MonoBehaviour
 
         GameManager.Instance.SetGameState(GAME_STATE.MAIN_MENU);
         CustomSceneManager.Instance.LoadScene(GAME_SCENE.LOBBY_SCENE);
+
+        UIManager.Instance.coinUI.DisableCanvas();
     }
 }

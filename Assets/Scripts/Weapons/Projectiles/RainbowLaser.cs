@@ -15,7 +15,7 @@ public class RainbowLaser : Projectile
     private float intervalCounter;
     #endregion
 
-    public override void Start()
+    public void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         intervalCounter = fireRate;

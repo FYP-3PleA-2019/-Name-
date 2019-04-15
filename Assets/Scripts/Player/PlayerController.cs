@@ -143,8 +143,8 @@ public class PlayerController : Effectors, ISubject
     
     public void GetDamage(float damage, Vector2 knockBackDir, float knockBackForce, float knockBackDuration)
     {
-        if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
-            return;
+        //if (GameManager.Instance.currGameState != GAME_STATE.IN_GAME)
+           //return;
 
         if (_currHealth <= 0)
             return;

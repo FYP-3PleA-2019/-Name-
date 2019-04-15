@@ -15,56 +15,56 @@ public class Enemy : MonoBehaviour
 {
     #region General Variables
     [Header("General Variables")]
+    public float maxIdleDuration;
+    public float maxWanderDuration;
+
+    private bool facingLeft;
+
+    private Vector2 moveDir;
+    private Vector2 retreatDir;
+    private Vector2 repelDir;
+
+    private Animator _animator;
+    private EnemyWeaponController _enemyWeapon;
     private static List<Rigidbody2D> EnemyList;
+    private Rigidbody2D _rBody;
+    private Transform _weaponHolder;
     #endregion
 
     #region Enemy Variables
     [Header("Enemy Variables")]
+    public float attackRange;
     public float moveSpeed;
     public float repelRange;
     public float repelMultiplier;
-    public float idleDuration;
 
     public int health;
     public int coinsDrop;
 
     public ENEMY_STATE _enemyState;
-
-    private bool facingLeft;
-
-    private Animator _animator;
-    private Rigidbody2D _rBody;
-    #endregion
-
-    #region Attack Variables
-    [Header("Attack Variables")]
-    public float attackSpeed;
-    public float attackRange;
-
-    public int damage;
-
-    public EnemyWeapon weapon;
     #endregion
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _enemyWeapon = GetComponent<EnemyWeaponController>();
         _rBody = GetComponent<Rigidbody2D>();
-        weapon = GetComponent<EnemyWeapon>();
+        _weaponHolder = GetComponentsInChildren<Transform>()[1];
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //_enemyState = ENEMY_STATE.IDLE;
-        _enemyState = ENEMY_STATE.MOVE;
-
         if (EnemyList == null)
         {
             EnemyList = new List<Rigidbody2D>();
         }
 
         EnemyList.Add(_rBody);
+
+        Reset();
+
+        SetEnemyState(ENEMY_STATE.MOVE);
     }
 
     private void OnDestroy()
@@ -75,31 +75,29 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 playerPos = GameManager.Instance.player.transform.position;
+        FacePlayer();
 
-        if (playerPos.x < _rBody.position.x && !FacingLeft()) SetFacingLeft(true);
-        else if (playerPos.x > _rBody.position.x && FacingLeft()) SetFacingLeft(false);
+        StayAwayFromPlayer();
+
+        StayAwayFromEnemies();
 
         switch (_enemyState)
         {
-            case ENEMY_STATE.IDLE:
-                Idle();
-                break;
-
             case ENEMY_STATE.MOVE:
-                Move(playerPos);
+                Move();
                 break;
 
             case ENEMY_STATE.ATTACK:
                 Attack();
                 break;
 
-            case ENEMY_STATE.WANDER:
-                break;
-
-            case ENEMY_STATE.DEATH:
+            default:
                 break;
         }
+
+        Vector2 dir = (moveDir + retreatDir + repelDir).normalized;
+        Vector2 newPos = _rBody.position + dir * Time.fixedDeltaTime * moveSpeed;
+        _rBody.MovePosition(newPos);
     }
 
     // -------------------------------- Setters --------------------------------
@@ -114,6 +112,15 @@ public class Enemy : MonoBehaviour
     public void SetEnemyState(ENEMY_STATE enemyState)
     {
         _enemyState = enemyState;
+
+        if (_enemyState == ENEMY_STATE.IDLE)
+            StartCoroutine("Idle");
+
+        else if (_enemyState == ENEMY_STATE.WANDER)
+            StartCoroutine("Wander");
+
+        else if (_enemyState == ENEMY_STATE.DEATH)
+            StartCoroutine("Death");
     }
 
     // -------------------------------- Checkers --------------------------------
@@ -125,59 +132,153 @@ public class Enemy : MonoBehaviour
     }
 
     // -------------------------------- Functions --------------------------------
-    
-    public virtual IEnumerator Idle()
-    {
-        //_animator.SetTrigger("Idle"); //Play Idle Animation
-
-        yield return new WaitForSeconds(5.0f);
-    }
-
-    public virtual void Attack()
-    {
-
-    }
-
     private void Reset()
     {
         SetFacingLeft(false);
+
+        moveDir = Vector2.zero;
+        retreatDir = Vector2.zero;
+        repelDir = Vector2.zero;
+
+        _enemyWeapon.Reset();
     }
 
-    private void Move(Vector2 playerPos)
+    private void FacePlayer()
     {
+        Vector2 playerPos = GameManager.Instance.player.transform.position;
+
+        if (playerPos.x < _rBody.position.x && !FacingLeft())
+        {
+            SetFacingLeft(true);
+            _enemyWeapon.SetFacingLeft(true);
+        }
+        else if (playerPos.x > _rBody.position.x && FacingLeft())
+        {
+            SetFacingLeft(false);
+            _enemyWeapon.SetFacingLeft(false);
+        }
+    }
+
+    private void StayAwayFromPlayer()
+    {
+        Vector2 playerPos = GameManager.Instance.player.transform.position;
+
         float distance = Vector2.Distance(playerPos, transform.position);
 
-        if (distance <= attackRange) return;
+        if (distance < attackRange - 0.1f) retreatDir = (_rBody.position - playerPos).normalized;
+        else retreatDir = Vector2.zero;
+    }
 
-        Vector2 repelForce = Vector2.zero;
+    private void StayAwayFromEnemies()
+    {
+        repelDir = Vector2.zero;
 
-        for(int i = 0; i < EnemyList.Count; i++)
+        for (int i = 0; i < EnemyList.Count; i++)
         {
             if (EnemyList[i] == _rBody) continue;
 
-            if(Vector2.Distance(EnemyList[i].position, _rBody.position) <= repelRange)
+            if (Vector2.Distance(EnemyList[i].position, transform.position) < repelRange)
             {
-                Vector2 repelDir = (_rBody.position - EnemyList[i].position).normalized;
-                repelForce += repelDir;
+                Vector2 repelForce  = (_rBody.position - EnemyList[i].position).normalized;
+                repelDir += repelForce;
             }
         }
-        
-        Vector2 moveDir = (playerPos - _rBody.position).normalized;
-        Vector2 newPos = _rBody.position + moveDir * Time.fixedDeltaTime * moveSpeed;
-        newPos += repelForce * Time.fixedDeltaTime * repelMultiplier;
-
-        _rBody.MovePosition(newPos);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private IEnumerator Idle()
     {
-        if(collision.tag == "Enemy")
+        float randDuration = Random.Range(1.0f, maxIdleDuration);
+
+        //_animator.SetTrigger("Idle"); //Play Idle Animation
+
+        yield return new WaitForSeconds(randDuration);
+
+        int randNum = Random.Range(0, 10);
+
+        if (randNum >= 5) SetEnemyState(ENEMY_STATE.MOVE);
+        else if (randNum < 5) SetEnemyState(ENEMY_STATE.WANDER);
+    }
+
+    private void Move()
+    {
+        Vector2 playerPos = GameManager.Instance.player.transform.position;
+
+        float distance = Vector2.Distance(playerPos, _rBody.position);
+
+        if (distance > attackRange + 0.1f) moveDir = (playerPos - _rBody.position).normalized;
+        else
         {
-            SetEnemyState(ENEMY_STATE.IDLE);
-        }
-        else if(collision.tag == "Player")
-        {
+            moveDir = Vector2.zero;
             SetEnemyState(ENEMY_STATE.ATTACK);
+        }
+    }
+
+    private void Attack()
+    {
+        _enemyWeapon.Shoot();
+
+        int randNum = Random.Range(0, 10);
+
+        if (randNum >= 5) SetEnemyState(ENEMY_STATE.IDLE);
+        else if (randNum < 5) SetEnemyState(ENEMY_STATE.WANDER);
+    }
+
+    private IEnumerator Wander()
+    {
+        float randNormalizedX = Random.Range(-10, 10)/ 10f;
+        float randNormalizedY = Random.Range(-10, 10)/ 10f;
+        float randomDuration = Random.Range(1.0f, maxWanderDuration);
+        
+        moveDir = new Vector2(randNormalizedX, randNormalizedY);
+
+        yield return new WaitForSeconds(randomDuration);
+
+        int randNum = Random.Range(0, 10);
+
+        if (randNum >= 8) SetEnemyState(ENEMY_STATE.WANDER);
+        else if (randNum < 8) SetEnemyState(ENEMY_STATE.MOVE);
+    }
+
+    private IEnumerator Death()
+    {
+        //_animator.SetTrigger("Death"); //Play death Animation
+
+        yield return null;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _rBody.velocity = Vector3.zero;
+        
+        int randNum = Random.Range(0, 10);
+
+        if(_enemyState == ENEMY_STATE.MOVE)
+        {
+            if (randNum >= 5) SetEnemyState(ENEMY_STATE.IDLE);
+            else if (randNum < 5) SetEnemyState(ENEMY_STATE.WANDER);
+        }
+        else if(_enemyState == ENEMY_STATE.WANDER)
+        {
+            if (randNum >= 5) SetEnemyState(ENEMY_STATE.MOVE);
+            else if (randNum < 5) SetEnemyState(ENEMY_STATE.WANDER);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        _rBody.velocity = Vector3.zero;
+
+        int randNum = Random.Range(0, 10);
+
+        if (_enemyState == ENEMY_STATE.MOVE)
+        {
+            if (randNum >= 5) SetEnemyState(ENEMY_STATE.IDLE);
+            else if (randNum < 5) SetEnemyState(ENEMY_STATE.WANDER);
+        }
+        else if (_enemyState == ENEMY_STATE.WANDER)
+        {
+            if (randNum >= 5) SetEnemyState(ENEMY_STATE.MOVE);
+            else if (randNum < 5) SetEnemyState(ENEMY_STATE.WANDER);
         }
     }
 }

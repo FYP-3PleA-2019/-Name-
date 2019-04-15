@@ -88,7 +88,7 @@ public class WeaponController : MonoBehaviour
     public void OnShootBegin()
     {
         if(currWeapon != null)
-            StartCoroutine(currWeapon.Shoot());
+            StartCoroutine(currWeapon.Shoot(shootPoint));
     }
 
     public void OnShootEnd()

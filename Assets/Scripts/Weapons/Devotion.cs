@@ -8,7 +8,7 @@ public class Devotion : Weapon
     public float maxFireRate;
     private float currFireRate;
 
-    public override IEnumerator Shoot()
+    public override IEnumerator Shoot(Transform shootPoint)
     {
         if (canShoot)
         {
@@ -18,8 +18,6 @@ public class Devotion : Weapon
 
         while (InputManager.Instance.IsShooting())
         {
-            Transform shootPoint = GameManager.Instance.player.weapon.GetShootPoint();
-
             Vector3 shootPointRot = shootPoint.transform.rotation.eulerAngles;
             Vector3 bulletRot = new Vector3(shootPointRot.x, shootPointRot.y, shootPointRot.z + GetRandomSpread());
             Quaternion eulerRot = Quaternion.Euler(bulletRot);

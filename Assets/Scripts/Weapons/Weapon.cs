@@ -78,5 +78,5 @@ public abstract class Weapon : MonoBehaviour
         return Random.Range(-projectileSpread, projectileSpread);
     }
 
-    public abstract IEnumerator Shoot();
+    public abstract IEnumerator Shoot(Transform shootPoint);
 }

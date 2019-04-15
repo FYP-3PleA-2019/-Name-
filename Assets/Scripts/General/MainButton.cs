@@ -44,7 +44,6 @@ public class MainButton : MonoBehaviour, IObserver
         UIManager.Instance.RegisterObserver(this);
         
         buttonType = BUTTON_TYPE.SHOOT;
-
         mainButton_frame_default = mainButton_frame.sprite;
         switchButton_frame_default = switchButton_frame.sprite;
         
@@ -104,24 +103,29 @@ public class MainButton : MonoBehaviour, IObserver
         buttonType = BUTTON_TYPE.SHOOT;
 
         mainButton_frame.sprite = mainButton_frame_default;
-        SwitchIcon(mainButton_icon_shoot);
+        SwitchMainButtonIcon(mainButton_icon_shoot);
     }
 
-    public void SwitchIcon(Sprite sprite)
+    public void SwitchMainButtonIcon(Sprite sprite)
     {
         mainButton_icon.sprite = sprite;
+    }
+
+    public void SwitchSwitchButtonIcon(Sprite sprite)
+    {
+        switchButton_icon.sprite = sprite;
     }
 
     public void OnNotify(NOTIFY_TYPE type)
     {
         if (type == NOTIFY_TYPE.UI_SHOOT_BUTTON)
         {
-            SwitchIcon(mainButton_icon_shoot);
+            SwitchMainButtonIcon(mainButton_icon_shoot);
             buttonType = BUTTON_TYPE.SHOOT;
         }
         else if(type == NOTIFY_TYPE.UI_INTERACT_BUTTON)
         {
-            SwitchIcon(mainButton_icon_interact);
+            SwitchMainButtonIcon(mainButton_icon_interact);
             buttonType = BUTTON_TYPE.INTERACT;
         }
     }

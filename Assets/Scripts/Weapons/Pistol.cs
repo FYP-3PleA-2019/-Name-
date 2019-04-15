@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Pistol : Weapon
 {
-    public override IEnumerator Shoot()
+    public override IEnumerator Shoot(Transform shootPoint)
     {
         while (canShoot && InputManager.Instance.IsShooting())
         {
             SoundManager.instance.playSingle(SoundManager.instance.playerShoot);
 
             canShoot = false;
-
-            Transform shootPoint = GameManager.Instance.player.weapon.GetShootPoint();
-
+            
             Vector3 shootPointRot = shootPoint.transform.rotation.eulerAngles;
             Vector3 bulletRot = new Vector3(shootPointRot.x, shootPointRot.y, shootPointRot.z + GetRandomSpread());
             Quaternion eulerRot = Quaternion.Euler(bulletRot);

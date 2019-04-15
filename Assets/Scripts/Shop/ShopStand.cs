@@ -149,6 +149,12 @@ public class ShopStand : MonoBehaviour, ISubject
         GameManager.Instance.player.weapon.SetCurrentWeapon(_weapon);
         StartCoroutine(DisplayTextWithDelay(weaponEquippedString, textSpeed));
         //DisplayText(weaponEquippedString);
+
+        if (GameManager.Instance.player.weapon.prevWeapon != null)
+        {
+            Sprite currWeaponSpr = GameManager.Instance.player.weapon.prevWeapon.GetSprite();
+            UIManager.Instance.controlUI.mainButton.SwitchSwitchButtonIcon(currWeaponSpr);
+        }
     }
 
     IEnumerator PurchaseWeapon()

@@ -21,20 +21,20 @@ public class LobbySceneController : MonoBehaviour
         else
         {
             UIManager.Instance.controlUI.HideCanvas();
+            UIManager.Instance.coinUI.DisableCanvas();
             creditsCanvas.SetActive(false);
 
             StartCoroutine("WaitForState");
         }
-
-        UIManager.Instance.coinUI.EnableCanvas();
     }
 
     void Initialize()
     {
         UIManager.Instance.controlUI.ShowCanvas();
+        UIManager.Instance.coinUI.EnableCanvas();
         creditsCanvas.SetActive(true);
 
-        if(GameManager.Instance.GetPrevGameState() == GAME_STATE.SHOP)
+        if (GameManager.Instance.GetPrevGameState() == GAME_STATE.SHOP)
             GameManager.Instance.player.transform.position = shopSpawnPoint.position;
 
         else
