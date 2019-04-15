@@ -20,6 +20,9 @@ public class TheEntity : MonoBehaviour, IObserver
     
     public Transform[] childList;
 
+    public Camera cam;
+    private Vector3 halfScreenHeight;
+
     public ENTITY_STATE currEntityState;
     private ENTITY_STATE prevEntityState;
 
@@ -31,7 +34,9 @@ public class TheEntity : MonoBehaviour, IObserver
     #endregion
 
     private void Awake()
-    { 
+    {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
         childList = GetComponentsInChildren<Transform>();
     }
 
@@ -39,8 +44,12 @@ public class TheEntity : MonoBehaviour, IObserver
     void Start()
     {
         GameManager.Instance.player.controller.RegisterObserver(this);
-        
-        constantDistWithPlayer = GameManager.Instance.player.transform.position.y - transform.position.y;
+
+        Vector3 temp = cam.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+
+        constantDistWithPlayer = temp.y + 5.0f;
+        //constantDistWithPlayer = GameManager.Instance.player.transform.position.y - transform.position.y;
+        halfScreenHeight = cam.ScreenToWorldPoint(new Vector3(0, Screen.height / 2.0f, 0));
     }
 
     // Update is called once per frame
@@ -101,8 +110,15 @@ public class TheEntity : MonoBehaviour, IObserver
     {
         for(int i = 1; i < childList.Length; i++)
         {
-            if (childList[i].GetComponent<Renderer>().isVisible)
-                return true;
+            /*if (childList[i].GetComponent<Renderer>().isVisible)
+                return true;*/
+
+            float playerPosY = GameManager.Instance.player.transform.position.y;
+            if (childList[i] != transform)
+            {
+                if (playerPosY - childList[i].position.y < constantDistWithPlayer - 3.0f)
+                    return true;
+            }
         }
         return false;
     }
@@ -111,7 +127,8 @@ public class TheEntity : MonoBehaviour, IObserver
     {
         for(int i = 1; i < childList.Length; i++)
         {
-            childList[i].GetComponent<SpriteRenderer>().enabled = active;
+            if(childList[i] != transform)
+                childList[i].GetComponent<SpriteRenderer>().enabled = active;
         }
     }
 

@@ -26,8 +26,8 @@ public class MainButton : MonoBehaviour, IObserver
     private Image switchButton_frame;
     private Image switchButton_icon;
 
-    private Sprite mainButton_frame_default;
-    private Sprite switchButton_frame_default;
+    public Sprite mainButton_frame_default;
+    public Sprite switchButton_frame_default;
     #endregion
 
     private void Awake()
@@ -44,9 +44,6 @@ public class MainButton : MonoBehaviour, IObserver
         UIManager.Instance.RegisterObserver(this);
         
         buttonType = BUTTON_TYPE.SHOOT;
-        mainButton_frame_default = mainButton_frame.sprite;
-        switchButton_frame_default = switchButton_frame.sprite;
-        
         if (GameManager.Instance.player.weapon.prevWeapon != null)
         {
             Sprite currWeaponSpr = GameManager.Instance.player.weapon.prevWeapon.GetSprite();

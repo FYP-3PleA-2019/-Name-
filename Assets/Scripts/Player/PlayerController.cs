@@ -73,9 +73,12 @@ public class PlayerController : Effectors, ISubject
 
     private void Update()
     {
-        if (InputManager.Instance.CanControl() && InputManager.Instance.CanMove() && InputManager.Instance.IsMoving())
-            Move();
-        else
+        if(InputManager.Instance.IsMoving())
+        {
+            if (InputManager.Instance.CanControl() && InputManager.Instance.CanMove())
+                Move();
+        }
+        else if(!InputManager.Instance.IsMoving())
         {
             if (GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
                 Notify(NOTIFY_TYPE.ENTITY_MOVE);
@@ -118,14 +121,18 @@ public class PlayerController : Effectors, ISubject
 
     public void Move()
     {
-        if(GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME) Notify(NOTIFY_TYPE.ENTITY_IDLE);
-
         Vector3 moveDir = InputManager.Instance.GetMoveDir();
         Vector3 shootDir = InputManager.Instance.GetShootDir();
 
-        if(moveDir.y < 0f && GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
-            Notify(NOTIFY_TYPE.ENTITY_MOVE);
+        if(GameManager.Instance.GetCurrGameState() == GAME_STATE.IN_GAME)
+        {
+            if (moveDir.y > 0f)
+                Notify(NOTIFY_TYPE.ENTITY_IDLE);
 
+            else if (moveDir.y <= 0f)
+                Notify(NOTIFY_TYPE.ENTITY_MOVE);
+        }
+       
         if (InputManager.Instance.CanFreeAim())
         {
             if (moveDir.x < 0 && !FacingLeft()) SetFacingLeft(true);
