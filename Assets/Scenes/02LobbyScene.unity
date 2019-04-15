@@ -2127,11 +2127,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2054748546404542507, guid: 752149e9c4c0b5e41a333aa1f7fc0026,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: c4f8ab76437fdb544be51f74810ea381,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 752149e9c4c0b5e41a333aa1f7fc0026, type: 3}
 --- !u!224 &2054748546992100978 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2054748547812079240, guid: 752149e9c4c0b5e41a333aa1f7fc0026,
+    type: 3}
+  m_PrefabInstance: {fileID: 2054748546992100977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2054748546992100979 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6935924775001931020, guid: 752149e9c4c0b5e41a333aa1f7fc0026,
     type: 3}
   m_PrefabInstance: {fileID: 2054748546992100977}
   m_PrefabAsset: {fileID: 0}
@@ -2258,6 +2270,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
+      propertyPath: blinkString.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
       propertyPath: openCreditAnimators.Array.data[0]
       value: 
       objectReference: {fileID: 1542937440}
@@ -2271,15 +2288,30 @@ PrefabInstance:
       propertyPath: blurSize
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
+      propertyPath: blinkTextAnimator
+      value: 
+      objectReference: {fileID: 2054748546992100979}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
+      propertyPath: blinkString.Array.data[0]
+      value: Blink
+      objectReference: {fileID: 0}
+    - target: {fileID: 2812344713375076886, guid: dbf42b59cde66b94bbed3c28786c0cef,
+        type: 3}
+      propertyPath: blinkString.Array.data[1]
+      value: StopBlink
+      objectReference: {fileID: 0}
     - target: {fileID: 2812344713375076888, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.37
+      value: -10.26
       objectReference: {fileID: 0}
     - target: {fileID: 2812344713375076888, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.27
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2812344713375076888, guid: dbf42b59cde66b94bbed3c28786c0cef,
         type: 3}
@@ -2631,6 +2663,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: c4f8ab76437fdb544be51f74810ea381,
         type: 3}
+    - target: {fileID: 8482222900957161930, guid: 94812a62352b2db43b26decdf858a996,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94812a62352b2db43b26decdf858a996, type: 3}
 --- !u!224 &8482222902294216629 stripped

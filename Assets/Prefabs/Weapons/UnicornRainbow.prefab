@@ -47,9 +47,11 @@ MonoBehaviour:
   damage: 1
   fireRange: 4
   fireRate: 0.25
+  projectileSpeed: 0
+  projectileSpread: 0
   fireCost: 4
   areaOfEffect: 0
-  cost: 0
+  cost: 5
   weaponName: Unicorn Rainbow
   projectile: {fileID: 6565602555971429743, guid: f86cea9656a9b224ea23020ebfc25e7c,
     type: 3}

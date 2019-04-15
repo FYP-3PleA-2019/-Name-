@@ -12,7 +12,12 @@ public class EnemyBullet : MonoBehaviour
 
     protected Vector3 shootDir;
 
-    public virtual void Update()
+    private void Start()
+    {
+        Destroy(gameObject, 5f);
+    }
+
+    public void Update()
     {
         transform.Translate(new Vector3(shootDir.x, shootDir.y) * Time.deltaTime * moveSpeed, Space.World);
     }
@@ -24,13 +29,17 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(other.tag != "Enemy")
+        {
+            Destroy(gameObject);
+        }
+
         if (other.tag == "Player")
         {
             Vector2 knockBackDir = new Vector2(other.transform.position.x, other.transform.position.y)
                                  - new Vector2(transform.position.x, transform.position.y);
 
             other.gameObject.GetComponent<PlayerCoreController>().controller.GetDamage(damage, knockBackDir, knockBackForce, knockBackDuration);
-            Destroy(gameObject);
         }
     }
 }

@@ -19,6 +19,19 @@ public class EnemyBase : MonoBehaviour
     private Transform target;
     private Transform currTarget;
 
+    //Implement in KK's enemy
+    public bool IsSpawned
+    {
+        get { return _isSpawned; }
+        set
+        {
+            _isSpawned = value;
+        }
+    }
+    private bool _isSpawned;
+
+    private ComponentsRandomizer myParent;
+
     public float health;
     public float moveSpeed;
     public float wanderRange;
@@ -48,8 +61,8 @@ public class EnemyBase : MonoBehaviour
     public int myValue;
     public GameObject arrowIndicator;
     public Sprite indicatorSprite;
-
     #region Unity Functions
+    
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -61,12 +74,14 @@ public class EnemyBase : MonoBehaviour
         
         _animator = gameObject.GetComponent<Animator>();
 
+        myParent = GetComponentsInParent<ComponentsRandomizer>()[0];
+
         attackTimer = attackSpeed;
         currTarget = target; //Setting current target to default target [Player]
         canCreate = true;
 
         //Temporary [Instantiate arrow indicator for this obj]
-        //InstantiateArrowIndicator();
+       // InstantiateArrowIndicator();
     }
 
     // Update is called once per frame
@@ -230,6 +245,13 @@ public class EnemyBase : MonoBehaviour
         else if (health <= 0)
         {
             health = 0;
+
+            if(_isSpawned)
+            {
+                myParent.ExistingEnemies--;
+                myParent.CheckRoomClear();
+            }
+
             _currentState = CurrentState.Death;
         }
     }

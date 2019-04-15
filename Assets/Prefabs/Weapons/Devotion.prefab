@@ -51,7 +51,7 @@ MonoBehaviour:
   projectileSpread: 10
   fireCost: 0
   areaOfEffect: 0
-  cost: 0
+  cost: 10
   weaponName: Devotion
   projectile: {fileID: 7306767720644246113, guid: 3a6385f999fccf74b8d39c5f097fddcf,
     type: 3}

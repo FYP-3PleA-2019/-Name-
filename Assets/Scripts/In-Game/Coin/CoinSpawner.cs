@@ -21,7 +21,7 @@ public class CoinSpawner : MonoBehaviour
             GameObject GO = Instantiate(coin, transform.position, Quaternion.identity);
             GO.transform.parent = transform;
             SetForce(GO);
-            StartCoroutine(DeactivateGravity(GO));
+            StartCoroutine(DeactivatePhysics(GO));
         }
 
         Destroy(gameObject, 1.0f);
@@ -35,7 +35,7 @@ public class CoinSpawner : MonoBehaviour
         GO.GetComponent<Rigidbody2D>().AddForce(force);
     }
 
-    IEnumerator DeactivateGravity(GameObject GO)
+    IEnumerator DeactivatePhysics(GameObject GO)
     {
         yield return new WaitForSeconds(dropDuration);
         GO.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);

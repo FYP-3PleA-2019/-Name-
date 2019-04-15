@@ -55,7 +55,7 @@ public class BlurScript : MonoBehaviour
         {
             blurImage.material.SetFloat("_Size", currBlurSize + sizeToIncrease);
             currBlurSize = blurImage.material.GetFloat("_Size"); ;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
         }
     }
 
@@ -68,8 +68,10 @@ public class BlurScript : MonoBehaviour
         {
             blurImage.material.SetFloat("_Size", currBlurSize - sizeToIncrease);
             currBlurSize = blurImage.material.GetFloat("_Size"); ;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
         }
+
+        Reset();
     }
 
     public void EnableCanvas()

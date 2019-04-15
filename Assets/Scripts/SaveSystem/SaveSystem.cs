@@ -34,7 +34,7 @@ public static class SaveSystem
 
         else
         {
-            Debug.Log("OmegaLUL");
+            GameManager.Instance.NewGame = true;
             return null;
         }
     }

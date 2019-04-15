@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingRoomTypes:
-  - {fileID: 11400000, guid: 85a0a92da705f7e45b0688a55065323b, type: 2}
-  player: {fileID: 0}
+  - {fileID: 11400000, guid: 78bb9d59ce570414a906bd3c836fb881, type: 2}
   roomLimit: 3
   startingNumberOfRooms: 1
+  amountToSpawn: 2
+  spawnedRooms: []

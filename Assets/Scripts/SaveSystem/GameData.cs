@@ -26,9 +26,17 @@ public class GameData
     }
     private int _coins;
 
+    public List<bool> WeaponState
+    {
+        get { return _weaponState; }
+        set { _weaponState = value; }
+    }
+    private List<bool> _weaponState = new List<bool>(new bool[3]);
+
     public GameData(GameManager manager)
     {
-        HighScore = manager.HighScore;
-        Coins = manager.Coins;
+        _highScore = manager.HighScore;
+        _coins = manager.Coins;
+        _weaponState = manager.WeaponState;
     }
 }

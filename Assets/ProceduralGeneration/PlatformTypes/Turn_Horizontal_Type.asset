@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5fa70a789c6414459d8be0959e71d1b, type: 3}
+  m_Name: Turn_Horizontal_Type
+  m_EditorClassIdentifier: 
+  connectablePlatformTypes:
+  - {fileID: 11400000, guid: 85297dd4800c37b49b3c1db499982a40, type: 2}
+  - {fileID: 11400000, guid: 0727b38f0a82c0c4eb6356f16d9368fd, type: 2}
+  platformVariations:
+  - {fileID: 1179154045444303564, guid: d8351319d935adc498f69b45e2cd8619, type: 3}
