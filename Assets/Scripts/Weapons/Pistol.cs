@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Pistol : Weapon
 {
+    //private void Start()
+    //{
+    //    _animator = GameObject.FindWithTag("Player").GetComponentsInChildren<Animator>()[1];
+    //}
+
     public override IEnumerator Shoot(Transform shootPoint)
     {
         while (canShoot && InputManager.Instance.IsShooting())
@@ -20,6 +25,9 @@ public class Pistol : Weapon
             bullet.SetDamage(GetDamage());
             bullet.SetFireRange(GetFireRange());
             bullet.SetMoveSpeed(GetProjectileSpeed());
+
+           // _animator.SetTrigger("Shoot");
+
             yield return new WaitForSeconds(GetFireRate());
 
             canShoot = true;

@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
 {
     #region General Variables
     [Header("General Variables")]
+    private ComponentsRandomizer myParent;
+
     public float maxIdleDuration;
     public float maxWanderDuration;
 
@@ -38,8 +40,20 @@ public class Enemy : MonoBehaviour
     public float repelRange;
     public float repelMultiplier;
 
-    public int health;
+    public float health;
     public int coinsDrop;
+
+    public int myValue;
+
+    public bool IsSpawned
+    {
+        get { return _isSpawned; }
+        set
+        {
+            _isSpawned = value;
+        }
+    }
+    private bool _isSpawned;
 
     public ENEMY_STATE _enemyState;
     #endregion
@@ -55,6 +69,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myParent = GetComponentsInParent<ComponentsRandomizer>()[0];
+
         if (EnemyList == null)
         {
             EnemyList = new List<Rigidbody2D>();
@@ -242,8 +258,30 @@ public class Enemy : MonoBehaviour
     private IEnumerator Death()
     {
         //_animator.SetTrigger("Death"); //Play death Animation
+        
 
-        yield return null;
+        yield return new WaitForSeconds(0f);
+
+        Destroy(gameObject);
+    }
+
+    public void ReceiveDamage(float damage)
+    {
+        if (health > 0)
+            health -= damage;
+
+        if (health <= 0)
+        {
+            health = 0;
+
+            if (_isSpawned)
+            {
+                myParent.ExistingEnemies--;
+                myParent.CheckRoomClear();
+            }
+
+            SetEnemyState(ENEMY_STATE.DEATH);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

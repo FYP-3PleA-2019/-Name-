@@ -6,14 +6,14 @@ public class PistolBullet : Projectile
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag != "Enemy")
+        if(other.tag != "Player")
         {
             Destroy(gameObject);
         }
 
         if (other.tag == "Enemy")
         {
-            other.GetComponent<EnemyBase>().ReceiveDamage(damage);
+            other.GetComponent<Enemy>().ReceiveDamage(damage);
 
             Destroy(gameObject);
         }

@@ -9,8 +9,8 @@ public class ComponentsRandomizer : MonoBehaviour
 
     public List<GameObject> objects;
     public List<Transform> spawnPoints;
-    public List<EnemyBase> enemyList;
-    private List<EnemyBase> spawnedList;
+    public List<Enemy> enemyList;
+    private List<Enemy> spawnedList;
     private List<EnemySpawner> spawnerList;
 
     public GameObject enemySpawner;
@@ -50,7 +50,7 @@ public class ComponentsRandomizer : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        spawnedList = new List<EnemyBase>();
+        spawnedList = new List<Enemy>();
         spawnerList = new List<EnemySpawner>();
 
         if (haveDoor) // Meaning there will be enemies
@@ -140,10 +140,10 @@ public class ComponentsRandomizer : MonoBehaviour
             int randEnemy = Random.Range(0, enemyList.Count);
             int randSpawner = Random.Range(0, spawnerList.Count);
 
-            EnemyBase tempEnemy = enemyList[randEnemy];
+            Enemy tempEnemy = enemyList[randEnemy];
             int enemyVal = enemyList[randEnemy].myValue;
 
-            if(enemyValue - enemyVal > 0)
+            if(enemyValue - enemyVal >= 0)
             {
                 randSpawner = Random.Range(0, spawnerList.Count);
                 spawnerList[randSpawner].SpawnEnemy(tempEnemy);

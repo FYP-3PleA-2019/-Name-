@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5fa70a789c6414459d8be0959e71d1b, type: 3}
-  m_Name: Starting_Type
+  m_Name: Turn_Horizontal_Left
   m_EditorClassIdentifier: 
   connectablePlatformTypes:
-  - {fileID: 11400000, guid: 85a0a92da705f7e45b0688a55065323b, type: 2}
-  - {fileID: 11400000, guid: cebdcdf8803d63e4298e9289a6a2dc8c, type: 2}
+  - {fileID: 11400000, guid: 8a9940c1c05b87e48a171ccf40757413, type: 2}
+  - {fileID: 11400000, guid: 553faedfda94ec64fb66f78659ff4a7a, type: 2}
   platformVariations:
-  - {fileID: 2220391583715134775, guid: ee38169b33d7ad34596d40eb404fa5c9, type: 3}
+  - {fileID: 8720639532439703016, guid: fe15d457c944b3a478bd8f79017cf3df, type: 3}

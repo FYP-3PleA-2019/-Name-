@@ -58,7 +58,7 @@ public class RainbowLaser : Projectile
                 intervalCounter = 0;
                 if (hit.collider.tag == "Enemy")
                 {
-                    hit.collider.GetComponent<EnemyBase>().ReceiveDamage(damage);
+                    hit.collider.GetComponent<Enemy>().ReceiveDamage(damage);
                 }
 
                 else if (hit.collider.tag == "Generator")

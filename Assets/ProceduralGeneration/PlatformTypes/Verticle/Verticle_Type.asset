@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5fa70a789c6414459d8be0959e71d1b, type: 3}
-  m_Name: Turn_Horizontal_Type
+  m_Name: Verticle_Type
   m_EditorClassIdentifier: 
   connectablePlatformTypes:
-  - {fileID: 11400000, guid: 85297dd4800c37b49b3c1db499982a40, type: 2}
-  - {fileID: 11400000, guid: 0727b38f0a82c0c4eb6356f16d9368fd, type: 2}
+  - {fileID: 11400000, guid: cebdcdf8803d63e4298e9289a6a2dc8c, type: 2}
+  - {fileID: 11400000}
   platformVariations:
-  - {fileID: 1179154045444303564, guid: d8351319d935adc498f69b45e2cd8619, type: 3}
+  - {fileID: 8119908902821541778, guid: bac5a6c121b5f374abd4ec6d52a95a7c, type: 3}
+  - {fileID: 6211663628517514723, guid: 5766fc4af1bcb5e4f878111af59055b2, type: 3}

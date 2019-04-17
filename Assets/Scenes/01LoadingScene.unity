@@ -181,14 +181,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
         type: 3}
+      propertyPath: startingRoomTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
       propertyPath: roomLimit
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
         type: 3}
       propertyPath: amountToSpawn
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
+      propertyPath: startingRoomTypes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: dd55530f9ad8f924b9321f3dd252b463,
+        type: 2}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
+      propertyPath: startingRoomTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 78bb9d59ce570414a906bd3c836fb881,
+        type: 2}
+    - target: {fileID: 4952690035256186802, guid: a52c4eab269555f4b87544d045e2ddad,
+        type: 3}
+      propertyPath: startingRoomTypes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 78bb9d59ce570414a906bd3c836fb881,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52c4eab269555f4b87544d045e2ddad, type: 3}
 --- !u!1 &146921023
@@ -456,6 +479,21 @@ PrefabInstance:
     - target: {fileID: 7746229006007413349, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
         type: 3}
       propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394199985230438673, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394199985230438673, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394199985230438673, guid: b2c384e52ea1d4a4682f7e1bdea802f2,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1061,5 +1099,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5857808273427390196, guid: 668407d32525124488e17c9f718a1979,
+        type: 3}
+      propertyPath: switchButton_frame_default
+      value: 
+      objectReference: {fileID: 21300000, guid: 606b69df6d305be4cb9b192d69005e0b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668407d32525124488e17c9f718a1979, type: 3}

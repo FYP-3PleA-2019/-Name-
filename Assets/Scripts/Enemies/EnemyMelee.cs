@@ -15,7 +15,7 @@ public class EnemyMelee : Weapon
             Quaternion eulerRot = Quaternion.Euler(bulletRot);
 
             Slash bullet = Instantiate(projectile, shootPoint.position, eulerRot).GetComponent<Slash>();
-            //bullet.SetDamage(GetDamage());
+            bullet.SetDamage(GetDamage());
             //bullet.SetFireRange(GetFireRange());
             yield return new WaitForSeconds(1.0f);
         }

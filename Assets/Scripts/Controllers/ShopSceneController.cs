@@ -14,7 +14,7 @@ public class ShopSceneController : MonoBehaviour
     {
         GameManager.Instance.player.controller.PlayTeleportAnimation();
         UIManager.Instance.controlUI.ShowCanvas();
-        GameManager.Instance.player.transform.position = new Vector2(shopSpawnPoint.position.x + .1f, shopSpawnPoint.position.y + 0.35f);
+        GameManager.Instance.player.transform.position = new Vector2(shopSpawnPoint.position.x + .1f, shopSpawnPoint.position.y + 0.45f);
         UIManager.Instance.transitionUI.PlayTransitionAnimation(1);
     }
 }

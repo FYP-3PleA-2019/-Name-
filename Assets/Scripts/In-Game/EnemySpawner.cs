@@ -15,10 +15,10 @@ public class EnemySpawner : MonoBehaviour
         myParent = GetComponentsInParent<ComponentsRandomizer>()[0];
     }
 
-    public void SpawnEnemy(EnemyBase enemyToSpawn)
+    public void SpawnEnemy(Enemy enemyToSpawn)
     {
         // _animator.SetTrigger("Spawning");
-        EnemyBase enemyObject = Instantiate(enemyToSpawn, spawnPoint.position, Quaternion.identity);
+        Enemy enemyObject = Instantiate(enemyToSpawn, spawnPoint.position, Quaternion.identity);
         enemyObject.transform.SetParent(transform.parent);
         enemyObject.IsSpawned = true;
         myParent.ExistingEnemies++;

@@ -6,6 +6,8 @@ public abstract class Weapon : MonoBehaviour
 {
     #region General Variables
     [Header("General")]
+    public Animator _animator;
+
     public bool pierce;
 
     public float damage;

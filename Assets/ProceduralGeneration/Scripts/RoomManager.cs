@@ -136,11 +136,13 @@ public class RoomManager : MonoBehaviour
     {
         if(other == spawnedRooms[spawnedRooms.Count - 1])
         {
-            for(int i = 0; i < amountToSpawn; i++)
+            for (int i = 0; i < amountToSpawn; i++)
+            {
                 SpawnRoom();
 
-            if (spawnedRooms.Count > roomLimit)
-                DespawnRoom();
+                if (spawnedRooms.Count > roomLimit)
+                    DespawnRoom();
+            }
         }
     }
 
