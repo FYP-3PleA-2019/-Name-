@@ -491,6 +491,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8919954970903586261, guid: f93dc17bba84db44eb9de740faedea57,
         type: 3}
+    - target: {fileID: 1899541371222148076, guid: 57a69265d5cc31241b5cd1965ff84120,
+        type: 3}
+      propertyPath: weaponNo
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6976642429738689617, guid: 57a69265d5cc31241b5cd1965ff84120,
         type: 3}
       propertyPath: m_Size.x

@@ -43,15 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bce425021d650042a2a42f639c71b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   pierce: 0
   damage: 1
   fireRange: 4
   fireRate: 0.25
   projectileSpeed: 0
   projectileSpread: 0
-  fireCost: 4
+  fireCost: 2
   areaOfEffect: 0
-  cost: 5
+  cost: 200
   weaponName: Unicorn Rainbow
   projectile: {fileID: 6565602555971429743, guid: f86cea9656a9b224ea23020ebfc25e7c,
     type: 3}

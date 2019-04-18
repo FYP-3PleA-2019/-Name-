@@ -33,6 +33,9 @@ public class ChestDrops : MonoBehaviour, ISubject {
     public float waitDuration;
     private Animator _animator;
     private bool chestOpened;
+
+    public CoinSpawner coinSpawner;
+    public int coinsDrop;
     //public ChestType chestType;
     #endregion
 
@@ -98,7 +101,10 @@ public class ChestDrops : MonoBehaviour, ISubject {
 
     void SpawnObject()
     {
-        int dropRarity = 0;
+        CoinSpawner _coinSpawner = Instantiate(coinSpawner, transform.position, Quaternion.identity);
+        _coinSpawner._amountToSpawn = coinsDrop;
+
+        /*int dropRarity = 0;
 
         for (int i = 0; i < itemList.Count; i++)
         {
@@ -115,7 +121,7 @@ public class ChestDrops : MonoBehaviour, ISubject {
                 return;
             }
             randVal -= itemList[j].itemRarity;
-        }
+        }*/
     }
     #endregion
 }

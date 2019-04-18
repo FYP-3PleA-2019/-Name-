@@ -43,15 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d613c80a0002384eab14957a6cee2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   pierce: 0
   damage: 1
   fireRange: 3
   fireRate: 0.5
   projectileSpeed: 25
   projectileSpread: 10
-  fireCost: 0
+  fireCost: 3
   areaOfEffect: 0
-  cost: 10
+  cost: 500
   weaponName: Devotion
   projectile: {fileID: 7306767720644246113, guid: 3a6385f999fccf74b8d39c5f097fddcf,
     type: 3}

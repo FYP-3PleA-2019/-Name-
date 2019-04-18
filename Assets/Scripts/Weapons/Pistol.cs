@@ -13,24 +13,35 @@ public class Pistol : Weapon
     {
         while (canShoot && InputManager.Instance.IsShooting())
         {
-            SoundManager.instance.playSingle(SoundManager.instance.playerShoot);
+            if (GameManager.Instance.Coins - fireCost >= 0)
+            {
+                SoundManager.instance.playSingle(SoundManager.instance.playerShoot);
 
-            canShoot = false;
-            
-            Vector3 shootPointRot = shootPoint.transform.rotation.eulerAngles;
-            Vector3 bulletRot = new Vector3(shootPointRot.x, shootPointRot.y, shootPointRot.z + GetRandomSpread());
-            Quaternion eulerRot = Quaternion.Euler(bulletRot);
+                canShoot = false;
 
-            Projectile bullet = Instantiate(projectile, shootPoint.position, eulerRot).GetComponent<Projectile>();
-            bullet.SetDamage(GetDamage());
-            bullet.SetFireRange(GetFireRange());
-            bullet.SetMoveSpeed(GetProjectileSpeed());
+                GameManager.Instance.Coins -= fireCost;
+                UIManager.Instance.coinUI.UpdateCoinUI();
 
-           // _animator.SetTrigger("Shoot");
+                Vector3 shootPointRot = shootPoint.transform.rotation.eulerAngles;
+                Vector3 bulletRot = new Vector3(shootPointRot.x, shootPointRot.y, shootPointRot.z + GetRandomSpread());
+                Quaternion eulerRot = Quaternion.Euler(bulletRot);
 
-            yield return new WaitForSeconds(GetFireRate());
+                Projectile bullet = Instantiate(projectile, shootPoint.position, eulerRot).GetComponent<Projectile>();
+                bullet.SetDamage(GetDamage());
+                bullet.SetFireRange(GetFireRange());
+                bullet.SetMoveSpeed(GetProjectileSpeed());
 
-            canShoot = true;
+                // _animator.SetTrigger("Shoot");
+
+                yield return new WaitForSeconds(GetFireRate());
+
+                canShoot = true;
+            }
+            else
+            {
+                canShoot = true;
+                yield return null;
+            }
         }
     }
 }

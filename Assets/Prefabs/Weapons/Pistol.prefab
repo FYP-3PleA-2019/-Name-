@@ -52,7 +52,7 @@ MonoBehaviour:
   projectileSpread: 10
   fireCost: 0
   areaOfEffect: 0
-  cost: 1
+  cost: 0
   weaponName: Pistol
   projectile: {fileID: 7306767720644246113, guid: 3a6385f999fccf74b8d39c5f097fddcf,
     type: 3}

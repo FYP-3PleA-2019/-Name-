@@ -10,30 +10,45 @@ public class Devotion : Weapon
 
     public override IEnumerator Shoot(Transform shootPoint)
     {
-        if (canShoot)
+        if (GameManager.Instance.Coins - fireCost >= 0)
         {
-            canShoot = false;
-            currFireRate = fireRate;
+            if (canShoot)
+            {
+                canShoot = false;
+                currFireRate = fireRate;
+            }
         }
 
         while (InputManager.Instance.IsShooting())
         {
-            Vector3 shootPointRot = shootPoint.transform.rotation.eulerAngles;
-            Vector3 bulletRot = new Vector3(shootPointRot.x, shootPointRot.y, shootPointRot.z + GetRandomSpread());
-            Quaternion eulerRot = Quaternion.Euler(bulletRot);
-
-            Projectile bullet = Instantiate(projectile, shootPoint.position, eulerRot).GetComponent<Projectile>();
-
-            bullet.SetDamage(GetDamage());
-            bullet.SetFireRange(GetFireRange());
-            bullet.SetMoveSpeed(GetProjectileSpeed());
-            yield return new WaitForSeconds(currFireRate);
-
-            //Set new fire rate
-            if (currFireRate > maxFireRate && !ReturnApproximation(currFireRate, maxFireRate, 0.005f))
+            if (GameManager.Instance.Coins - fireCost >= 0)
             {
-                currFireRate -= (fireRate - maxFireRate) / shotsToActivate;
+                GameManager.Instance.Coins -= fireCost;
+                UIManager.Instance.coinUI.UpdateCoinUI();
+
+                Vector3 shootPointRot = shootPoint.transform.rotation.eulerAngles;
+                Vector3 bulletRot = new Vector3(shootPointRot.x, shootPointRot.y, shootPointRot.z + GetRandomSpread());
+                Quaternion eulerRot = Quaternion.Euler(bulletRot);
+
+                Projectile bullet = Instantiate(projectile, shootPoint.position, eulerRot).GetComponent<Projectile>();
+
+                bullet.SetDamage(GetDamage());
+                bullet.SetFireRange(GetFireRange());
+                bullet.SetMoveSpeed(GetProjectileSpeed());
+                yield return new WaitForSeconds(currFireRate);
+
+                //Set new fire rate
+                if (currFireRate > maxFireRate && !ReturnApproximation(currFireRate, maxFireRate, 0.005f))
+                {
+                    currFireRate -= (fireRate - maxFireRate) / shotsToActivate;
+                }
             }
+            else
+            {
+                canShoot = true;
+                currFireRate = fireRate;
+                yield return null;
+            }   
         }
 
         canShoot = true;
