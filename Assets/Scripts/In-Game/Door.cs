@@ -6,11 +6,13 @@ public class Door : MonoBehaviour
 {
     private BoxCollider2D _boxCollider;
     private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -22,6 +24,7 @@ public class Door : MonoBehaviour
     {
         Debug.Log("Door Opened!");
         _boxCollider.enabled = false;
+        _spriteRenderer.enabled = false;
         UIManager.Instance.directionUI.EnableCanvas();
 
         //Direction UI

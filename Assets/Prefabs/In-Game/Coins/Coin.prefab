@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276cf5c610403af4286b83e383cd5417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinValue: 5
+  coinValue: 3
   attractionRange: 5
   moveSpeed: 10
 --- !u!95 &5598226466805652175

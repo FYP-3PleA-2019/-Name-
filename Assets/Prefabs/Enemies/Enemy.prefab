@@ -106,7 +106,7 @@ MonoBehaviour:
   repelRange: 1
   repelMultiplier: 0
   health: 3
-  coinsDrop: 10
+  coinsDrop: 5
   myValue: 200
   _enemyState: 0
 --- !u!114 &1120906809829745114
