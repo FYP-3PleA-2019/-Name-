@@ -264,8 +264,11 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0f);
 
+        int currScore = GameManager.Instance.Score;
+        int multiplier = (int)(currScore * .05f);
+
         CoinSpawner _coinSpawner = Instantiate(coinSpawner, transform.position, Quaternion.identity);
-        _coinSpawner._amountToSpawn = coinsDrop;
+        _coinSpawner._amountToSpawn = coinsDrop + (coinsDrop * multiplier);
 
         Destroy(gameObject);
     }

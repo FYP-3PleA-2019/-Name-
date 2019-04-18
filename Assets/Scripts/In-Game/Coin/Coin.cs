@@ -38,7 +38,7 @@ public class Coin : MonoBehaviour
         {
             if(GameManager.Instance.currGameState == GAME_STATE.IN_GAME)
             {
-                GameManager.Instance.GameCoins += coinValue;
+                GameManager.Instance.Coins += coinValue;
             }
 
             else

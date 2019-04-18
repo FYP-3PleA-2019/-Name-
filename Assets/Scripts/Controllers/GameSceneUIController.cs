@@ -11,6 +11,7 @@ public class GameSceneUIController : MonoBehaviour, IObserver
     private int _highScore;
     private int _coins;
     private int _currScore;
+    private int _startingCoins;
 
     private float furthestDist;
 
@@ -100,12 +101,11 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         StartCoroutine(CloseScoreBoard());
 
         //Update GameManager properties
-        //GameManager.Instance.Score = _score;
+        int moneyEarned = GameManager.Instance.Coins - _startingCoins;
+        GameManager.Instance.GameCoins = moneyEarned;
 
         EnableResults();
-
-        int moneyEarned = GameManager.Instance.GameCoins;
-        GameManager.Instance.ReceiveMoney(moneyEarned); //Add earned coins to total amount of coins.
+        
         GameManager.Instance.GameCoins = 0; //Reset game coins value to 0;
 
         //Wait for results to fully load in
@@ -146,7 +146,8 @@ public class GameSceneUIController : MonoBehaviour, IObserver
     {
         _highScore = GameManager.Instance.HighScore;
         _score = 0;
-        _coins = GameManager.Instance.GameCoins; 
+        _coins = GameManager.Instance.Coins;
+        _startingCoins = _coins;
     }
 
     void CalculateScore()
@@ -183,7 +184,7 @@ public class GameSceneUIController : MonoBehaviour, IObserver
             scoreBoardText[1].text = "NEW BEST " + _score + "m";
 
         //Coin Text
-        scoreBoardText[2].text = "" + GameManager.Instance.GameCoins;
+        scoreBoardText[2].text = "" + GameManager.Instance.Coins;
     }
 
     IEnumerator CloseScoreBoard()

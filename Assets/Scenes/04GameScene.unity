@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSceneUIController
       objectReference: {fileID: 0}
+    - target: {fileID: 2928450354403636727, guid: d7da45d4dd988524a970acf1d9aae2b7,
+        type: 3}
+      propertyPath: m_TagString
+      value: GameSceneUIController
+      objectReference: {fileID: 0}
     - target: {fileID: 2928450354403636726, guid: d7da45d4dd988524a970acf1d9aae2b7,
         type: 3}
       propertyPath: m_LocalPosition.x
