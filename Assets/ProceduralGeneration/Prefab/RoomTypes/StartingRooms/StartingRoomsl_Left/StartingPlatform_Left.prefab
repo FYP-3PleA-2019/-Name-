@@ -57,7 +57,6 @@ MonoBehaviour:
   nextRoomSpawnPoint: {fileID: 5074077280945079468}
   _spawnPoint: 2
   spawnInterval: 0
-  enemyValue: 0
   minimumValue: 0
   noOfSpawners: 0
   noOfObjects: 0

@@ -140,6 +140,12 @@ public class GameManager : MonoBehaviour {
         Reset();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            _coins++;
+    }
+
     // -------------------------------- Setters --------------------------------
 
     public void SetGameState(GAME_STATE gameState)

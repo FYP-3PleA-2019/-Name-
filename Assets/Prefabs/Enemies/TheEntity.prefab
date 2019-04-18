@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036852a4a13e48a409e42b8d6e821720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.35
+  moveSpeed: 0.2
   constantDistWithPlayer: 0
   minDistToShakeCamera: 8
   childList: []
