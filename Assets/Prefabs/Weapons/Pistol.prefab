@@ -43,10 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68611ce0e61a2a4fb0734fcc553ac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   pierce: 0
   damage: 1
   fireRange: 3
-  fireRate: 0.5
+  fireRate: 0.4
   projectileSpeed: 20
   projectileSpread: 10
   fireCost: 0

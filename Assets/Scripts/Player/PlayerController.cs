@@ -56,6 +56,7 @@ public class PlayerController : Effectors, ISubject
     //Health Bar & Score Bar
     public GameObject healthBar;
     public GameObject scoreBar;
+    public GameObject guidingArrow;
 
     public GameObject weaponHolder;
     #endregion
@@ -69,8 +70,6 @@ public class PlayerController : Effectors, ISubject
     private void Start()
     {
         RegisterSubject(this);
-        
-        StartCoroutine(DisableScoreBar(Time.deltaTime));
     }
 
     private void Update()
@@ -222,12 +221,35 @@ public class PlayerController : Effectors, ISubject
         scoreBar.SetActive(true);
     }
 
-    public IEnumerator DisableScoreBar(float delay)
+    public void DisableScoreBar(float delay)
+    {
+        StartCoroutine(DisableScoreBarRoutine(delay));
+    }
+
+    private IEnumerator DisableScoreBarRoutine(float delay)
     {
         yield return new WaitForSeconds(delay);
         scoreBar.SetActive(false);
     }
 
+    //Guiding Arrow
+    public void EnableGuidingArrow()
+    {
+        guidingArrow.SetActive(true);
+    }
+
+    public void DisableGuidingArrow(float delay)
+    {
+        StartCoroutine(DisableGuidingArrowRoutine(delay));
+    }
+
+    private IEnumerator DisableGuidingArrowRoutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        guidingArrow.SetActive(false);
+    }
+
+    //
     IEnumerator TeleportedAnimation()
     {
         yield return new WaitForSeconds(.5f);

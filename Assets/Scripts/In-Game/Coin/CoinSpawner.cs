@@ -6,11 +6,10 @@ public class CoinSpawner : MonoBehaviour
 {
     public GameObject coin;
     public float dropDuration;
-    private int _amountToSpawn;
+    public int _amountToSpawn;
 
     private void Start()
     {
-        _amountToSpawn = 5; //Set with Game Manager or something
         SpawnCoins();
     }
 

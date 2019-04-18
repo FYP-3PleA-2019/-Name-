@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     public float maxIdleDuration;
     public float maxWanderDuration;
 
+    public CoinSpawner coinSpawner;
+
     private bool facingLeft;
 
     private Vector2 moveDir;
@@ -261,6 +263,9 @@ public class Enemy : MonoBehaviour
         
 
         yield return new WaitForSeconds(0f);
+
+        CoinSpawner _coinSpawner = Instantiate(coinSpawner, transform.position, Quaternion.identity);
+        _coinSpawner._amountToSpawn = coinsDrop;
 
         Destroy(gameObject);
     }

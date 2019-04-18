@@ -70,10 +70,11 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public TransitionScript transitionUI;
     [HideInInspector] public BlurScript blurUI;
     [HideInInspector] public CoinUIController coinUI;
-   //StatUIController StatUI;
+    [HideInInspector] public DirectionUIController directionUI;
+    //StatUIController StatUI;
     #endregion
 
-   void Awake()
+    void Awake()
     {
         if (UIManager.CheckInstanceExist())
         {
@@ -84,6 +85,7 @@ public class UIManager : MonoBehaviour
         transitionUI = GetComponentInChildren<TransitionScript>();
         blurUI = GetComponentInChildren<BlurScript>();
         coinUI = GetComponentInChildren<CoinUIController>();
+        directionUI = GetComponentInChildren<DirectionUIController>();
     }
 
     // -------------------------------- Functions --------------------------------

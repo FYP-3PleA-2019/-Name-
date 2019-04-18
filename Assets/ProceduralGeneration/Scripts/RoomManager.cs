@@ -70,6 +70,8 @@ public class RoomManager : MonoBehaviour
     public List<GameObject> spawnedRooms;
     RoomType currentRoomType;
 
+    public GameObject nextPlatform;
+
     //Variables below are uncomfirmed / Might be used in latest implementation of enemy spawner system
     private int difficultyLevel;
 
@@ -142,6 +144,16 @@ public class RoomManager : MonoBehaviour
 
                 if (spawnedRooms.Count > roomLimit)
                     DespawnRoom();
+            }
+        }
+
+        for (int i = 0; i < spawnedRooms.Count; i++)
+        {
+            if (spawnedRooms[i] == other)
+            {
+                nextPlatform = spawnedRooms[i + 1];
+                Transform tempTarget = nextPlatform.transform;
+                GameManager.Instance.player.controller.guidingArrow.GetComponent<GuidingArrow>().UpdateTarget(tempTarget);
             }
         }
     }

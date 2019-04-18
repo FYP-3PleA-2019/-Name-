@@ -79,8 +79,7 @@ public class CrosshairController : MonoBehaviour
     
     private void FindNearest()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(GameManager.Instance.player.transform.position, 4f, destroyableLayer);
-        Debug.Log(colliders.Length);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(GameManager.Instance.player.transform.position, 4f, destroyableLayer);;
         if (colliders.Length > 0)
         {
             int index = -1;

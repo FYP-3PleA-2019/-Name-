@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1630905471
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 2b6129f144863e748840ab8a0a8948dd, type: 3}
   m_Color: {r: 0.5135065, g: 0.21493416, b: 0.6603774, a: 1}
   m_FlipX: 0
@@ -99,12 +99,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxIdleDuration: 3
   maxWanderDuration: 2
+  coinSpawner: {fileID: 3620858768219928737, guid: e9c444a11d6c07d4d8f7d7a681d569f9,
+    type: 3}
   attackRange: 1
-  moveSpeed: 0.5
+  moveSpeed: 1.5
   repelRange: 1
   repelMultiplier: 0
   health: 3
-  coinsDrop: 5
+  coinsDrop: 10
   myValue: 200
   _enemyState: 0
 --- !u!114 &1120906809829745114

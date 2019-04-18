@@ -45,9 +45,10 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         //Disable Lobby/Shop Coin UI
         UIManager.Instance.coinUI.DisableCanvas();
 
-        //Enable Player's HealthBar and ScoreBar
+        //Enable Player's HealthBar, ScoreBar, Guiding Arrow
         GameManager.Instance.player.controller.EnableHealthBar();
         GameManager.Instance.player.controller.EnableScoreBar();
+        GameManager.Instance.player.controller.EnableGuidingArrow();
 
         //Assign references
         _scoreBoardAnimator = GetComponentsInChildren<Animator>()[0];
@@ -99,7 +100,7 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         StartCoroutine(CloseScoreBoard());
 
         //Update GameManager properties
-        GameManager.Instance.Score = _score;
+        //GameManager.Instance.Score = _score;
 
         EnableResults();
 
@@ -132,7 +133,8 @@ public class GameSceneUIController : MonoBehaviour, IObserver
         yield return new WaitForSeconds(0.5f);
 
         //Scene transition
-        GameManager.Instance.player.controller.StartCoroutine(GameManager.Instance.player.controller.DisableScoreBar(0.5f));
+        GameManager.Instance.player.controller.DisableScoreBar(.5f);
+        GameManager.Instance.player.controller.DisableGuidingArrow(.5f);
         UIManager.Instance.transitionUI.PlayTransitionAnimation(0);
         GameManager.Instance.SetGameState(GAME_STATE.LOBBY);
         CustomSceneManager.Instance.LoadSceneWait(GAME_SCENE.LOBBY_SCENE, 1.5f);
@@ -155,6 +157,7 @@ public class GameSceneUIController : MonoBehaviour, IObserver
             furthestDist = distance;
 
             _score = (int)distance;
+            GameManager.Instance.Score = _score;
 
             if (_highScore < _score)
                 newHighScore = true;

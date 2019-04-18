@@ -29,7 +29,7 @@ public class ComponentsRandomizer : MonoBehaviour
     [Space(5)]
     [Header("Spawning Related")]
     public float spawnInterval;
-    public int enemyValue;
+    private int enemyValue;
     public int minimumValue;
     public int noOfSpawners;
     public int noOfObjects;
@@ -78,6 +78,8 @@ public class ComponentsRandomizer : MonoBehaviour
     {
         FillRoom();
         CheckRoomClear();
+
+        enemyValue = minimumValue + (GameManager.Instance.Score * 3);
     }
     #endregion
 
@@ -204,11 +206,6 @@ public class ComponentsRandomizer : MonoBehaviour
                 if (noOfSpawners > 0) //Only start spawning enemies when player enters the platform
                     StartCoroutine(SpawnEnemies());
             }
-
-            //for(int i = 0; i < enemyList.Count; i++)
-            //{
-            //    enemyList[i].SetEnemyState(ENEMY_STATE.MOVE);
-            //}
         }
     }
     #endregion
